@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:id="@+id/vp_myactivity"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1">
+        <LinearLayout android:id="@+id/fragm_shangjia"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.bayue.live.deqingpu.fragment.MainShangjiaFragment"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/fragm_zhibo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.bayue.live.deqingpu.fragment.MainZhiboFragment"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/fragm_shenghuo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.bayue.live.deqingpu.fragment.MainShenghuoFragment"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/fragm_tongxun"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.bayue.live.deqingpu.fragment.MainTongxunFragment"/>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/fragm_geren"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+            <fragment
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.bayue.live.deqingpu.fragment.MainGerenFragment"/>
+        </LinearLayout>
+
+
+
+    </FrameLayout>
+
+    <LinearLayout
+
+        android:background="@color/titlecolor"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_hight">
+
+        <LinearLayout android:id="@+id/ll_shangjia_bottm"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5px"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView android:id="@+id/iv_shangjia_bottom"
+                android:layout_width="49px"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_09" />
+
+            <TextView android:id="@+id/tv_shangjia_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0px"
+                android:text="商家联盟"
+                android:textSize="20px"
+                android:textColor="@color/bottomtextcolor" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/ll_zhibo_bottm"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5px"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView android:id="@+id/iv_zhibo_bottom"
+                android:layout_width="49px"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_03_1" />
+
+            <TextView android:id="@+id/tv_zhibo_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0px"
+                android:text="掌柜直播"
+                android:textSize="20px"
+                android:textColor="@color/bottomtextcolor" />
+        </LinearLayout>
+        <LinearLayout  android:id="@+id/ll_shenghuo_bottm"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5px"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView  android:id="@+id/iv_shenghuo_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_01_1" />
+
+
+        </LinearLayout>
+        <LinearLayout android:id="@+id/ll_tongxun_bottm"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5px"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView  android:id="@+id/iv_tongxun_bottom"
+                android:layout_width="49px"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_05" />
+
+            <TextView  android:id="@+id/tv_tongxun_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0px"
+                android:text="通讯录"
+                android:textSize="20px"
+                android:textColor="@color/bottomtextcolor" />
+        </LinearLayout>
+
+        <LinearLayout  android:id="@+id/ll_geren_bottm"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5px"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView  android:id="@+id/iv_geren_bottom"
+                android:layout_width="49px"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_06" />
+
+            <TextView  android:id="@+id/tv_geren_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0px"
+                android:text="个人中心"
+                android:textSize="20px"
+                android:textColor="@color/bottomtextcolor" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
