@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bayue.live.deqingpu.Constants;
+import com.bayue.live.deqingpu.data.Constants;
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.base.BaseFragment;
 import com.bayue.live.deqingpu.utils.Tracer;

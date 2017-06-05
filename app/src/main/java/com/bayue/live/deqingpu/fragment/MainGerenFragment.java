@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.bayue.live.deqingpu.Constants;
+import com.bayue.live.deqingpu.data.Constants;
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.base.BaseFragment;
 import com.bayue.live.deqingpu.utils.Tracer;

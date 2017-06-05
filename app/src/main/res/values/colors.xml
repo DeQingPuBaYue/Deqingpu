@@ -50,7 +50,8 @@
 
 
     <color name="actionbar_sel_color">#1c1c1c</color>
-
+    <color name="hard_color">#48495f</color>
+    <color name="clickspan_color">#00ddb6</color>
     <color name="menu_item_click_color">#346fc3</color>
     <color name="light_blue">#8CA4FF</color>˙
     <color name="text_color_count">#F6BB42</color>

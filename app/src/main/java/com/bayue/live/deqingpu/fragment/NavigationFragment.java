@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
-import com.bayue.live.deqingpu.Constants;
+import com.bayue.live.deqingpu.data.Constants;
 import com.bayue.live.deqingpu.R;
 
 
