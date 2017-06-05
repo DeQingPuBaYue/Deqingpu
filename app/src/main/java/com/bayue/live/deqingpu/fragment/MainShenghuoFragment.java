@@ -3,7 +3,7 @@ package com.bayue.live.deqingpu.fragment;
 
 import android.os.Bundle;
 
-import com.bayue.live.deqingpu.Constants;
+import com.bayue.live.deqingpu.data.Constants;
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.base.BaseFragment;
 import com.bayue.live.deqingpu.utils.Tracer;
