@@ -19,16 +19,27 @@ import butterknife.Unbinder;
  */
 
 public abstract class BaseFragment extends Fragment {
-    Context baseActivity;
+    protected Fragment baseFragment;
+
+    protected Context baseActivity;
     Unbinder unbinder;
 //    AlertDialog dlg;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        baseFragment = this;
+        this.baseActivity = getActivity();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(getViewId(),null);
         unbinder= ButterKnife.bind(this,view);
 //        dlg = new AlertDialog.Builder(baseActivity).create();
-        this.baseActivity = getActivity();
+
         init();
         return view;
     }

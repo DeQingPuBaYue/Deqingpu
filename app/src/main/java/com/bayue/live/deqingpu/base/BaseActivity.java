@@ -1,5 +1,7 @@
 package com.bayue.live.deqingpu.base;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewCompat;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.bayue.live.deqingpu.App;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 import butterknife.ButterKnife;
@@ -25,11 +28,18 @@ public abstract class BaseActivity extends AutoLayoutActivity {
     protected abstract int getViewId();
     protected abstract void initViews();
     protected abstract void setTheme();
+    /**当前Activity*/
+    protected Activity baseActivity;
 
+    /**当前上下文*/
+    protected Context baseContext;
     Unbinder unbinder;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        baseActivity = this;
+        baseContext = this.getBaseContext();
+        App.getInstance().addActivity(this);
         quanping();
         setTheme();
         setContentView(getViewId());

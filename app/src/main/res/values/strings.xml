@@ -1,11 +1,15 @@
 <resources>
     <string name="app_name">DeQingPu</string>
-
+    <!-- 首页 -->
     <string name="item_sj">商家联盟</string>
     <string name="item_zb">掌柜直播</string>
     <string name="item_txl">通讯录</string>
     <string name="item_gr">个人中心</string>
     <string name="item_sh">生活馆</string>
+
+    <!-- 地址 -->
+    <string name="tv_consignee">收货人：</string>
+    <string name="network_err">Simulation network error</string>
 
     <!-- ////// -->
     <string name="nick_name">Kevin</string>

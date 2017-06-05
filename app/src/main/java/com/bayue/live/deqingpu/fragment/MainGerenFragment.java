@@ -1,5 +1,6 @@
 package com.bayue.live.deqingpu.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.RelativeLayout;
 import com.bayue.live.deqingpu.data.Constants;
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.base.BaseFragment;
+import com.bayue.live.deqingpu.ui.AddressActivity;
 import com.bayue.live.deqingpu.utils.Tracer;
 
 import butterknife.BindView;
@@ -90,6 +92,7 @@ public class MainGerenFragment extends BaseFragment {
             case R.id.rl_hebao_geren:
                 break;
             case R.id.rl_dizhi_geren:
+                startActivity(new Intent(baseActivity, AddressActivity.class));
                 break;
             case R.id.rl_dingdan_geren:
                 break;
