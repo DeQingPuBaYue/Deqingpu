@@ -1,4 +1,4 @@
-package com.bayue.live.deqingpu;
+package com.bayue.live.deqingpu.data;
 
 /**
  * Created by Kevin on 2016/11/28.
