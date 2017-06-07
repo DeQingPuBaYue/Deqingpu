@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.base.BaseActivity;
 import com.bayue.live.deqingpu.base.MyBaseSubscriber;
+import com.bayue.live.deqingpu.data.Constants;
 import com.bayue.live.deqingpu.data.GetJsonDataUtil;
 import com.bayue.live.deqingpu.entity.JsonBean;
 import com.bayue.live.deqingpu.entity.ResultModel;
@@ -127,9 +128,7 @@ public class AddAddressActivity extends BaseActivity {
 //                                @Override
 //                                public void run() {
                                     // 写子线程中的操作,解析省市区数据
-                                    Map<String, Object> map = new HashMap<>();
-//                                    map.put("safecode","BaYue.deqingpu");
-//                                    map.put("apiversion","v.1.0");
+                                    Map<String, Object> map = Constants.getMap();
                                     map.put("region_type","1");
                                     getDataFromNet(map);
                         break;
