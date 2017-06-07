@@ -70,10 +70,16 @@ public class ZhuCe extends BaseActivity {
                 if (msg.what == 2) {
 
                     int i = (int) msg.obj;
-                    tvFasongZhuce.setText(i + " 秒");
+
+                    if(tvFasongZhuce!=null){
+                        tvFasongZhuce.setText(i + " 秒");
+                    }
                     if (i == 1) {
-                        tvFasongZhuce.setText("点击发送");
-                        tvFasongZhuce.setClickable(true);
+                        if(tvFasongZhuce!=null){
+
+                            tvFasongZhuce.setText("点击发送");
+                            tvFasongZhuce.setClickable(true);
+                        }
                     }
                 }
                 if (msg.what == 1) {
@@ -104,8 +110,6 @@ public class ZhuCe extends BaseActivity {
         switch (view.getId()) {
             case R.id.tv_xiayibu_zhuce:
                 xiaoYiBu();
-
-
                 break;
             case R.id.ed_shoujihao_zhuce:
                 break;
@@ -167,7 +171,7 @@ public class ZhuCe extends BaseActivity {
                                 Toast.makeText(ZhuCe.this,"已发送验证码到你的手机",Toast.LENGTH_SHORT).show();
 
                                 sms_token = yanZhengMa.getSms_token();
-                                Log.e("验证码",sms_token);
+                                Log.e("验证码",yanZhengMa.getSms_code()+"");
 
                             } else {
 //                                DensityUtil.showToast(UserInfoActivity.this,userInfoAvatarBean.getInfo());
@@ -201,7 +205,7 @@ public class ZhuCe extends BaseActivity {
                     }
                     Message m = new Message();
                     m.what = 2;
-                    Log.e("读秒》》", j + "");
+
                     m.obj = j;
                     handler.sendMessage(m);
 
@@ -261,7 +265,12 @@ public class ZhuCe extends BaseActivity {
                         public void run() {
                             if (zhuCeBean.getCode() == 200) {
                                 Toast.makeText(ZhuCe.this,zhuCeBean.getData(),Toast.LENGTH_SHORT);
-
+                                Log.e("@@@@@@",zhuCeBean.getData());
+                                try {
+                                    Thread.sleep(2000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                                 Intent intent = new Intent(ZhuCe.this, DengLu.class);
                                 intent.putExtra("dianhua", edShoujihaoZhuce.getText().toString());
                                 intent.putExtra("mima", edMimaZhuce.getText().toString());

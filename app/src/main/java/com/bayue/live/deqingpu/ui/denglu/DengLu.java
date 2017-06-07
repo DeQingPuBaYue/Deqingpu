@@ -16,6 +16,7 @@ import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.base.BaseActivity;
 import com.bayue.live.deqingpu.entity.denglu.DengLuBean;
 import com.bayue.live.deqingpu.preferences.Preferences;
+import com.bayue.live.deqingpu.utils.DensityUtil;
 import com.bayue.live.deqingpu.utils.OKHttpUtils;
 import com.bayue.live.deqingpu.utils.ToolKit;
 import com.google.gson.Gson;
@@ -72,8 +73,9 @@ public class DengLu extends BaseActivity {
             }
         };
         Intent intent=getIntent();
-        dianhua=intent.getStringExtra("dianhuan");
+        dianhua=intent.getStringExtra("dianhua");
         mima =intent.getStringExtra("mima");
+        Log.e("$$$$$$$$$",dianhua+"____"+mima);
         if(dianhua!=null&&mima!=null){
             etShoujihaoDenglu.setText(dianhua);
             etMimaDenglu.setText(mima);
@@ -100,6 +102,9 @@ public class DengLu extends BaseActivity {
             case R.id.rl_mima_denglu:
                 break;
             case R.id.tv_wangji_denglu:
+
+                wangJi();
+
                 break;
             case R.id.rl_denglu_denglu:
 
@@ -146,7 +151,7 @@ public class DengLu extends BaseActivity {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(Call call, final Response response) throws IOException {
                 String msg = response.body().string();
                 if (response.code() == 200){
                     Gson gson = new Gson();
@@ -157,6 +162,7 @@ public class DengLu extends BaseActivity {
                         public void run() {
                             if (dengLuBean.getCode()==200){
                                 Log.e(">>>>","denglu登录22");
+//                                DensityUtil.showToast(DengLu.this,dengLuBean.getData());
                                 Preferences.saveString(getApplicationContext(),Preferences.TOKEN,dengLuBean.getToken());
                                 finish();
 
@@ -165,18 +171,28 @@ public class DengLu extends BaseActivity {
                             }else {
 //                                DensityUtil.showToast(UserInfoActivity.this,userInfoAvatarBean.getInfo());
                             }
+                            DensityUtil.showToast(DengLu.this,dengLuBean.getData());
                         }
                     });
                 }else {
-//                    ToolKit.runOnMainThreadSync(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            DensityUtil.showToast(UserInfoActivity.this,response.message());
-//                        }
-//                    });
+                    ToolKit.runOnMainThreadSync(new Runnable() {
+                        @Override
+                        public void run() {
+                            DensityUtil.showToast(DengLu.this,response.message());
+                        }
+                    });
                 }
             }
         });
+    }
+    private  void wangJi(){
+
+
+        startActivity(new Intent(this,Zhaohuei.class));
+        finish();
+
+
+
     }
 
 }
