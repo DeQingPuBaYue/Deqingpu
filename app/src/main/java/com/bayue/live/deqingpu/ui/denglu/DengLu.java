@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.base.BaseActivity;
 import com.bayue.live.deqingpu.entity.denglu.DengLuBean;
+import com.bayue.live.deqingpu.http.API;
 import com.bayue.live.deqingpu.preferences.Preferences;
 import com.bayue.live.deqingpu.utils.DensityUtil;
 import com.bayue.live.deqingpu.utils.OKHttpUtils;
@@ -138,7 +139,7 @@ public class DengLu extends BaseActivity {
                 .add("password",mima)
                 .build();
         Request request = new Request.Builder()
-                .url("http://192.168.1.120/bayue/deqingpu/public/api/login/signin")
+                .url(API.baseUrl+API.DENGLU)
                 .post(body)
                 .build();
 

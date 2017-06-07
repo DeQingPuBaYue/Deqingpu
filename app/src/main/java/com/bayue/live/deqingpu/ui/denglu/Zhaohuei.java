@@ -16,6 +16,7 @@ import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.base.BaseActivity;
 import com.bayue.live.deqingpu.entity.denglu.YanZhengMa;
 import com.bayue.live.deqingpu.entity.denglu.ZhuCeBean;
+import com.bayue.live.deqingpu.http.API;
 import com.bayue.live.deqingpu.utils.DensityUtil;
 import com.bayue.live.deqingpu.utils.OKHttpUtils;
 import com.bayue.live.deqingpu.utils.ToolKit;
@@ -102,7 +103,7 @@ public class Zhaohuei extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ed_xiayibu_zhaohuei:
-
+                xiaoYiBu();
                 break;
             case R.id.ed_fasong_zhaohuei:
                 String shouji = edShoujihaoZhaohuei.getText().toString();
@@ -208,7 +209,7 @@ public class Zhaohuei extends BaseActivity {
             Toast.makeText(getApplicationContext(), "密码不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (!shoujihao.equals(edMima2Zhaohuei.getText()
+        if (!edMimaZhaohuei.getText().toString().equals(edMima2Zhaohuei.getText()
                 .toString())) {
             Toast.makeText(getApplicationContext(), "密码不一致", Toast.LENGTH_SHORT).show();
             return;
@@ -223,7 +224,7 @@ public class Zhaohuei extends BaseActivity {
                 .add("sms_token", sms_token)
                 .build();
         Request request = new Request.Builder()
-                .url("http://192.168.1.120/bayue/deqingpu/public/api/login/get_pwd")
+                .url(API.baseUrl+API.ZHAOHUIE)
                 .post(body)
                 .build();
 
@@ -243,7 +244,7 @@ public class Zhaohuei extends BaseActivity {
                         @Override
                         public void run() {
                             if (zhuCeBean.getCode() == 200) {
-                                Toast.makeText(Zhaohuei.this, zhuCeBean.getData(), Toast.LENGTH_SHORT);
+                                DensityUtil.showToast(Zhaohuei.this,zhuCeBean.getData());
                                 Log.e("@@@@@@", zhuCeBean.getData());
                                 try {
                                     Thread.sleep(2000);
