@@ -10,7 +10,9 @@ import android.widget.RelativeLayout;
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.base.BaseFragment;
 import com.bayue.live.deqingpu.data.Constants;
+import com.bayue.live.deqingpu.preferences.Preferences;
 import com.bayue.live.deqingpu.ui.AddressActivity;
+import com.bayue.live.deqingpu.ui.denglu.DengLu;
 import com.bayue.live.deqingpu.utils.Tracer;
 import com.bayue.live.deqingpu.view.TopActionBar;
 
@@ -88,6 +90,10 @@ public class MainGerenFragment extends BaseFragment {
 
     @OnClick({R.id.rl_zhuye_geren, R.id.rl_quanzi_geren, R.id.rl_hebao_geren, R.id.rl_dizhi_geren, R.id.rl_dingdan_geren, R.id.rl_gouwuche_geren, R.id.rl_renzheng_geren, R.id.rl_dianpu_geren, R.id.rl_ruzhu_geren, R.id.rl_jishi_geren, R.id.rl_shezhi_geren})
     public void onViewClicked(View view) {
+        if(Preferences.getString(getContext(),Preferences.TOKEN).equals("-1")){
+            startActivity(new Intent(getActivity(), DengLu.class));
+            return;
+        }
         switch (view.getId()) {
             case R.id.rl_zhuye_geren:
                 break;

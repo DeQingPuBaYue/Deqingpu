@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textColor="@color/white"
+           android:text=""
+           android:textSize="30px"
+           android:layout_alignParentRight="true"
+           android:layout_marginRight="28px"
+           android:layout_marginTop="70px"/>
+   </RelativeLayout>
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="126px">
+       <ImageView
+           android:layout_width="330px"
+           android:layout_height="110px"
+           android:src="@drawable/dqp"
+           android:layout_centerInParent="true"/>
+   </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="47px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="欢 迎 登 录"
+            android:textSize="26px"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+    <RelativeLayout android:id="@+id/rl_shoujihao_denglu"
+        android:layout_marginTop="80px"
+        android:layout_width="623px"
+        android:layout_height="129px"
+        android:paddingLeft="47px"
+        android:background="@drawable/icon_102">
+        <ImageView
+            android:layout_width="27px"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_099"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <EditText android:id="@+id/et_shoujihao_denglu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:hint="输入手机号"
+            android:textColorHint="@color/textcolor"
+            android:textSize="30px"
+            android:inputType="number"
+            android:maxLength="11"
+            android:background="@color/transparent"
+            android:textColor="@color/textcolor"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+    <RelativeLayout android:id="@+id/rl_mima_denglu"
+        android:layout_marginTop="80px"
+        android:layout_width="623px"
+        android:layout_height="129px"
+        android:paddingLeft="47px"
+        android:background="@drawable/icon_102">
+        <ImageView
+            android:layout_width="27px"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_101" />
+        <EditText android:id="@+id/et_mima_denglu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:hint="输入密码"
+            android:textColorHint="@color/textcolor"
+            android:textSize="30px"
+            android:password="true"
+            android:digits="@string/mima"
+            android:maxLength="18"
+            android:background="@color/transparent"
+            android:textColor="@color/textcolor" />
+    </RelativeLayout>
+    <LinearLayout
+
+        android:layout_marginTop="72px"
+        android:layout_width="623px"
+        android:layout_height="101px"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <RelativeLayout
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView android:id="@+id/tv_wangji_denglu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="忘 记 密 码 ？"
+                android:textColor="@color/white"
+                android:textSize="23px"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <RelativeLayout android:id="@+id/rl_denglu_denglu"
+                android:layout_width="281px"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/denglu_bk">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="登 录"
+                    android:textColor="@color/white"
+                    android:textSize="30px"
+                    android:layout_centerInParent="true"/> />
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="73px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout android:id="@+id/ll_zhuce_denglu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="没有帐号，"
+                android:textColor="@color/white"
+                android:textSize="23px"
+                android:layout_centerInParent="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="@string/zhuce"
+                android:autoLink="all"
+                android:textSize="23px"
+                android:layout_centerInParent="true"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>

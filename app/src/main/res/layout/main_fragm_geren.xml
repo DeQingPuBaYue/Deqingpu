@@ -80,10 +80,16 @@
         </RelativeLayout>
 
     </RelativeLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#09323232"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#09323232"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="13px"
+                android:background="#09323232"/>
+
 
             <RelativeLayout android:id="@+id/rl_quanzi_geren"
                 android:layout_width="match_parent"
@@ -125,11 +131,6 @@
                 </RelativeLayout>
             </RelativeLayout>
 
-            <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginTop="13px"
-        android:background="#09323232"/>
 
             <View
         android:layout_width="match_parent"

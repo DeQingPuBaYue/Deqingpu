@@ -41,4 +41,9 @@
     <string name="item_location">Location</string>
     <string name="item_like">Like</string>
     <string name="item_person">Me</string>
+
+    <string name="fanhui"><u>返回登录</u></string>
+    <string name="zhuce"><u>立即注册</u></string>
+    <string name="mima">1234567890qwertyuiopasdfghjklmnbvcxzQWERTYUIOPASDFGHJKLMNBVCXZ</string>
+
 </resources>

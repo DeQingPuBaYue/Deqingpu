@@ -68,7 +68,7 @@ public class App extends Application {
 
         Tracer.w(TAG, "======================================" + Tracer.getDebugText() + "======================================");
 
-        bdmapInit();
+//        bdmapInit();
         Utils.init(this);
     }
 
@@ -106,6 +106,7 @@ public class App extends Application {
         }
 
     }
+
 
 
 }

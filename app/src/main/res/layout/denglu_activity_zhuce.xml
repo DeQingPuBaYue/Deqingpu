@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/img"
+    android:orientation="vertical">
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <TextView android:id="@+id/tv_xiayibu_zhuce"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textColor="@color/white"
+           android:text="下一步"
+           android:textSize="30px" 
+           android:layout_alignParentRight="true"
+           android:layout_marginRight="28px"
+           android:layout_marginTop="70px"/>
+   </RelativeLayout>
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="106px">
+       <ImageView
+           android:layout_width="330px"
+           android:layout_height="110px"
+           android:src="@drawable/dqp"
+           android:layout_centerInParent="true"/>
+   </RelativeLayout>
+    <RelativeLayout
+        android:layout_marginTop="67px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="欢 迎 注 册"
+            android:textSize="26px"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80px"
+        android:layout_width="623px"
+        android:layout_height="101px"
+        android:paddingLeft="47px"
+        android:gravity="center_vertical"
+        android:background="@drawable/icon_102">
+        <ImageView
+            android:layout_width="27px"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_103" />
+        <EditText  android:id="@+id/ed_shoujihao_zhuce"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="输入手机号"
+            android:textSize="30px"
+            android:textColorHint="@color/textcolor"
+            android:inputType="number"
+            android:maxLength="11"
+            android:background="@color/transparent"
+            android:textColor="@color/textcolor"
+            android:layout_marginLeft="29px" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="9px"
+        android:layout_width="623px"
+        android:layout_height="101px"
+        android:paddingLeft="47px"
+        android:gravity="center_vertical"
+        android:background="@drawable/icon_102">
+        <ImageView
+            android:layout_width="27px"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_104" />
+        <EditText  android:id="@+id/ed_yanzhengma_zhuce"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="短信验证码"
+            android:textColorHint="@color/textcolor"
+
+            android:textSize="30px"
+            android:inputType="number"
+            android:maxLength="11"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:textColor="@color/textcolor"
+            android:layout_marginLeft="29px" />
+        <View
+            android:layout_width="2px"
+            android:layout_height="41px"
+            android:background="@color/textcolor"/>
+        <TextView  android:id="@+id/tv_fasong_zhuce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30px"
+            android:text="点击发送"
+            android:textColor="@color/textcolor"
+            android:layout_marginRight="39px"
+            android:layout_marginLeft="36px"/>
+    
+    </LinearLayout>
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="9px"
+        android:layout_width="623px"
+        android:layout_height="101px"
+        android:paddingLeft="47px"
+        android:gravity="center_vertical"
+        android:background="@drawable/icon_102">
+        <ImageView
+            android:layout_width="27px"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_101" />
+        <EditText  android:id="@+id/ed_mima_zhuce"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="设置密码"
+            android:textColorHint="@color/textcolor"
+
+            android:textSize="30px"
+            android:password="true"
+            android:digits="@string/mima"
+            android:maxLength="18"
+            android:background="@color/transparent"
+            android:textColor="@color/textcolor"
+            android:layout_marginLeft="29px" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="9px"
+        android:layout_width="623px"
+        android:layout_height="101px"
+        android:paddingLeft="47px"
+        android:gravity="center_vertical"
+        android:background="@drawable/icon_102">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="27px"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_101" />
+
+        <EditText  android:id="@+id/ed_mima2_zhuce"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="再次设置密码"
+            android:textColorHint="@color/textcolor"
+
+            android:textSize="30px"
+            android:password="true"
+            android:digits="@string/mima"
+            android:maxLength="18"
+            android:background="@color/transparent"
+            android:textColor="@color/textcolor"
+            android:layout_marginLeft="29px" />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_marginTop="124px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout  android:id="@+id/ll_denglu_zhuce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="已有帐号，"
+                android:textSize="23px"
+                android:layout_centerInParent="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="@string/fanhui"
+                android:autoLink="all"
+                android:textSize="23px"
+                android:layout_centerInParent="true"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>
