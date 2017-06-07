@@ -137,18 +137,6 @@ public class DengLu extends BaseActivity {
                 .post(body)
                 .build();
 
-//        OkHttpClient ok=new OkHttpClient();
-//        ok.newCall(request).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//                String msg = response.body().string();
-//            }
-//        });
 
 
         OKHttpUtils.enqueue(request, new Callback() {
