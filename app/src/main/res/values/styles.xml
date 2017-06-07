@@ -25,7 +25,16 @@
 
         <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
     </style>
-
+    <style name="normalSizeGreyStyle" >
+        <item name="android:textSize">@dimen/sample_text_size</item>
+        <item name="android:textColor">@color/zilanmu_textcolor</item>
+        <item name="android:padding">2dp</item>
+    </style>
+    <style name="normalSizeBlackStyle" >
+        <item name="android:textSize">@dimen/sample_text_size</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:padding">2dp</item>
+    </style>
     <style name="radiobutton_style">
         <item name="android:layout_width">0dp</item>
         <item name="android:padding">3dp</item>

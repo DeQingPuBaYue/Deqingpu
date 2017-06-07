@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DeQingPu</string>
+    <string name="app_name">德卿铺</string>
     <!-- 首页 -->
     <string name="item_sj">商家联盟</string>
     <string name="item_zb">掌柜直播</string>
@@ -9,7 +9,20 @@
 
     <!-- 地址 -->
     <string name="tv_consignee">收货人：</string>
+    <string name="tv_consignees">收货人</string>
+    <string name="tv_tell">联系电话</string>
+    <string name="tv_area">所在区域</string>
+    <string name="tv_delAddress">删除地址</string>
     <string name="network_err">Simulation network error</string>
+    <string name="tv_default_address">默认地址</string>
+    <string name="tv_edit">编辑</string>
+    <string name="tv_del">删除</string>
+    <string name="tv_save">保存</string>
+    <string name="title_address">我的地址</string>
+    <string name="title_edit_address">编辑地址</string>
+    <string name="btn_address">新增地址</string>
+    <string name="tip_address">*注：最多保存5个地址</string>
+    <string name="tip_detail">填写详细地址</string>
 
     <!-- ////// -->
     <string name="nick_name">Kevin</string>

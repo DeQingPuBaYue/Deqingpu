@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f9f9f9">
-    <RelativeLayout
+    <com.bayue.live.deqingpu.view.TopActionBar
+        android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="118px"
-        android:background="@color/titlecolor">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="个人中心"
-            android:textColor="@color/white"
-            android:textSize="35px"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="12px"/>
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        app:canClose="false"
+        />
 
     <ScrollView
         android:layout_width="match_parent"

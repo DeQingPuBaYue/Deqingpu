@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/topBar"
-    android:layout_width="fill_parent"
-    android:layout_height="@dimen/top_bar_min_height"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/black"
     android:gravity="center"
-    android:orientation="horizontal">
+    android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/sp_14" />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/top_bar_min_height"
+        android:background="@color/black"
+        android:gravity="center"
+        android:orientation="horizontal">
     <!--返回按钮-->
     <LinearLayout
         android:id="@+id/btnBack"
@@ -75,4 +84,5 @@
             android:background="@null"
             android:src="@mipmap/w_cysj_icon_bj" />
     </LinearLayout>
-</RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

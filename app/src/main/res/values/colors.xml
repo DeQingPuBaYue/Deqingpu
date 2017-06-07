@@ -16,6 +16,7 @@
 
     <!--个人中心 子栏目字色-->
     <color name="zilanmu_textcolor">#a3a3a3</color>
+    <color name="color_line">#E5E5E5</color>
 
 
 
@@ -31,6 +32,7 @@
     <color name="color_black_30">#4CFFFFFF</color>
     <color name="color_black_2e2625">#2e2625</color>
     <color name="color_white">#CCffffff</color>
+    <color name="color_bg">#F9F9F9</color>
     <color name="color_black_cc000000">#cc000000</color>
     <color name="color_black_10_fffff">#19ffffff</color>
 

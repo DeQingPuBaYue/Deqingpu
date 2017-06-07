@@ -1,5 +1,6 @@
 package com.bayue.live.deqingpu.ui;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,23 +10,28 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.bayue.live.deqingpu.R;
+import com.bayue.live.deqingpu.adapter.FullyLinearLayoutManager;
 import com.bayue.live.deqingpu.adapter.PullToRefreshAdapter;
 import com.bayue.live.deqingpu.base.BaseActivity;
 import com.bayue.live.deqingpu.data.DataServer;
+import com.bayue.live.deqingpu.ui.address.AddAddressActivity;
 import com.bayue.live.deqingpu.utils.ToastUtils;
+import com.bayue.live.deqingpu.utils.Tracer;
+import com.bayue.live.deqingpu.utils.Utils;
 import com.bayue.live.deqingpu.view.TopActionBar;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2017/6/5.
  */
-
-public class AddressActivity extends BaseActivity implements BaseQuickAdapter.RequestLoadMoreListener, SwipeRefreshLayout.OnRefreshListener {
-
+//BaseQuickAdapter.RequestLoadMoreListener,
+public class AddressActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
+    String TAG = "AddressActivity";
     @BindView(R.id.topBar)
     TopActionBar topBar;
     @BindView(R.id.rvList_ad)
@@ -36,7 +42,7 @@ public class AddressActivity extends BaseActivity implements BaseQuickAdapter.Re
 
     private static final int TOTAL_COUNTER = 18;
 
-    private static final int PAGE_SIZE = 6;
+    private static final int PAGE_SIZE = 5;
 
     private int delayMillis = 1000;
 
@@ -55,7 +61,20 @@ public class AddressActivity extends BaseActivity implements BaseQuickAdapter.Re
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        topBar.setTitle(getString(R.string.title_address));
+        Tracer.e(TAG, Utils.getStatusBarHeight()+"");
+        topBar.setBackClickListener(new TopActionBar.BackClickListener() {
+            @Override
+            public void backClick() {
+                baseActivity.finish();
+            }
+        });
         initAdapter();
+        getDataFromNet();
+    }
+
+    private void getDataFromNet() {
+
     }
 
     @Override
@@ -78,35 +97,39 @@ public class AddressActivity extends BaseActivity implements BaseQuickAdapter.Re
         }, delayMillis);
     }
 
-    @Override
-    public void onLoadMoreRequested() {
-        mSwipeRefreshLayout.setEnabled(false);
-        if (pullToRefreshAdapter.getData().size() < PAGE_SIZE) {
-            pullToRefreshAdapter.loadMoreEnd(true);
-        } else {
-            if (mCurrentCounter >= TOTAL_COUNTER) {
-//                    pullToRefreshAdapter.loadMoreEnd();//default visible
-                pullToRefreshAdapter.loadMoreEnd(mLoadMoreEndGone);//true is gone,false is visible
-            } else {
-                if (isErr) {
-                    pullToRefreshAdapter.addData(DataServer.getSampleData(PAGE_SIZE));
-                    mCurrentCounter = pullToRefreshAdapter.getData().size();
-                    pullToRefreshAdapter.loadMoreComplete();
-                } else {
-                    isErr = true;
-                    ToastUtils.showShortToast(R.string.network_err);
-                    pullToRefreshAdapter.loadMoreFail();
-
-                }
-            }
-            mSwipeRefreshLayout.setEnabled(true);
-        }
-    }
+//    @Override
+//    public void onLoadMoreRequested() {
+//        mSwipeRefreshLayout.setEnabled(false);
+//        if (pullToRefreshAdapter.getData().size() < PAGE_SIZE) {
+//            pullToRefreshAdapter.loadMoreEnd(true);
+//        } else {
+//            if (mCurrentCounter >= TOTAL_COUNTER) {
+////                    pullToRefreshAdapter.loadMoreEnd();//default visible
+//                pullToRefreshAdapter.loadMoreEnd(mLoadMoreEndGone);//true is gone,false is visible
+//            } else {
+//                if (isErr) {
+//                    pullToRefreshAdapter.addData(DataServer.getSampleData(PAGE_SIZE));
+//                    mCurrentCounter = pullToRefreshAdapter.getData().size();
+//                    pullToRefreshAdapter.loadMoreComplete();
+//                } else {
+//                    isErr = true;
+//                    ToastUtils.showShortToast(R.string.network_err);
+//                    pullToRefreshAdapter.loadMoreFail();
+//
+//                }
+//            }
+//            mSwipeRefreshLayout.setEnabled(true);
+//        }
+//    }
 
     private void initAdapter() {
-        pullToRefreshAdapter = new PullToRefreshAdapter();
-        pullToRefreshAdapter.setOnLoadMoreListener(this, mRecyclerView);
-        pullToRefreshAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
+        FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(baseContext);
+        mRecyclerView.setNestedScrollingEnabled(false);
+        //设置布局管理器
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        pullToRefreshAdapter = new PullToRefreshAdapter(DataServer.getSampleData(5));
+//        pullToRefreshAdapter.setOnLoadMoreListener(this, mRecyclerView);
+//        pullToRefreshAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
 //        pullToRefreshAdapter.setPreLoadNumber(3);
         mRecyclerView.setAdapter(pullToRefreshAdapter);
         mCurrentCounter = pullToRefreshAdapter.getData().size();
@@ -117,8 +140,30 @@ public class AddressActivity extends BaseActivity implements BaseQuickAdapter.Re
                 ToastUtils.showShortToast(Integer.toString(position));
             }
         });
+        pullToRefreshAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
+                switch (view.getId()){
+                    case R.id.layDefault:
+                        pullToRefreshAdapter.setPosition(i); //传递当前的点击位置
+                        pullToRefreshAdapter.notifyDataSetChanged(); //通知刷新
+                        break;
+                    case R.id.txtEdit:
+                        ToastUtils.showLongToast(R.string.tv_edit);
+                        startActivity(new Intent(baseActivity, AddAddressActivity.class).putExtra("action","edit"));
+                        break;
+                    case R.id.txtDel:
+                        ToastUtils.showLongToast(R.string.tv_del);
+                        break;
+                }
+            }
+        });
     }
 
+    @OnClick(R.id.btnAdd)
+    public void setOnClick(View view){
+        startActivity(new Intent(baseActivity, AddAddressActivity.class).putExtra("action","add"));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

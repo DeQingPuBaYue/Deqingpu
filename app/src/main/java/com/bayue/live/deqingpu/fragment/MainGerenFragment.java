@@ -7,11 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import com.bayue.live.deqingpu.data.Constants;
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.base.BaseFragment;
+import com.bayue.live.deqingpu.data.Constants;
 import com.bayue.live.deqingpu.ui.AddressActivity;
 import com.bayue.live.deqingpu.utils.Tracer;
+import com.bayue.live.deqingpu.view.TopActionBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,11 +48,13 @@ public class MainGerenFragment extends BaseFragment {
     @BindView(R.id.rl_shezhi_geren)
     RelativeLayout rlShezhiGeren;
     Unbinder unbinder;
+    @BindView(R.id.topBar)
+    TopActionBar topBar;
 
-    public static MainGerenFragment newInstance(String s){
+    public static MainGerenFragment newInstance(String s) {
         MainGerenFragment homeFragment = new MainGerenFragment();
         Bundle bundle = new Bundle();
-        bundle.putString(Constants.ARGS,s);
+        bundle.putString(Constants.ARGS, s);
         homeFragment.setArguments(bundle);
         return homeFragment;
     }
@@ -63,7 +66,8 @@ public class MainGerenFragment extends BaseFragment {
 
     @Override
     public void init() {
-        Tracer.d(TAG,"");
+        Tracer.d(TAG, "");
+        topBar.setTitle(getString(R.string.item_gr));
     }
 
     @Override

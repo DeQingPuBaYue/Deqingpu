@@ -14,20 +14,97 @@
 
    <LinearLayout
        android:orientation="vertical"
+       android:paddingLeft="@dimen/fixed_width_padding"
+       android:paddingRight="@dimen/fixed_width_padding"
        android:layout_width="match_parent"
        android:layout_height="wrap_content">
        <LinearLayout
            android:orientation="horizontal"
+           android:layout_marginTop="@dimen/shifting_height_bottom_padding_active"
+           android:layout_marginBottom="@dimen/shifting_height_bottom_padding_active"
+
            android:layout_width="match_parent"
            android:layout_height="wrap_content">
            <TextView
                android:text="@string/tv_consignee"
+               style="@style/normalSizeGreyStyle"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content" />
            <TextView
                android:id="@+id/txtConsignee"
+               style="@style/normalSizeGreyStyle"
+               android:text="@string/app_name"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content" />
+           <TextView
+               android:id="@+id/txtTell"
+               style="@style/normalSizeGreyStyle"
+               android:gravity="right"
+               android:text="@string/app_name"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content" />
+       </LinearLayout>
+       <TextView
+           android:id="@+id/txtAddressDetail"
+           style="@style/normalSizeGreyStyle"
+           android:text="@string/app_name"
+           android:lines="2"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content" />
+       <View
+           android:layout_width="match_parent"
+           android:layout_marginTop="@dimen/shifting_height_bottom_padding_active"
+           android:background="@color/zilanmu_textcolor"
+           android:layout_height="1dp" />
+       <LinearLayout
+           android:orientation="horizontal"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <LinearLayout
+               android:id="@+id/layDefault"
+               android:orientation="horizontal"
+               android:layout_marginTop="@dimen/bottom_navigation_elevation"
+               android:layout_marginBottom="@dimen/bottom_navigation_elevation"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content">
+               <ImageView
+                   android:id="@+id/imgDefault"
+                   android:src="@mipmap/icon_51"
+
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+               <TextView
+                   style="@style/normalSizeGreyStyle"
+                   android:textColor="@color/black"
+                   android:text="@string/tv_default_address"
+                   android:layout_marginLeft="@dimen/badge_text_size"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+           </LinearLayout>
+           <LinearLayout
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:gravity="right"
+               android:layout_marginTop="@dimen/bottom_navigation_elevation"
+               android:layout_marginBottom="@dimen/bottom_navigation_elevation"
+               android:layout_height="wrap_content">
+               <TextView
+                   android:id="@+id/txtEdit"
+                   style="@style/normalSizeGreyStyle"
+                   android:textColor="@color/black"
+                   android:text="@string/tv_edit"
+                   android:layout_marginLeft="@dimen/badge_text_size"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+               <TextView
+                   android:id="@+id/txtDel"
+                   style="@style/normalSizeGreyStyle"
+                   android:textColor="@color/black"
+                   android:text="@string/tv_del"
+                   android:layout_marginLeft="@dimen/badge_text_size"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+           </LinearLayout>
        </LinearLayout>
    </LinearLayout>
 </android.support.v7.widget.CardView>

@@ -36,4 +36,16 @@ public class Utils {
         if (context != null) return context;
         throw new NullPointerException("u should init first");
     }
+    /**
+     * 获取状态栏高度
+     */
+    public static int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
 }

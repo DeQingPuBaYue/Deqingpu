@@ -15,6 +15,9 @@ import com.bayue.live.deqingpu.utils.Utils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 文 件 名: PullToRefreshAdapter
  * 创 建 人: Allen
@@ -23,29 +26,35 @@ import com.chad.library.adapter.base.BaseViewHolder;
  * 修改时间：
  * 修改备注：
  */
-public class PullToRefreshAdapter extends BaseQuickAdapter<Status, BaseViewHolder> {
-    public PullToRefreshAdapter() {
-        super( R.layout.layout_animation, DataServer.getSampleData(10));
+public class PullToRefreshAdapter extends BaseQuickAdapter<Status, BaseViewHolder>{
+    List<Status> data = new ArrayList<>();
+    public PullToRefreshAdapter(List<Status> data) {
+        super( R.layout.layout_animation, data);
+        this.data = data;
+    }
+    //默认第几项
+    private int mPosition = 0;
+
+    public void setPosition(int position) {
+        mPosition = position;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, Status item) {
-        switch (helper.getLayoutPosition()%
-                3){
-            case 0:
-                helper.setImageResource(R.id.img,R.mipmap.ic_launcher);
-                break;
-            case 1:
-                helper.setImageResource(R.id.img,R.mipmap.vatarsample346);
-                break;
-            case 2:
-                helper.setImageResource(R.id.img,R.mipmap.ic_launcher);
-                break;
+        if (mPosition == helper.getLayoutPosition()){
+            helper.setImageResource(R.id.imgDefault,R.mipmap.icon_52);
+        } else {
+            helper.setImageResource(R.id.imgDefault,R.mipmap.icon_51);
         }
-        helper.setText(R.id.tweetName,"Hoteis in Rio de Janeiro");
+        helper.addOnClickListener(R.id.layDefault);
+        helper.addOnClickListener(R.id.txtEdit);
+        helper.addOnClickListener(R.id.txtDel);
+        ((TextView)helper.getView(R.id.txtTell)).setText(helper.getLayoutPosition()+" position");
         String msg="\"He was one of Australia's most of distinguished artistes, renowned for his portraits\"";
-        ( (TextView)helper.getView(R.id.tweetText)).setText(SpannableStringUtils.getBuilder(msg).append("landscapes and nedes").setClickSpan(clickableSpan).create());
-        ( (TextView)helper.getView(R.id.tweetText)).setMovementMethod(LinkMovementMethod.getInstance());
+        ( (TextView)helper.getView(R.id.txtAddressDetail)).setText(SpannableStringUtils.getBuilder(msg)
+                .append("landscapes and nedes").setClickSpan(clickableSpan).create());
+        ( (TextView)helper.getView(R.id.txtAddressDetail)).setMovementMethod(LinkMovementMethod.getInstance());
+
     }
 
     ClickableSpan clickableSpan = new ClickableSpan() {
@@ -60,6 +69,5 @@ public class PullToRefreshAdapter extends BaseQuickAdapter<Status, BaseViewHolde
             ds.setUnderlineText(true);
         }
     };
-
 
 }
