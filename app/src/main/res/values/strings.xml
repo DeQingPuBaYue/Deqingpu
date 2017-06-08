@@ -10,6 +10,8 @@
     <!-- 地址 -->
     <string name="tv_consignee">收货人：</string>
     <string name="tv_consignees">收货人</string>
+    <string name="tv_select">请选择</string>
+    <string name="tv_Cancel">取消</string>
     <string name="tv_tell">联系电话</string>
     <string name="tv_area">所在区域</string>
     <string name="tv_delAddress">删除地址</string>

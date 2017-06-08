@@ -32,7 +32,7 @@ public abstract class MyBaseSubscriber<T>  extends BaseSubscriber<T> {
         super.onStart();
 
         if (!NetworkUtil.isNetworkAvailable(context)) {
-            Toast.makeText( context, "似乎没网O",Toast.LENGTH_SHORT).show();
+            Toast.makeText( context, "似乎没网哦",Toast.LENGTH_SHORT).show();
             onCompleted();
             return;
         }

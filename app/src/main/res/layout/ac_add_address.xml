@@ -79,6 +79,8 @@
                 style="@style/normalSizeBlackStyle"
                 android:padding="@dimen/top_bar_text_margin"
                 android:layout_width="0dp"
+                android:gravity="left"
+                android:layout_marginLeft="@dimen/dp_4"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
 

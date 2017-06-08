@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_10"
+        android:background="@color/color_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="@string/tv_select"
+            style="@style/normalSizeBlackStyle"
+            android:layout_weight="1"
+            android:id="@+id/txtProvince"
+            android:layout_margin="@dimen/dp_4"
+            android:padding="@dimen/dp_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="@string/tv_select"
+            style="@style/normalSizeBlackStyle"
+            android:layout_weight="1"
+            android:id="@+id/txtCity"
+            android:visibility="invisible"
+            android:layout_margin="@dimen/dp_4"
+            android:padding="@dimen/dp_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="@string/tv_select"
+            style="@style/normalSizeBlackStyle"
+            android:layout_weight="1"
+            android:id="@+id/txtDisc"
+            android:visibility="invisible"
+            android:layout_margin="@dimen/dp_4"
+            android:padding="@dimen/dp_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="@string/tv_Cancel"
+            style="@style/normalSizeBlackStyle"
+            android:id="@+id/txtCancel"
+            android:textColor="@color/color_btn_main"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_marginBottom="@dimen/dp_4"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:padding="@dimen/top_bar_text_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <ListView
+        android:id="@+id/listViewPicker"
+        android:divider="@color/color_line"
+        android:dividerHeight="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></ListView>
+</LinearLayout>
