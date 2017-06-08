@@ -17,13 +17,17 @@ public class API {
     private final static String baseUrl_net = isInner() ? Domain_Inner  : Domain_net;
     public final static String baseUrl = Tracer.isUseDebugNet() ? baseUrl_inner : baseUrl_net;
     //获取所有地址
-    public static String GETALL= "api/address/getall";
-    //获取地址列表(token )  删除地址(address_id , token) 添加地址(consignee ,province,city,district,address,mobile,token)
-    public static String GETADDRESS = "api/address/getaddress";
+    public static String GETADDRESS= "api/address/get_region";
+    //获取地址列表(token )  删除地址(address_id , token)
+    public static String GETADDRESS_LIST = "api/address/getaddress";
     //更新地址(address_id ,consignee ,province,city,district,address,mobile,token)
     public static String UPDATE= "api/address/update";
+    //增加地址(consignee ,province,city,district,address,mobile,token)
+    public static String ADDADDRESS= "api/address/add";
     //设为默认（address_id，token ）
     public static String DEFAULT= "api/address/setdefault";
+    //删除地址（address_id，token ）
+    public static String DELECT= "api/address/delete";
 
     //登录
     public static String DENGLU="api/login/signin";
