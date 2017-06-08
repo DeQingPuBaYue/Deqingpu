@@ -37,6 +37,10 @@
         <activity android:name=".ui.denglu.DengLu"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <!--找回界面-->
+        <activity android:name=".ui.denglu.Zhaohuei"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
 
     </application>
     <!-- 访问网络 -->

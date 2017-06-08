@@ -19,7 +19,6 @@ import com.bayue.live.deqingpu.entity.denglu.ZhuCeBean;
 import com.bayue.live.deqingpu.http.API;
 import com.bayue.live.deqingpu.utils.DensityUtil;
 import com.bayue.live.deqingpu.utils.OKHttpUtils;
-import com.bayue.live.deqingpu.utils.ToastUtils;
 import com.bayue.live.deqingpu.utils.ToolKit;
 import com.google.gson.Gson;
 
@@ -36,32 +35,30 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
- * Created by Administrator on 2017/6/6.
+ * Created by Administrator on 2017/6/7.
  */
 
-public class ZhuCe extends BaseActivity {
-    @BindView(R.id.tv_xiayibu_zhuce)
-    TextView tvXiayibuZhuce;
-    @BindView(R.id.ed_shoujihao_zhuce)
-    EditText edShoujihaoZhuce;
-    @BindView(R.id.ed_yanzhengma_zhuce)
-    EditText edYanzhengmaZhuce;
-    @BindView(R.id.tv_fasong_zhuce)
-    TextView tvFasongZhuce;
-    @BindView(R.id.ed_mima_zhuce)
-    EditText edMimaZhuce;
+public class Zhaohuei extends BaseActivity {
+    @BindView(R.id.ed_xiayibu_zhaohuei)
+    TextView edXiayibuZhaohuei;
+    @BindView(R.id.ed_shoujihao_zhaohuei)
+    EditText edShoujihaoZhaohuei;
+    @BindView(R.id.ed_yanzheng_zhaohuei)
+    EditText edYanzhengZhaohuei;
+    @BindView(R.id.ed_fasong_zhaohuei)
+    TextView edFasongZhaohuei;
+    @BindView(R.id.ed_mima_zhaohuei)
+    EditText edMimaZhaohuei;
     @BindView(R.id.imageView)
     ImageView imageView;
-    @BindView(R.id.ed_mima2_zhuce)
-    EditText edMima2Zhuce;
-    @BindView(R.id.ll_denglu_zhuce)
-    LinearLayout llDengluZhuce;
-
-    Handler handler;
+    @BindView(R.id.ed_mima2_zhaohuei)
+    EditText edMima2Zhaohuei;
+    @BindView(R.id.ll_back_zhaohuei)
+    LinearLayout llBackZhaohuei;
 
     @Override
     protected int getViewId() {
-        return R.layout.denglu_activity_zhuce;
+        return R.layout.denglu_activity_zhaohuei;
     }
 
     @Override
@@ -74,24 +71,18 @@ public class ZhuCe extends BaseActivity {
 
                     int i = (int) msg.obj;
 
-                    if(tvFasongZhuce!=null){
-                        tvFasongZhuce.setText(i + " 秒");
+                    if (edFasongZhaohuei != null) {
+                        edFasongZhaohuei.setText(i + " 秒");
                     }
                     if (i == 1) {
-                        if(tvFasongZhuce!=null){
+                        if (edFasongZhaohuei != null) {
 
-                            tvFasongZhuce.setText("点击发送");
-                            tvFasongZhuce.setClickable(true);
+                            edFasongZhaohuei.setText("点击发送");
+                            edFasongZhaohuei.setClickable(true);
                         }
                     }
                 }
-                if (msg.what == 1) {
 
-                    Intent intent = new Intent(ZhuCe.this, DengLu.class);
-                    intent.putExtra("dianhua", edShoujihaoZhuce.getText().toString());
-                    intent.putExtra("mima", edMimaZhuce.getText().toString());
-                    startActivity(intent);
-                }
             }
         };
     }
@@ -108,53 +99,59 @@ public class ZhuCe extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.tv_xiayibu_zhuce, R.id.ed_shoujihao_zhuce, R.id.ed_yanzhengma_zhuce, R.id.tv_fasong_zhuce, R.id.ed_mima_zhuce, R.id.imageView, R.id.ed_mima2_zhuce})
+    @OnClick({R.id.ed_xiayibu_zhaohuei, R.id.ed_fasong_zhaohuei})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_xiayibu_zhuce:
+            case R.id.ed_xiayibu_zhaohuei:
                 xiaoYiBu();
                 break;
-            case R.id.ed_shoujihao_zhuce:
-                break;
-            case R.id.ed_yanzhengma_zhuce:
-                break;
-            case R.id.tv_fasong_zhuce:
-                String  shouji=edShoujihaoZhuce.getText().toString();
+            case R.id.ed_fasong_zhaohuei:
+                String shouji = edShoujihaoZhaohuei.getText().toString();
 
-                if(shouji.isEmpty()||shouji.length()<=10||shouji==null){
-                    Toast.makeText(getApplicationContext(),"手机号错误",Toast.LENGTH_SHORT).show();
+                if (shouji.isEmpty() || shouji.length() <= 10 || shouji == null) {
+                    Toast.makeText(getApplicationContext(), "手机号错误", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(tvFasongZhuce!=null){
-
-                    tvFasongZhuce.setClickable(false);
-                }
+                edFasongZhaohuei.setClickable(false);
                 dumiao();
                 fasong();
-
-                break;
-            case R.id.ed_mima_zhuce:
-                break;
-            case R.id.imageView:
-                break;
-            case R.id.ed_mima2_zhuce:
                 break;
         }
     }
 
+    Handler handler;
     String sms_token;
-    String shoujihao;
+
+    void dumiao() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int j = 60; j > 0; j--) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Message m = new Message();
+                    m.what = 2;
+                    m.obj = j;
+                    handler.sendMessage(m);
+                }
+            }
+
+        }).start();
+    }
 
     protected void fasong() {
 
-        shoujihao = edShoujihaoZhuce.getText().toString();
+        String shoujihao = edShoujihaoZhaohuei.getText().toString();
         RequestBody body = new FormBody.Builder()
                 .add("apiversion", "v.1.0")
                 .add("safecode", "BaYue.deqingpu")
                 .add("phone", shoujihao)
                 .build();
         Request request = new Request.Builder()
-                .url(API.baseUrl+API.YANZHENG)
+                .url("http://192.168.1.120/bayue/deqingpu/public/api/sms/get_code")
                 .post(body)
                 .build();
 
@@ -174,23 +171,23 @@ public class ZhuCe extends BaseActivity {
                         @Override
                         public void run() {
                             if (yanZhengMa.getCode() == 200) {
-                                Toast.makeText(ZhuCe.this,"已发送验证码到你的手机",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Zhaohuei.this, "已发送验证码到你的手机", Toast.LENGTH_SHORT).show();
 
                                 sms_token = yanZhengMa.getSms_token();
-                                Log.e("验证码",yanZhengMa.getSms_code()+"");
+                                Log.e("验证码", yanZhengMa.getSms_code() + "");
 
                             } else {
-//                                DensityUtil.showToast(UserInfoActivity.this,userInfoAvatarBean.getInfo());
+                                DensityUtil.showToast(Zhaohuei.this, yanZhengMa.getData());
                             }
                         }
                     });
                 } else {
-//                    ToolKit.runOnMainThreadSync(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            DensityUtil.showToast(UserInfoActivity.this,response.message());
-//                        }
-//                    });
+                    ToolKit.runOnMainThreadSync(new Runnable() {
+                        @Override
+                        public void run() {
+                            DensityUtil.showToast(Zhaohuei.this, response.message());
+                        }
+                    });
                 }
             }
         });
@@ -198,59 +195,36 @@ public class ZhuCe extends BaseActivity {
 
     }
 
-    private void dumiao() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (int j = 60; j > 0; j--) {
-
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    Message m = new Message();
-                    m.what = 2;
-
-                    m.obj = j;
-                    handler.sendMessage(m);
-
-                }
-            }
-
-        }).start();
-    }
-
     private void xiaoYiBu() {
-        shoujihao = edShoujihaoZhuce.getText().toString();
-        if(edShoujihaoZhuce.getText().toString().isEmpty()){
-            Toast.makeText(getApplicationContext(),"手机号不能为空",Toast.LENGTH_SHORT).show();
+        String shoujihao = edShoujihaoZhaohuei.getText().toString();
+        if (shoujihao.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "手机号不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(edYanzhengmaZhuce.getText().toString().isEmpty()){
-            Toast.makeText(getApplicationContext(),"验证码不能为空",Toast.LENGTH_SHORT).show();
+        if (shoujihao.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "验证码不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(edMimaZhuce.getText().toString().isEmpty()){
-            Toast.makeText(getApplicationContext(),"密码不能为空",Toast.LENGTH_SHORT).show();
+        if (shoujihao.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "密码不能为空", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(!edMimaZhuce.getText().toString().equals(edMima2Zhuce.getText()
-                .toString())){
-            Toast.makeText(getApplicationContext(),"密码不一致",Toast.LENGTH_SHORT).show();
+        if (!edMimaZhaohuei.getText().toString().equals(edMima2Zhaohuei.getText()
+                .toString())) {
+            Toast.makeText(getApplicationContext(), "密码不一致", Toast.LENGTH_SHORT).show();
             return;
         }
         RequestBody body = new FormBody.Builder()
                 .add("apiversion", "v.1.0")
                 .add("safecode", "BaYue.deqingpu")
                 .add("phone", shoujihao)
-                .add("password", edMimaZhuce.getText().toString())
-                .add("reppassword", edMima2Zhuce.getText().toString())
-                .add("code", edYanzhengmaZhuce.getText().toString())
+                .add("password", edMimaZhaohuei.getText().toString())
+                .add("reppassword", edMima2Zhaohuei.getText().toString())
+                .add("code", edYanzhengZhaohuei.getText().toString())
                 .add("sms_token", sms_token)
                 .build();
         Request request = new Request.Builder()
-                .url(API.baseUrl+API.ZHUCE)
+                .url(API.baseUrl+API.ZHAOHUIE)
                 .post(body)
                 .build();
 
@@ -270,23 +244,23 @@ public class ZhuCe extends BaseActivity {
                         @Override
                         public void run() {
                             if (zhuCeBean.getCode() == 200) {
-
-                               DensityUtil.showToast(ZhuCe.this,zhuCeBean.getData());
-                                Log.e("@@@@@@",zhuCeBean.getData());
+                                DensityUtil.showToast(Zhaohuei.this,zhuCeBean.getData());
+                                Log.e("@@@@@@", zhuCeBean.getData());
                                 try {
                                     Thread.sleep(2000);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
-                                Intent intent = new Intent(ZhuCe.this, DengLu.class);
-                                intent.putExtra("dianhua", edShoujihaoZhuce.getText().toString());
-                                intent.putExtra("mima", edMimaZhuce.getText().toString());
+                                Intent intent = new Intent(Zhaohuei.this, DengLu.class);
+                                intent.putExtra("dianhua", edShoujihaoZhaohuei.getText().toString());
+                                intent.putExtra("mima", edMimaZhaohuei.getText().toString());
                                 startActivity(intent);
 
-                                ZhuCe.this.finish();
+                                Zhaohuei.this.finish();
+
 
                             } else {
-                                DensityUtil.showToast(ZhuCe.this,zhuCeBean.getData());
+                                DensityUtil.showToast(Zhaohuei.this, zhuCeBean.getData());
                             }
                         }
                     });
@@ -294,7 +268,7 @@ public class ZhuCe extends BaseActivity {
                     ToolKit.runOnMainThreadSync(new Runnable() {
                         @Override
                         public void run() {
-                            DensityUtil.showToast(ZhuCe.this,response.message());
+                            DensityUtil.showToast(Zhaohuei.this, response.message());
                         }
                     });
                 }
@@ -304,10 +278,10 @@ public class ZhuCe extends BaseActivity {
 
     }
 
-    @OnClick(R.id.ll_denglu_zhuce)
+    @OnClick(R.id.ll_back_zhaohuei)
     public void onViewClicked() {
-        Intent intent=new Intent(this,DengLu.class);
-        startActivity(intent);
+//        startActivity(new Intent(this,DengLu.class));
         finish();
+
     }
 }

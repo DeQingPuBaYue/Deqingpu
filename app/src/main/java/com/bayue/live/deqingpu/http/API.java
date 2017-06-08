@@ -8,7 +8,7 @@ import com.bayue.live.deqingpu.utils.Tracer;
 
 public class API {
     public static boolean isInner() {
-        return 1 == 2;
+        return 1 == 1;
     }
     //http://192.168.1.120/bayue/deqingpu/public/
     private final static String baseUrl_inner = "http://192.168.1.120/bayue/deqingpu/public/";
@@ -24,5 +24,15 @@ public class API {
     public static String UPDATE= "api/address/update";
     //设为默认（address_id，token ）
     public static String DEFAULT= "api/address/setdefault";
+
+    //登录
+    public static String DENGLU="api/login/signin";
+    //注册
+    public static String ZHUCE="api/login/register";
+    //验证码
+    public static String YANZHENG="api/sms/get_code";
+    //找回密码
+    public static String ZHAOHUIE="api/login/get_pwd";
+
 
 }

@@ -7,7 +7,18 @@
    <RelativeLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content">
-       <TextView android:id="@+id/tv_xiayibu_zhuce"
+       <LinearLayout android:id="@+id/ll_back_zhaohuei"
+           android:layout_width="50px"
+           android:layout_height="32px"
+           android:layout_alignParentLeft="true"
+           android:layout_marginLeft="30px"
+           android:layout_marginTop="70px">
+           <ImageView
+               android:layout_width="16px"
+               android:layout_height="32px"
+               android:src="@drawable/icon_24"/>
+       </LinearLayout>
+       <TextView android:id="@+id/ed_xiayibu_zhaohuei"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:textColor="@color/white"
@@ -35,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="欢 迎 注 册"
+            android:text="找 回 密 码"
             android:textSize="26px"
             android:layout_centerInParent="true"/>
     </RelativeLayout>
@@ -51,13 +62,13 @@
             android:layout_width="27px"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_103" />
-        <EditText  android:id="@+id/ed_shoujihao_zhuce"
+        <EditText android:id="@+id/ed_shoujihao_zhaohuei"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="输入手机号"
-            android:textSize="30px"
             android:textColorHint="@color/textcolor"
-            android:inputType="number"
+            android:textSize="30px"
+            android:digits="1234567890"
             android:maxLength="11"
             android:background="@color/transparent"
             android:textColor="@color/textcolor"
@@ -75,14 +86,13 @@
             android:layout_width="27px"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_104" />
-        <EditText  android:id="@+id/ed_yanzhengma_zhuce"
+        <EditText android:id="@+id/ed_yanzheng_zhaohuei"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="短信验证码"
             android:textColorHint="@color/textcolor"
-
             android:textSize="30px"
-            android:inputType="number"
+            android:digits="1234567890"
             android:maxLength="11"
             android:layout_weight="1"
             android:background="@color/transparent"
@@ -92,9 +102,10 @@
             android:layout_width="2px"
             android:layout_height="41px"
             android:background="@color/textcolor"/>
-        <TextView  android:id="@+id/tv_fasong_zhuce"
+        <TextView android:id="@+id/ed_fasong_zhaohuei"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:textSize="30px"
             android:text="点击发送"
             android:textColor="@color/textcolor"
@@ -114,12 +125,11 @@
             android:layout_width="27px"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_101" />
-        <EditText  android:id="@+id/ed_mima_zhuce"
+        <EditText android:id="@+id/ed_mima_zhaohuei"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="设置密码"
             android:textColorHint="@color/textcolor"
-
             android:textSize="30px"
             android:password="true"
             android:digits="@string/mima"
@@ -143,12 +153,11 @@
             android:layout_height="wrap_content"
             android:src="@drawable/icon_101" />
 
-        <EditText  android:id="@+id/ed_mima2_zhuce"
+        <EditText android:id="@+id/ed_mima2_zhaohuei"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="再次设置密码"
             android:textColorHint="@color/textcolor"
-
             android:textSize="30px"
             android:password="true"
             android:digits="@string/mima"
@@ -157,36 +166,5 @@
             android:textColor="@color/textcolor"
             android:layout_marginLeft="29px" />
     </LinearLayout>
-    <RelativeLayout
-        android:layout_marginTop="124px"
-        android:layout_width="match_parent"
-        android:layout_height="55px">
-        <LinearLayout  android:id="@+id/ll_denglu_zhuce"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_centerInParent="true">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:text="已有帐号，"
-                android:textSize="23px"
-                android:layout_centerInParent="true"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:text="@string/fanhui"
-                android:autoLink="all"
-                android:textSize="23px"
-                android:layout_centerInParent="true"/>
-
-        </LinearLayout>
-    </RelativeLayout>
-
-
-
 
 </LinearLayout>
