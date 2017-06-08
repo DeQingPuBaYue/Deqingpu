@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:paddingLeft="25px"
+    android:paddingRight="30px"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#f9f9f9">
+    <RelativeLayout
+        android:layout_marginTop="29px"
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.8">
+        <TextView android:id="@+id/tv_rizhi_ri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="26"
+            android:textSize="35px"
+            android:textColor="@color/titlecolor"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/titlecolor"
+            android:layout_marginTop="10px"
+            android:text="2017.04"
+            android:textSize="22px"
+            android:layout_below="@+id/tv_rizhi_ri"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <View
+            android:layout_width="2px"
+            android:layout_height="53px"
+            android:background="@color/titlecolor"/>
+        <ImageView
+            android:layout_width="14px"
+            android:layout_height="14px"
+            android:background="@drawable/black_bk"/>
+        <View
+            android:layout_width="2px"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:background="@color/titlecolor"/>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30px"
+        android:paddingLeft="15px"
+        android:paddingTop="15px"
+        android:paddingRight="30px"
+        android:paddingBottom="16px"
+        android:background="@drawable/rizhi_bk"
+        android:orientation="vertical"
+        android:layout_weight="5">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="小店新开张，欢迎大家光临！！"
+            android:textSize="20px"
+            android:textColor="@color/black"
+            android:singleLine="true"
+            android:layout_marginBottom="15px"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="20px" />
+        <RelativeLayout
+            android:layout_marginTop="15px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9:34"
+                android:layout_centerVertical="true"
+                android:textColor="@color/zilanmu_textcolor"
+                android:textSize="20px"
+                android:layout_alignParentLeft="true"/>
+            <ImageView android:id="@+id/iv_xing"
+                android:layout_width="20px"
+                android:layout_height="20px"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/icon_11"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -139,7 +139,7 @@ public class DengLu extends BaseActivity {
                 .add("password",mima)
                 .build();
         Request request = new Request.Builder()
-                .url(API.baseUrl+API.DENGLU)
+                .url("http://dqp.bayuenet.com/api/login/signin")
                 .post(body)
                 .build();
 
@@ -157,22 +157,24 @@ public class DengLu extends BaseActivity {
                 if (response.code() == 200){
                     Gson gson = new Gson();
                     final DengLuBean dengLuBean= gson.fromJson(msg,DengLuBean.class);
-                    Log.e(">>>>","denglu登录11");
+
+                    Log.e(">>>>",dengLuBean.getCode()+"");
                     ToolKit.runOnMainThreadSync(new Runnable() {
                         @Override
                         public void run() {
                             if (dengLuBean.getCode()==200){
                                 Log.e(">>>>","denglu登录22");
-//                                DensityUtil.showToast(DengLu.this,dengLuBean.getData());
+                                DensityUtil.showToast(DengLu.this,dengLuBean.getData());
                                 Preferences.saveString(getApplicationContext(),Preferences.TOKEN,dengLuBean.getToken());
                                 finish();
 
 
 
                             }else {
-//                                DensityUtil.showToast(UserInfoActivity.this,userInfoAvatarBean.getInfo());
+                                DensityUtil.showToast(DengLu.this,dengLuBean.getMsg());
+                                Log.e(">>>>",dengLuBean.getMsg());
                             }
-                            DensityUtil.showToast(DengLu.this,dengLuBean.getData());
+
                         }
                     });
                 }else {

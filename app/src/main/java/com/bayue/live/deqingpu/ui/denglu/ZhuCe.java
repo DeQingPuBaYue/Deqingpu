@@ -166,10 +166,10 @@ public class ZhuCe extends BaseActivity {
 
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
-//                String msg = response.body().string();
+                String msg = response.body().string();
                 if (response.code() == 200) {
                     Gson gson = new Gson();
-                    final YanZhengMa yanZhengMa = gson.fromJson(response.body().string(), YanZhengMa.class);
+                    final YanZhengMa yanZhengMa = gson.fromJson(msg, YanZhengMa.class);
                     ToolKit.runOnMainThreadSync(new Runnable() {
                         @Override
                         public void run() {
@@ -262,10 +262,10 @@ public class ZhuCe extends BaseActivity {
 
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
-//                String msg = response.body().string();
-                if (response.code() == 200) {
+                String msg = response.body().string();
+                if (response.code() == 200){
                     Gson gson = new Gson();
-                    final ZhuCeBean zhuCeBean = gson.fromJson(response.body().string(), ZhuCeBean.class);
+                    final ZhuCeBean zhuCeBean = gson.fromJson(msg, ZhuCeBean.class);
                     ToolKit.runOnMainThreadSync(new Runnable() {
                         @Override
                         public void run() {
@@ -273,11 +273,11 @@ public class ZhuCe extends BaseActivity {
 
                                DensityUtil.showToast(ZhuCe.this,zhuCeBean.getData());
                                 Log.e("@@@@@@",zhuCeBean.getData());
-                                try {
+                                /*try {
                                     Thread.sleep(2000);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
-                                }
+                                }*/
                                 Intent intent = new Intent(ZhuCe.this, DengLu.class);
                                 intent.putExtra("dianhua", edShoujihaoZhuce.getText().toString());
                                 intent.putExtra("mima", edMimaZhuce.getText().toString());
@@ -286,7 +286,7 @@ public class ZhuCe extends BaseActivity {
                                 ZhuCe.this.finish();
 
                             } else {
-                                DensityUtil.showToast(ZhuCe.this,zhuCeBean.getData());
+                                DensityUtil.showToast(ZhuCe.this,zhuCeBean.getMsg());
                             }
                         }
                     });

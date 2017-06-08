@@ -12,11 +12,19 @@ public class DengLuBean {
      * token : eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyNSwibmlrX25hbWUiOm51bGx9.hMdh-u7smXKodYB6YSjHOfM-ypmSJtjp2FZ_pfDj6u8
      * userinfo : {"nik_name":"","user_num":"270494","money":0,"pic":"","sign":"","birthday":""}
      */
-
+    private String msg;
     private String data;
     private int code;
     private String token;
     private UserinfoBean userinfo;
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 
     public String getData() {
         return data;

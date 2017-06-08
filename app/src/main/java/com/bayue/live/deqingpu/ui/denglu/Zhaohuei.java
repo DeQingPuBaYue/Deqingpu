@@ -260,7 +260,7 @@ public class Zhaohuei extends BaseActivity {
 
 
                             } else {
-                                DensityUtil.showToast(Zhaohuei.this, zhuCeBean.getData());
+                                DensityUtil.showToast(Zhaohuei.this, zhuCeBean.getMsg());
                             }
                         }
                     });

@@ -11,9 +11,17 @@ public class ZhuCeBean {
      * data : 注册成功, 赶快去登录吧
      * code : 200
      */
-
+    private String msg;
     private String data;
     private int code;
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 
     public String getData() {
         return data;
