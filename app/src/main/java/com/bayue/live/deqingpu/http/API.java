@@ -13,7 +13,7 @@ public class API {
     //http://192.168.1.120/bayue/deqingpu/public/
     private final static String baseUrl_inner = "http://192.168.1.120/bayue/deqingpu/public/";
     private final static String Domain_Inner = "http://192.168.1.120/bayue/deqingpu/public/";
-    private final static String Domain_net = "http://211.149.249.196/deqingpu/public/";
+    private final static String Domain_net = "http://dqp.bayuenet.com/";
     private final static String baseUrl_net = isInner() ? Domain_Inner  : Domain_net;
     public final static String baseUrl = Tracer.isUseDebugNet() ? baseUrl_inner : baseUrl_net;
     //获取所有地址
