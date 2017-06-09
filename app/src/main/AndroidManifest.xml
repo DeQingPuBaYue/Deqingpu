@@ -45,6 +45,10 @@
         <activity android:name=".ui.geren.QuanziActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <!--写日志界面-->
+        <activity android:name=".ui.geren.XierizhiActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
 
     </application>
     <!-- 访问网络 -->

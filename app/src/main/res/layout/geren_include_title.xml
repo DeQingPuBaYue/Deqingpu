@@ -30,12 +30,12 @@
             <TextView android:id="@+id/tv_titletext_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="圈子"
+                android:text="圈 子"
                 android:textColor="@color/white"
                 android:textSize="35px"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="12px"/>
+                android:layout_marginBottom="18px"/>
             <ImageView android:id="@+id/iv_bianji_title"
                 android:layout_width="44px"
                 android:layout_height="40px"

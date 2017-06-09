@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="30px"
+        android:background="#09323232"/>
+
+    <RelativeLayout android:id="@+id/rl_quanzi_geren"
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:background="@color/white"
+        android:paddingLeft="32px"
+        android:paddingRight="32px">
+
+        <ImageView
+            android:id="@+id/iv_gr_quanzi"
+            android:layout_width="35px"
+            android:layout_height="36px"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/icon_49" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="67px"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="34px"
+            android:layout_toRightOf="@+id/iv_gr_quanzi">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@color/transparent"
+                android:hint="搜索"
+                android:gravity="center_vertical"
+                android:textColorHint="@color/zilanmu_textcolor"
+                android:textColor="@color/zilanmu_textcolor"
+                android:textSize="28px" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#09323232"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="30px"
+        android:background="#09323232"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="404px"
+        android:background="@color/white"></ListView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#09323232"/>
+
+
+
+
+
+</LinearLayout>

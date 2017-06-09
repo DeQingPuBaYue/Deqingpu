@@ -1,5 +1,6 @@
 package com.bayue.live.deqingpu.ui.geren;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
@@ -190,6 +191,7 @@ public class QuanziActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.iv_bianji_title:
+                startActivity(new Intent(QuanziActivity.this,XierizhiActivity.class));
                 break;
             case R.id.tv_rizhi_quanzi:
                 vpQuanzi.setCurrentItem(0);
