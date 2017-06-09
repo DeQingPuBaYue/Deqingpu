@@ -10,7 +10,7 @@
         android:layout_height="90px"
         android:orientation="horizontal"
         android:background="@color/white">
-        <TextView
+        <TextView android:id="@+id/tv_rizhi_quanzi"
             android:text="日志"
             android:textColor="@color/zilanmu_textcolor"
             android:gravity="center"
@@ -18,7 +18,7 @@
             android:layout_weight="1"
             android:layout_width="0px"
             android:layout_height="match_parent" />
-        <TextView
+        <TextView android:id="@+id/tv_haoyou_quanzi"
             android:text="好友"
             android:textColor="@color/zilanmu_textcolor"
             android:gravity="center"
@@ -26,7 +26,7 @@
             android:layout_weight="1"
             android:layout_width="0px"
             android:layout_height="match_parent" />
-        <TextView
+        <TextView android:id="@+id/tv_guanzhu_quanzi"
             android:text="关注"
             android:textColor="@color/zilanmu_textcolor"
             android:gravity="center"
@@ -35,13 +35,15 @@
             android:layout_width="0px"
             android:layout_height="match_parent" />
     </LinearLayout>
-    <View
+    <View android:id="@+id/view_huaxian_quanzi"
         android:layout_width="230px"
         android:layout_height="2px"
         android:background="@color/titlecolor"/>
     <android.support.v4.view.ViewPager
+        android:id="@+id/vp_quanzi"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
     </android.support.v4.view.ViewPager>
 

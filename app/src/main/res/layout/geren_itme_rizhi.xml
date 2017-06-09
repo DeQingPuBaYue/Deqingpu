@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:paddingLeft="25px"
     android:paddingRight="30px"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#f9f9f9">
-    <RelativeLayout
+    <com.zhy.autolayout.AutoRelativeLayout
         android:layout_marginTop="29px"
         android:layout_width="0px"
         android:layout_height="wrap_content"
@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="26"
-            android:textSize="35px"
+            android:textSize="45px"
             android:textColor="@color/titlecolor"
             android:layout_centerHorizontal="true"/>
         <TextView
@@ -24,35 +24,31 @@
             android:textColor="@color/titlecolor"
             android:layout_marginTop="10px"
             android:text="2017.04"
-            android:textSize="22px"
+            android:textSize="25px"
             android:layout_below="@+id/tv_rizhi_ri"
             android:layout_centerHorizontal="true"/>
-    </RelativeLayout>
-    <LinearLayout
+    </com.zhy.autolayout.AutoRelativeLayout>
+    <com.zhy.autolayout.AutoRelativeLayout
         android:layout_width="0px"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.2"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
-        <View
+        android:layout_height="match_parent"
+        android:layout_weight="0.2">
+        <ImageView
             android:layout_width="2px"
-            android:layout_height="53px"
-            android:background="@color/titlecolor"/>
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:background="#848484"/>
         <ImageView
             android:layout_width="14px"
             android:layout_height="14px"
+            android:layout_marginTop="37px"
+            android:layout_centerHorizontal="true"
             android:background="@drawable/black_bk"/>
-        <View
-            android:layout_width="2px"
-            android:layout_height="0px"
-            android:layout_weight="1"
-            android:background="@color/titlecolor"/>
 
 
 
-    </LinearLayout>
+    </com.zhy.autolayout.AutoRelativeLayout>
 
-    <LinearLayout
+    <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="0px"
         android:layout_height="wrap_content"
         android:layout_marginTop="30px"
@@ -67,14 +63,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="小店新开张，欢迎大家光临！！"
-            android:textSize="20px"
+            android:textSize="30px"
             android:textColor="@color/black"
             android:singleLine="true"
             android:layout_marginBottom="15px"/>
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="20px" />
-        <RelativeLayout
+            android:layout_height="220px"
+            android:scaleType="fitXY"
+            android:src="@drawable/picture_1"/>
+        <com.zhy.autolayout.AutoRelativeLayout
             android:layout_marginTop="15px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -84,28 +82,28 @@
                 android:text="9:34"
                 android:layout_centerVertical="true"
                 android:textColor="@color/zilanmu_textcolor"
-                android:textSize="20px"
+                android:textSize="30px"
                 android:layout_alignParentLeft="true"/>
             <ImageView android:id="@+id/iv_xing"
-                android:layout_width="20px"
-                android:layout_height="20px"
+                android:layout_width="30px"
+                android:layout_height="30px"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/icon_11"
                 android:layout_centerVertical="true"
                 android:scaleType="fitXY"/>
             <TextView android:id="@+id/tv_shu"
-                android:layout_width="35px"
+                android:layout_width="50px"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_marginRight="10px"
                 android:text="888"
-                android:textSize="20px"
+                android:textSize="26px"
                 android:singleLine="true"
                 android:textColor="@color/zilanmu_textcolor"
                 android:layout_toLeftOf="@+id/iv_xing"/>
             <ImageView android:id="@+id/iv_zhuanzai"
-                android:layout_width="20px"
-                android:layout_height="20px"
+                android:layout_width="30px"
+                android:layout_height="30px"
                 android:layout_toLeftOf="@+id/tv_shu"
                 android:src="@drawable/icon_123"
                 android:layout_marginRight="20px"
@@ -117,12 +115,12 @@
                 android:gravity="center"
                 android:layout_marginRight="10px"
                 android:text="一件转载"
-                android:textSize="20px"
+                android:textSize="30px"
                 android:singleLine="true"
                 android:textColor="@color/zilanmu_textcolor"
                 android:layout_toLeftOf="@+id/iv_zhuanzai"/>
-        </RelativeLayout>
-    </LinearLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
 
 
-</LinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

@@ -41,6 +41,10 @@
         <activity android:name=".ui.denglu.Zhaohuei"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <!--圈子界面-->
+        <activity android:name=".ui.geren.QuanziActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
 
     </application>
     <!-- 访问网络 -->
