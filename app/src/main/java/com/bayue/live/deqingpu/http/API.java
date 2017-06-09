@@ -8,7 +8,7 @@ import com.bayue.live.deqingpu.utils.Tracer;
 
 public class API {
     public static boolean isInner() {
-        return 1 == 1;
+        return 1 == 2;
     }
     //http://192.168.1.120/bayue/deqingpu/public/
     private final static String baseUrl_inner = "http://192.168.1.120/bayue/deqingpu/public/";

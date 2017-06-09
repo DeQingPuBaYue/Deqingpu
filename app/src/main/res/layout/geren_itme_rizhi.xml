@@ -93,7 +93,34 @@
                 android:src="@drawable/icon_11"
                 android:layout_centerVertical="true"
                 android:scaleType="fitXY"/>
-
+            <TextView android:id="@+id/tv_shu"
+                android:layout_width="35px"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginRight="10px"
+                android:text="888"
+                android:textSize="20px"
+                android:singleLine="true"
+                android:textColor="@color/zilanmu_textcolor"
+                android:layout_toLeftOf="@+id/iv_xing"/>
+            <ImageView android:id="@+id/iv_zhuanzai"
+                android:layout_width="20px"
+                android:layout_height="20px"
+                android:layout_toLeftOf="@+id/tv_shu"
+                android:src="@drawable/icon_123"
+                android:layout_marginRight="20px"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"/>
+            <TextView android:id="@+id/tv_yijian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginRight="10px"
+                android:text="一件转载"
+                android:textSize="20px"
+                android:singleLine="true"
+                android:textColor="@color/zilanmu_textcolor"
+                android:layout_toLeftOf="@+id/iv_zhuanzai"/>
         </RelativeLayout>
     </LinearLayout>
 

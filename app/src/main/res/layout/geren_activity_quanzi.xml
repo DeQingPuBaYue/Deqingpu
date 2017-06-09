@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f9f9f9">
+    <include layout="@layout/geren_include_title"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:orientation="horizontal"
+        android:background="@color/white">
+        <TextView
+            android:text="日志"
+            android:textColor="@color/zilanmu_textcolor"
+            android:gravity="center"
+            android:textSize="30px"
+            android:layout_weight="1"
+            android:layout_width="0px"
+            android:layout_height="match_parent" />
+        <TextView
+            android:text="好友"
+            android:textColor="@color/zilanmu_textcolor"
+            android:gravity="center"
+            android:textSize="30px"
+            android:layout_weight="1"
+            android:layout_width="0px"
+            android:layout_height="match_parent" />
+        <TextView
+            android:text="关注"
+            android:textColor="@color/zilanmu_textcolor"
+            android:gravity="center"
+            android:textSize="30px"
+            android:layout_weight="1"
+            android:layout_width="0px"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <View
+        android:layout_width="230px"
+        android:layout_height="2px"
+        android:background="@color/titlecolor"/>
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+
+
+
+
+
+
+
+
+
+</LinearLayout>

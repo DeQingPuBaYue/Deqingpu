@@ -139,7 +139,7 @@ public class DengLu extends BaseActivity {
                 .add("password",mima)
                 .build();
         Request request = new Request.Builder()
-                .url("http://dqp.bayuenet.com/api/login/signin")
+                .url(API.baseUrl+API.DENGLU)
                 .post(body)
                 .build();
 
