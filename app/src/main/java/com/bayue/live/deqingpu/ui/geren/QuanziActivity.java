@@ -53,6 +53,7 @@ public class QuanziActivity extends BaseActivity {
      * 屏幕的宽度
      */
     private int screenWidth;
+    //s'd'f's'd'f's'd'f's'd'f's'd'f's'd'
 
     ArrayList<BaseFragment> fragments=new ArrayList<>();
 
