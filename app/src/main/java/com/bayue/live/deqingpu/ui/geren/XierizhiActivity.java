@@ -3,6 +3,8 @@ package com.bayue.live.deqingpu.ui.geren;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -17,6 +19,8 @@ import android.widget.TextView;
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.base.BaseActivity;
 import com.tangxiaolv.telegramgallery.GalleryActivity;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -148,7 +152,26 @@ public class XierizhiActivity extends BaseActivity {
 
 
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       /*if(resultCode!=12){
+        Log.e(">>>>>>data>>>>>",data+"");
+           return;
 
+       };*/
+        List<String> photos = (List<String>) data.getSerializableExtra(GalleryActivity.PHOTOS);
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        opts.inPreferredConfig = Bitmap.Config.ARGB_4444;
+        opts.inSampleSize = 4;
+        Bitmap bitmap = BitmapFactory.decodeFile(photos.get(0), opts);
+        ivTupianXie.setImageBitmap(bitmap);
+
+
+
+
+//        Log.e(">>>>>>data>>>>>",data+"");
+
+    }
 
 
 }
