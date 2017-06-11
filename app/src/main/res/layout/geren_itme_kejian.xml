@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="100px">
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100px">
+        <com.bayue.live.deqingpu.view.CircleImageView
+            android:id="@+id/iv_touxiang_itme"
+            android:layout_width="61px"
+            android:layout_height="61px"
+            android:layout_centerVertical="true"
+            android:src="@drawable/avatarsample48"
+            android:layout_marginLeft="65px"/>
+        <TextView android:id="@+id/iv_name_itme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户123456"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30px"
+            android:textSize="30px"
+            android:layout_toRightOf="@+id/iv_touxiang_itme"/>
+        <ImageView android:id="@+id/iv_xuanze_itme"
+            android:layout_width="35px"
+            android:layout_height="35px"
+            android:src="@drawable/icon_39"
+            android:layout_marginRight="35px"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+</LinearLayout>

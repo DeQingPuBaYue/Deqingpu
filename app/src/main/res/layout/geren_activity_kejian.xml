@@ -2,6 +2,51 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="118px"
+        android:paddingLeft="28px"
+        android:paddingRight="36px"
+        android:background="@color/titlecolor">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="90px"
+            android:layout_marginTop="28px">
+            <LinearLayout android:id="@+id/ll_back_title"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:gravity="bottom"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="14px"
+                android:layout_width="60px"
+                android:layout_height="60px">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40px"
+                    android:src="@drawable/icon_24"/>
+            </LinearLayout>
+            <TextView android:id="@+id/tv_titletext_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="圈 子"
+                android:textColor="@color/white"
+                android:textSize="35px"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="18px"/>
+            <TextView android:id="@+id/tv_queding_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="14px"
+                android:layout_alignParentRight="true"
+                android:text="确定"
+                android:textColor="@color/white"
+                android:textSize="35px"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
@@ -12,30 +57,36 @@
         android:layout_width="match_parent"
         android:layout_height="90px"
         android:background="@color/white"
-        android:paddingLeft="32px"
+        android:paddingLeft="0px"
         android:paddingRight="32px">
+        <LinearLayout android:id="@+id/ll_soso_quanzi"
+            android:layout_width="90px"
+            android:layout_height="match_parent"
+            android:gravity="center">
 
-        <ImageView
-            android:id="@+id/iv_gr_quanzi"
-            android:layout_width="35px"
-            android:layout_height="36px"
-            android:layout_centerVertical="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/icon_49" />
+            <ImageView
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_49" />
+        </LinearLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="67px"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="34px"
-            android:layout_toRightOf="@+id/iv_gr_quanzi">
 
-            <EditText
+            android:layout_toRightOf="@+id/ll_soso_quanzi">
+
+            <EditText android:id="@+id/ed_sosotext_quanzi"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:background="@color/transparent"
+                android:background="@drawable/soso_bk"
+                android:paddingLeft="30px"
                 android:hint="搜索"
                 android:gravity="center_vertical"
                 android:textColorHint="@color/zilanmu_textcolor"
@@ -53,10 +104,12 @@
         android:layout_height="1px"
         android:layout_marginTop="30px"
         android:background="#09323232"/>
-    <ListView
+    <ListView android:id="@+id/lv_yonghu_quanzi"
         android:layout_width="match_parent"
         android:layout_height="404px"
-        android:background="@color/white"></ListView>
+        android:background="@color/white">
+
+    </ListView>
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"

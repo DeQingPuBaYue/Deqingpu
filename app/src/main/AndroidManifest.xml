@@ -49,6 +49,10 @@
         <activity android:name=".ui.geren.XierizhiActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <!--日志好友可见界面-->
+        <activity android:name=".ui.geren.KejianActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
 
     </application>
     <!-- 访问网络 -->

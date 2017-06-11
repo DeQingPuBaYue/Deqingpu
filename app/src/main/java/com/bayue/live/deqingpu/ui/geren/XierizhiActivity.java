@@ -1,5 +1,6 @@
 package com.bayue.live.deqingpu.ui.geren;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -99,6 +100,7 @@ public class XierizhiActivity extends BaseActivity {
                 ivBukejianXie.setImageResource(R.drawable.icon_38);
                 break;
             case R.id.rl_sheikejian_xie:
+                startActivity(new Intent(this,KejianActivity.class));
                 break;
         }
     }

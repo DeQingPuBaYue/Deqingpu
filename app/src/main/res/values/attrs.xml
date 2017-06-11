@@ -35,7 +35,6 @@
 
 
 
-
     <declare-styleable name="drop_down_list_attr">
         <attr name="isDropDownStyle" format="boolean" />
         <attr name="isOnBottomStyle" format="boolean" />
@@ -191,6 +190,12 @@
             <enum name="textWebPassword" value="3" />
         </attr>
 
+    </declare-styleable>
+    <declare-styleable name="MyCircleImageView">
+        <attr name="civ_border_width" format="dimension"/>
+        <attr name="civ_border_color" format="color"/>
+        <attr name="civ_border_overlay" format="boolean"/>
+        <attr name="civ_fill_color" format="color"/>
     </declare-styleable>
 
 
