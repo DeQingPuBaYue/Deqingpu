@@ -53,6 +53,10 @@
         <activity android:name=".ui.geren.KejianActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <!--相册界面-->
+        <activity android:name="com.tangxiaolv.telegramgallery.GalleryActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
 
     </application>
     <!-- 访问网络 -->

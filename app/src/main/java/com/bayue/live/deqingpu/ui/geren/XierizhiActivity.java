@@ -1,8 +1,13 @@
 package com.bayue.live.deqingpu.ui.geren;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,6 +16,7 @@ import android.widget.TextView;
 
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.base.BaseActivity;
+import com.tangxiaolv.telegramgallery.GalleryActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -89,6 +95,7 @@ public class XierizhiActivity extends BaseActivity {
             case R.id.iv_bianji_title:
                 break;
             case R.id.iv_tupian_xie:
+                setHpoto();
                 break;
             case R.id.iv_gongkai_xie:
                 ivGongkaiXie.setImageResource(R.drawable.icon_38);
@@ -105,8 +112,43 @@ public class XierizhiActivity extends BaseActivity {
         }
     }
 
-    private void dfs() {
+    private void setHpoto(){
+
+        LayoutInflater inflaterDl = LayoutInflater.from(this);
+        LinearLayout layout = (LinearLayout)inflaterDl.inflate(R.layout.dialog_hpoto, null );
+
+        //对话框
+        final Dialog dialog = new AlertDialog.Builder(XierizhiActivity.this).create();
+        dialog.show();
+        WindowManager.LayoutParams params = dialog.getWindow().getAttributes() ;
+        Display display =getWindowManager().getDefaultDisplay();
+        params.width =(int) (display.getWidth()*0.5);
+
+        //使用这种方式更改了dialog的框宽
+        dialog.getWindow().setAttributes(params);
+        dialog.getWindow().setContentView(layout);
+
+        LinearLayout pai= (LinearLayout) layout.findViewById(R.id.ll_paizhao_diadog);
+        pai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        LinearLayout ce= (LinearLayout) layout.findViewById(R.id.ll_xiangce_diadog);
+        ce.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GalleryActivity.openActivity(XierizhiActivity.this, true,12);
+                dialog.dismiss();
+            }
+        });
+
+
+
+
     }
+
 
 
 }
