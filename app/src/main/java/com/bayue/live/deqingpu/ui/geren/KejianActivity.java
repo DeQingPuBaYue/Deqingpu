@@ -41,6 +41,7 @@ public class KejianActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        tvTitletextTitle.setText("谁可以看");
         adapter=new KejianYonghuAdapter(this,null);
 
         lvYonghuQuanzi.setAdapter(adapter);

@@ -62,7 +62,7 @@ public class KejianYonghuAdapter extends BaseAdapter {
     }
 
 
-    class ViewHolder {
+    static class ViewHolder {
         @BindView(R.id.iv_touxiang_itme)
         CircleImageView ivTouxiangItme;
         @BindView(R.id.iv_name_itme)

@@ -38,5 +38,15 @@ public class API {
     //找回密码
     public static String ZHAOHUIE="api/login/get_pwd";
 
+    //圈子列表
+    public static String QUANZI_LIEBIAO="api/society/list";
+    //发布圈子
+    public static String QUANZI_FABU="api/society/publish";
+    //圈子好友
+    public static String QUANZI_HAOYOU="api/society/firend";
+    //圈子关注
+    public static String QUANZI_GUANZHU="api/society/attention";
+
+
 
 }

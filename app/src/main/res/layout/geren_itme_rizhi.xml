@@ -18,7 +18,7 @@
             android:textSize="45px"
             android:textColor="@color/titlecolor"
             android:layout_centerHorizontal="true"/>
-        <TextView
+        <TextView android:id="@+id/tv_rizhi_nianyue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/titlecolor"
@@ -59,7 +59,7 @@
         android:background="@drawable/rizhi_bk"
         android:orientation="vertical"
         android:layout_weight="5">
-        <TextView
+        <TextView android:id="@+id/tv_rizhi_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="小店新开张，欢迎大家光临！！"
@@ -67,7 +67,7 @@
             android:textColor="@color/black"
             android:singleLine="true"
             android:layout_marginBottom="15px"/>
-        <ImageView
+        <ImageView android:id="@+id/tv_rizhi_pic"
             android:layout_width="wrap_content"
             android:layout_height="220px"
             android:scaleType="fitXY"
@@ -76,7 +76,7 @@
             android:layout_marginTop="15px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
+            <TextView android:id="@+id/tv_rizhi_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="9:34"

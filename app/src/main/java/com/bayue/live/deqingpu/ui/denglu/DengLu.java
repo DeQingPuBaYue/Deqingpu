@@ -142,9 +142,6 @@ public class DengLu extends BaseActivity {
                 .url(API.baseUrl+API.DENGLU)
                 .post(body)
                 .build();
-
-
-
         OKHttpUtils.enqueue(request, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
