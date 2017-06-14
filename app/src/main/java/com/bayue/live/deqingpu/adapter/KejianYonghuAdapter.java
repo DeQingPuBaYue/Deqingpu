@@ -48,7 +48,7 @@ public class KejianYonghuAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.geren_itme_kejian, null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.geren_item_kejian, null);
             holder=new ViewHolder(convertView);
             convertView.setTag(holder);
 

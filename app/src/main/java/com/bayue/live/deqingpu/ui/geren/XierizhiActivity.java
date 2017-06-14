@@ -242,7 +242,7 @@ public class XierizhiActivity extends BaseActivity {
         if(!getValue()){
             return;
         }
-
+        Log.e("pic++++++++=======",pic);
         RequestBody body = new FormBody.Builder()
                 .add("apiversion","v.1.0")
                 .add("safecode","BaYue.deqingpu")

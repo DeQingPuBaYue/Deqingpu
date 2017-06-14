@@ -1,6 +1,7 @@
 package com.bayue.live.deqingpu.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.entity.geren.RizhiBean;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -48,7 +50,7 @@ public class RizhiAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup parent) {
         ViewHolder holder;
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.geren_itme_rizhi, null);
+            view = LayoutInflater.from(context).inflate(R.layout.geren_item_rizhi, null);
             holder = new ViewHolder(view);
             view.setTag(holder);
         } else {
@@ -60,7 +62,25 @@ public class RizhiAdapter extends BaseAdapter {
         String ri=time.substring(8,10);
         holder.tvRizhiRi.setText(ri);
         String nianyue=time.substring(0,4)+"."+time.substring(5,7);
+        holder.tvRizhiNianyue.setText(nianyue);
 
+        String desc=dataBean.getDesc();
+        holder.tvRizhiDesc.setText(desc);
+
+        String pic=dataBean.getPic();
+        Log.e("pic=====",pic);
+        if(pic.isEmpty()||pic.equals("")){
+            holder.tvRizhiPic.setVisibility(View.GONE);
+        }else {
+            holder.tvRizhiPic.setVisibility(View.VISIBLE);
+
+            Glide.with(context)
+                    .load(pic)
+                    .asBitmap()
+                    .into(holder.tvRizhiPic);
+        }
+        String xiaoshi=time.substring(11);
+        holder.tvRizhiTime.setText(xiaoshi);
         return view;
     }
 

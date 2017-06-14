@@ -21,6 +21,7 @@ import com.bayue.live.deqingpu.utils.ToolKit;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -43,7 +44,7 @@ public class QuanziFragmentRizhi extends BaseFragment {
     @BindView(R.id.lv_rizhi)
     ListView lvRizhi;
     Unbinder unbinder;
-    List<RizhiBean.DataBean> data;
+    List<RizhiBean.DataBean> data=new ArrayList<RizhiBean.DataBean>();
     RizhiAdapter adapter;
     @Override
     protected int getViewId() {
@@ -112,7 +113,16 @@ public class QuanziFragmentRizhi extends BaseFragment {
                         public void run() {
                             if (rizhiBean.getCode()==200){
                                 Log.e(">>>>","日志——————");
-                                data=rizhiBean.getData();
+                                List<RizhiBean.DataBean> d=rizhiBean.getData();
+                                Log.e("d.size()======",d.size()+"");
+                                data.clear();
+                                for (int i=d.size(); i>0;i--) {
+                                    Log.e("i==========",i+"");
+                                    data.add(d.get(i-1));
+                                }
+
+                                Log.e("data",data.size()+"");
+
                                 adapter.notifyDataSetChanged();
 //                                DensityUtil.showToast(getContext(),fabuBean.getData());
 
