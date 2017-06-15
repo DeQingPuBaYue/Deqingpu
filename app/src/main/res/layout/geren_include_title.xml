@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="118px">
+    android:layout_height="128px">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="118px"
+        android:layout_height="128px"
         android:paddingLeft="28px"
         android:paddingRight="36px"
         android:background="@color/titlecolor">

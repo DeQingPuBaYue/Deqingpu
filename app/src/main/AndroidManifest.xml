@@ -59,6 +59,19 @@
         <activity android:name="com.tangxiaolv.telegramgallery.GalleryActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <!--买单界面-->
+        <activity android:name=".ui.merchant.pay.PayActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <!--确认支付界面-->
+        <activity android:name=".ui.merchant.pay.ConfirmPayActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <!--支付成功界面-->
+        <activity android:name=".ui.merchant.pay.SuccessPayActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+
 
     </application>
     <!-- 访问网络 -->

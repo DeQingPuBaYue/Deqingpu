@@ -1,5 +1,6 @@
 package com.bayue.live.deqingpu.ui.merchant;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.base.BaseActivity;
 import com.bayue.live.deqingpu.entity.StoreDetail;
+import com.bayue.live.deqingpu.ui.merchant.pay.PayActivity;
 import com.bayue.live.deqingpu.utils.GsonHelper;
 import com.bayue.live.deqingpu.utils.Guard;
 import com.bayue.live.deqingpu.utils.Tracer;
@@ -104,6 +106,18 @@ public class MerchantDetailActivity extends BaseActivity {
 
     @OnClick({R.id.btnMerchantCheck, R.id.txtMerchantCall, R.id.txtJumpCall, R.id.linMerchantGoods, R.id.txtCommentAll})
     void setOnClick(View view){
+        switch (view.getId()) {
+            case  R.id.btnMerchantCheck:
+                startActivity(new Intent(MerchantDetailActivity.this, PayActivity.class));
+
+                break;
+
+
+
+
+
+        }
+
 
     }
 

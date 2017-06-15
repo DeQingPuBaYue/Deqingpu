@@ -88,4 +88,5 @@
     <string name="crop__done">DONE</string>
     <string name="crop__cancel" tools:ignore="ButtonCase">CANCEL</string>
 
+    <string name="dingdan">未 使 用</string>
 </resources>
