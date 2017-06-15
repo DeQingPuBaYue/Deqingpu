@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:padding="@dimen/dp_10" android:background="@color/white"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txtMerchantDetailStoreName"
+            android:text="@string/app_name"
+            style="@style/BigSizeBlackStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtMerchantDetailCount"
+            android:text="@string/app_name"
+            style="@style/normalSizeGreyStyle"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_2"
+            android:drawableLeft="@mipmap/icon_point"
+            android:drawablePadding="@dimen/dp_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnMerchantCheck"
+        android:text="@string/btn_check"
+        android:textColor="@color/white"
+        android:background="@drawable/button_black_shape"
+        android:textSize="@dimen/sp_16"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="@dimen/top_bar_max_height"
+        android:layout_height="@dimen/dp_25" />
+</RelativeLayout>

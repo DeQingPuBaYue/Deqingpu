@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:padding="@dimen/dp_10">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txtImgTip"
+            style="@style/normalSizeBlackStyle"
+            android:text="@string/app_name"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:id="@+id/linAuthTip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/normalSizeBlackStyle"
+                android:text="@string/tip_look_ex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:src="@mipmap/icon_129"
+                android:layout_marginLeft="@dimen/dp_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linUploadImg"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:background="@color/color_white"
+        android:layout_marginTop="@dimen/dp_4"
+        android:layout_height="@dimen/card_lin_hight">
+            <ImageView
+                android:id="@+id/imgAuthPhoto"
+                android:src="@mipmap/icon_128"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                style="@style/normalSizeGreyStyle"
+                android:text="@string/tip_update_photo"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/txtTipUpImg"
+        android:text="@string/app_name"
+        android:orientation="horizontal"
+        style="@style/normalSizeGreyStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

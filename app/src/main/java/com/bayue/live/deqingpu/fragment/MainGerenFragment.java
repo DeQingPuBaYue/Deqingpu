@@ -12,6 +12,7 @@ import com.bayue.live.deqingpu.base.BaseFragment;
 import com.bayue.live.deqingpu.data.Constants;
 import com.bayue.live.deqingpu.preferences.Preferences;
 import com.bayue.live.deqingpu.ui.AddressActivity;
+import com.bayue.live.deqingpu.ui.certification.CertificationActivity;
 import com.bayue.live.deqingpu.ui.denglu.DengLu;
 import com.bayue.live.deqingpu.ui.geren.QuanziActivity;
 import com.bayue.live.deqingpu.utils.Tracer;
@@ -112,6 +113,7 @@ public class MainGerenFragment extends BaseFragment {
             case R.id.rl_gouwuche_geren:
                 break;
             case R.id.rl_renzheng_geren:
+                startActivity(new Intent(baseActivity, CertificationActivity.class));
                 break;
             case R.id.rl_dianpu_geren:
                 break;

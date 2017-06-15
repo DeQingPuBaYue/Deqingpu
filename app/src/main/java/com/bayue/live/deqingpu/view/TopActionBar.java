@@ -27,7 +27,7 @@ public class TopActionBar extends LinearLayout {
     final static String TAG = "TopActionBar";
 
     //左右按钮
-    LinearLayout btnBack, btnMenu;
+    LinearLayout btnBack, btnMenu, linView;
 
     //三个文本
     TextView labBack, labTitle, labMenu;
@@ -120,6 +120,9 @@ public class TopActionBar extends LinearLayout {
         ta.recycle();
     }
 
+    public void setBackground(int resId){
+        linView.setBackgroundColor(resId);
+    }
     public void setTitle(String title) {
         labTitle.setText(title);
     }
@@ -180,6 +183,7 @@ public class TopActionBar extends LinearLayout {
         btnBack.setVisibility(INVISIBLE);
 
         labTitle = getView(R.id.labTitle);
+        linView = getView(R.id.topBar);
 
         btnMenu = getView(R.id.btnMenu);
         labMenu = getView(R.id.labMenu);

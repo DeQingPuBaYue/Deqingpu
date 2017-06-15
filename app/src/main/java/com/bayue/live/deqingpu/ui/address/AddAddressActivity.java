@@ -2,6 +2,7 @@ package com.bayue.live.deqingpu.ui.address;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
@@ -29,34 +30,33 @@ import android.widget.TextView;
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.adapter.MyAdapter;
 import com.bayue.live.deqingpu.base.BaseActivity;
+import com.bayue.live.deqingpu.base.HTTPUtils;
 import com.bayue.live.deqingpu.base.MyBaseSubscriber;
 import com.bayue.live.deqingpu.data.Constants;
 import com.bayue.live.deqingpu.data.GetJsonDataUtil;
 import com.bayue.live.deqingpu.entity.JsonBean;
 import com.bayue.live.deqingpu.entity.ProvinceBean;
 import com.bayue.live.deqingpu.entity.ResultModel;
+import com.bayue.live.deqingpu.entity.Return;
 import com.bayue.live.deqingpu.http.API;
 import com.bayue.live.deqingpu.preferences.Preferences;
+import com.bayue.live.deqingpu.utils.DensityUtil;
 import com.bayue.live.deqingpu.utils.GsonHelper;
 import com.bayue.live.deqingpu.utils.Guard;
 import com.bayue.live.deqingpu.utils.ToastUtils;
+import com.bayue.live.deqingpu.utils.ToolKit;
 import com.bayue.live.deqingpu.utils.Tracer;
 import com.bayue.live.deqingpu.utils.Utils;
-import com.bayue.live.deqingpu.view.PopupWindowListView;
 import com.bayue.live.deqingpu.view.TopActionBar;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.tamic.novate.BaseApiService;
 import com.tamic.novate.Novate;
-import com.tamic.novate.NovateResponse;
 import com.tamic.novate.Throwable;
 
 import org.json.JSONArray;
 
 import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,9 +65,11 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-import static com.bayue.live.deqingpu.http.API.baseUrl;
 import static com.bayue.live.deqingpu.utils.Utils.getContext;
 
 /**
@@ -89,12 +91,12 @@ public class AddAddressActivity extends BaseActivity {
     LinearLayout linDel;
 
     String addressPName = "", addressCName = "", addressDName = "" ,addressName = "", action = "";
-    int proId, cityId, distId;
-    private static final int MSG_LOAD_DATA = 0x0001;
-    private static final int MSG_LOAD_SUCCESS = 0x0002;
-    private static final int MSG_LOAD_FAILED = 0x0003;
-    private static final int MSG_LOAD_ADD = 0x0004;
-    private static final int MSG_LOAD_DEL = 0x0005;
+    int proId = 3, cityId = 36, distId = 398;
+    public static final int MSG_LOAD_DATA = 0x0001;
+    public static final int MSG_LOAD_SUCCESS = 0x0002;
+    public static final int MSG_LOAD_FAILED = 0x0003;
+    public static final int MSG_LOAD_ADD = 0x0004;
+    public static final int MSG_LOAD_DEL = 0x0005;
     private ArrayList<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
@@ -104,8 +106,7 @@ public class AddAddressActivity extends BaseActivity {
     private String TAG = "AddAddressActivity";
     private PopupWindow popupWindows;
     private View contentView;
-    private String[] kinds = { "休闲食品", "生鲜果蔬", "办公/家居", "其它", "鲜花", "蛋糕",
-            "大件物品" };
+    String token= "";
     @Override
     protected int getViewId() {
         return R.layout.ac_add_address;
@@ -113,31 +114,28 @@ public class AddAddressActivity extends BaseActivity {
     @Override
     protected void initViews() {
         action = baseActivity.getIntent().getStringExtra("action");
+        if (action.equals("edit")){
+            String value  = baseActivity.getIntent().getStringExtra("bean");
+            Tracer.e(TAG, value);
+            ResultModel.DataBean bean = (ResultModel.DataBean) GsonHelper.getInstanceByJson(ResultModel.DataBean.class, value);
+            if (!Guard.isNull(bean)){
+                edtConsignee.setText(bean.getConsignee());
+                edtTell.setText(bean.getMobile());
+                edtDetail.setText(bean.getAddress());
+                proId = bean.getProvince();
+                cityId = bean.getCity();
+//                distId = bean.getDistrict();
+                txtGetAddress.setText(bean.getProvince_name()+ "\t\t" +bean.getCity_name() + "\t\t" + bean.getDistrict_name());
+                distId = bean.getAddress_id();
+            }
+        }
         topBar.setTitle(getString(R.string.title_edit_address));
         topBar.setMenuTitle(getString(R.string.tv_save));
         topBar.hideMenuIcon();
-        topBar.setMenuClickListener(new TopActionBar.MenuClickListener() {
-            @Override
-            public void menuClick() {
-                String edtName = edtConsignee.getText().toString();
-                String edtPhone = edtTell.getText().toString();
-                String edtDist = edtDetail.getText().toString();
-                String token = Preferences.getString(getContext(), Preferences.TOKEN);
-                Map<String, Object> map = Constants.getMap();
-                map.put("province",proId);
-                map.put("city",cityId);
-                map.put("district",distId);
-                map.put("token",token);
-                map.put("consignee",edtName);
-                map.put("mobile",edtPhone);
-                map.put("address",edtDist);
-                getDataFromNet(API.ADDADDRESS, map, null, MSG_LOAD_ADD);
-
-            }
-        });
-        Tracer.e(TAG,API.baseUrl);
-        headers.put("Accept", "application/json");
-        headers.put("Content-Type", "application");
+        token = Preferences.getString(getContext(), Preferences.TOKEN);
+        showPopwindow();
+//        headers.put("Accept", "application/json");
+//        headers.put("Content-Type", "application");
         novate = new Novate.Builder(this)
                 //.addParameters(parameters)//公共参数
                 .connectTimeout(5)
@@ -147,7 +145,35 @@ public class AddAddressActivity extends BaseActivity {
                 .addLog(true)
                 .build();
         BaseApiService api = novate.create(BaseApiService.class);
-        showPopwindow();
+        topBar.setMenuClickListener(new TopActionBar.MenuClickListener() {
+            @Override
+            public void menuClick() {
+                String edtName = edtConsignee.getText().toString();
+                String edtPhone = edtTell.getText().toString();
+                String edtDist = edtDetail.getText().toString();
+                Map<String, Object> map = Constants.getMap();
+                map.put("province", proId);
+                map.put("city", cityId);
+                map.put("district", distId);
+//                map.put("token", token);
+                map.put("consignee", edtName);
+                map.put("mobile", edtPhone);
+                map.put("address", edtDist);
+                if (action.equals("edit")){
+                    getDataFromNet(API.UPDATE, map, null, MSG_LOAD_ADD);
+                }else {
+                    getDataFromNet(API.ADDADDRESS, map, null, MSG_LOAD_ADD);
+                }
+            }
+        });
+//        topBar.setBackClickListener(new TopActionBar.BackClickListener() {
+//            @Override
+//            public void backClick() {
+//                if (popupWindows!= null && popupWindows.isShowing()){
+//                    popupWindows.dismiss();
+//                }
+//            }
+//        });
     }
 
     @OnClick({R.id.linDel, R.id.linSelectArea})
@@ -157,13 +183,19 @@ public class AddAddressActivity extends BaseActivity {
                 Map<String, Object> map = Constants.getMap();
                 map.put("region_type","1");
                 isProvince = MSG_LOAD_DATA;
-                getDataFromNet(API.GETADDRESS, map, view, MSG_LOAD_DATA);
+//                getDataFromNet(API.GETADDRESS, map, view, MSG_LOAD_DATA);
+                Map<String, Object> hashMap = new HashMap<>();
+                hashMap.put("region_type","1");
+                getDataFromOKHttp(API.baseUrl+ API.GETADDRESS ,hashMap, view, MSG_LOAD_DATA);
                 break;
             case R.id.linDel:
-                if (distId>0){
-
+                if (distId>0 && action.equals("edit")){
+                    Map<String, Object> delMap = Constants.getMap();
+                    delMap.put("address_id",distId);
+//                    delMap.put("token",token);
+                    getDataFromNet(API.DELECT, delMap, view, MSG_LOAD_DEL);
                 }else {
-                    baseActivity.finish();
+//                    baseActivity.finish();
                 }
                 break;
         }
@@ -306,17 +338,20 @@ public class AddAddressActivity extends BaseActivity {
                     addressPName = list.get(position).getRegion_name();
                     Map<String, Object> proMap = Constants.getMap();
                     proMap.put("region_type","2");
-                    proMap.put("region_id ",proId);
+                    proMap.put("region_id ",proId +"");
                     isProvince = MSG_LOAD_DATA;
                     txtProvince.setVisibility(View.VISIBLE);
-                    getDataFromNet(API.GETADDRESS, proMap, arg1, MSG_LOAD_SUCCESS);
+//                    getDataFromNet(API.GETADDRESS, proMap, arg1, MSG_LOAD_SUCCESS);
+                    getDataFromOKHttp(API.baseUrl+ API.GETADDRESS ,proMap, arg1, MSG_LOAD_DATA);
                     break;
                 case MSG_LOAD_SUCCESS:
                     cityId = list.get(position).getRegion_id();
                     addressCName = list.get(position).getRegion_name();
-                    Map<String, Object> cityMap = Constants.getMap();
+                    Map<String, Object> cityMap = Constants.getMap();;
                     cityMap.put("region_type","3");
-                    cityMap.put("region_id ",cityId);
+                    cityMap.put("region_id ",cityId+"");
+                    getDataFromOKHttp(API.baseUrl+ API.GETADDRESS, cityMap, arg1, MSG_LOAD_FAILED);
+//                    getDataFromNet(API.GETADDRESS, cityMap, arg1, MSG_LOAD_FAILED);
                     break;
                 case MSG_LOAD_FAILED:
                     isProvince = MSG_LOAD_DATA;
@@ -436,6 +471,15 @@ public class AddAddressActivity extends BaseActivity {
         novate.post(url, hashMap, new MyBaseSubscriber<ResponseBody>(baseActivity) {
 
             @Override
+            public void forceClose(ProgressDialog progress) {
+                if (progress != null){
+                    if (progress.isShowing()) {
+                        progress.dismiss();
+                    }
+                }
+            }
+
+            @Override
             public void onError(Throwable e) {
                 if (e.getMessage() != null) {
                     Tracer.e("OkHttp", e.getMessage());
@@ -452,12 +496,17 @@ public class AddAddressActivity extends BaseActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Tracer.e(TAG,jstr);
+                Tracer.e(TAG,jstr + " status:" + status);
                 switch (status){
                     case MSG_LOAD_ADD:
-
-                        break;
                     case MSG_LOAD_DEL:
+                        Return r = (Return) GsonHelper.getInstanceByJson(Return.class, jstr);
+                        if (r.getCode() == 200){
+                            ToastUtils.showLongToast(r.getData());
+                            baseActivity.finish();
+                        }else {
+                            ToastUtils.showLongToast(r.getMsg());
+                        }
                         break;
                     case MSG_LOAD_DATA:
                     case MSG_LOAD_SUCCESS:
@@ -469,8 +518,10 @@ public class AddAddressActivity extends BaseActivity {
                                 case MSG_LOAD_DATA:
                                     listPro.clear();
                                     listPro.addAll(cityList);
+                                    isProvince = MSG_LOAD_SUCCESS;
                                     break;
                                 case MSG_LOAD_SUCCESS:
+                                    isProvince = MSG_LOAD_FAILED;
                                     listCity.clear();
                                     listCity.addAll(cityList);
                                     break;
@@ -486,6 +537,73 @@ public class AddAddressActivity extends BaseActivity {
             }
         });
 
+    }
+
+    public void getDataFromOKHttp(String url, Map<String, Object> hashMap, final View view, final int status){
+        HTTPUtils.getNetDATA(url, hashMap, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                final String msg = response.body().string();
+                Tracer.e(TAG, "okHttp"+msg);
+                Tracer.e(TAG,msg + " status:" + status);
+                if (response.code() == 200){
+                    ToolKit.runOnMainThreadSync(new Runnable() {
+                        @Override
+                        public void run() {
+                            switch (status){
+                                case MSG_LOAD_ADD:
+                                case MSG_LOAD_DEL:
+                                    Return r = (Return) GsonHelper.getInstanceByJson(Return.class, msg);
+                                    if (r.getCode() == 200){
+                                        ToastUtils.showLongToast(r.getData());
+                                        baseActivity.finish();
+                                    }else {
+                                        ToastUtils.showLongToast(r.getMsg());
+                                    }
+                                    break;
+                                case MSG_LOAD_DATA:
+                                case MSG_LOAD_SUCCESS:
+                                case MSG_LOAD_FAILED:
+                                    final List<ProvinceBean> cityList = GsonHelper.jsonToArrayList(msg,ProvinceBean.class);
+                                    list.clear();
+                                    list.addAll(cityList);
+                                    switch (status){
+                                        case MSG_LOAD_DATA:
+                                            listPro.clear();
+                                            listPro.addAll(cityList);
+                                            isProvince = MSG_LOAD_SUCCESS;
+                                            break;
+                                        case MSG_LOAD_SUCCESS:
+                                            isProvince = MSG_LOAD_FAILED;
+                                            listCity.clear();
+                                            listCity.addAll(cityList);
+                                            break;
+                                        case MSG_LOAD_FAILED:
+                                            listDist.clear();
+                                            listDist.addAll(cityList);
+                                            break;
+                                    }
+                                    adapter.notifyDataSetChanged();
+                                    popupWindows.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+                                    break;
+                            }
+                        }
+                    });
+                }else {
+                    ToolKit.runOnMainThreadSync(new Runnable() {
+                        @Override
+                        public void run() {
+                            DensityUtil.showToast(baseActivity,response.message());
+                        }
+                    });
+                }
+            }
+        });
     }
 
     @Override

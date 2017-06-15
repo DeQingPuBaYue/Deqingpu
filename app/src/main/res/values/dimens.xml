@@ -4,16 +4,26 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="bottom_hight">111px</dimen>
     <dimen name="edit_hight">100dp</dimen>
+    <dimen name="card_lin_hight">184dp</dimen>
     <dimen name="dp_10">10dp</dimen>
+    <dimen name="dp_15">15dp</dimen>
+    <dimen name="dp_20">20dp</dimen>
+    <dimen name="dp_25">25dp</dimen>
+    <dimen name="dp_2">2dp</dimen>
     <dimen name="dp_4">4dp</dimen>
+    <dimen name="dp_8">8dp</dimen>
     <dimen name="dp_40">40dp</dimen>
+    <dimen name="dp_45">45dp</dimen>
     <dimen name="dp_72">72dp</dimen>
+    <dimen name="sp_10">10sp</dimen>
     <dimen name="sp_12">12sp</dimen>
     <dimen name="sp_14">14sp</dimen>
     <dimen name="sp_16">16sp</dimen>
+    <dimen name="dp_94">94dp</dimen>
     <!-- TopAcionBar自定义值-->
     <dimen name="top_bar_min_height">48dp</dimen>
     <dimen name="top_bar_max_height">64dp</dimen>
+    <dimen name="img_max_height">78dp</dimen>
     <dimen name="top_bar_text_margin">8dp</dimen>
     <dimen name="top_bar_btn_padding">12dp</dimen>
     <dimen name="top_bar_text_size">20sp</dimen>

@@ -8,6 +8,8 @@ import com.tamic.novate.BaseSubscriber;
 import com.tamic.novate.Throwable;
 import com.tamic.novate.util.NetworkUtil;
 
+import rx.Producer;
+
 /**
  * Created by LIUYONGKUI726 on 2017-06-01.
  */
@@ -47,11 +49,24 @@ public abstract class MyBaseSubscriber<T>  extends BaseSubscriber<T> {
     }
 
     @Override
+    public void onError(Throwable throwable) {
+        if (progress != null){
+            if (progress.isShowing()) {
+                progress.dismiss();
+            }
+        }
+    }
+
+    public abstract void forceClose(ProgressDialog progress);
+
+    @Override
     public void onCompleted() {
         super.onCompleted();
 
-        if (progress != null && progress.isShowing()) {
-            progress.dismiss();
+        if (progress != null){
+            if (progress.isShowing()) {
+                progress.dismiss();
+            }
         }
     }
 

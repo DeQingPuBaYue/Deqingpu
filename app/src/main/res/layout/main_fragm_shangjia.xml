@@ -1,14 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg">
+    <com.bayue.live.deqingpu.view.TopActionBar
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:canClose="false"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:orientation="horizontal"
+        android:background="@color/white">
+        <TextView android:id="@+id/txtMerchantFood"
+            android:text="@string/title_merchant_food"
+            android:textColor="@color/zilanmu_textcolor"
+            android:gravity="center"
+            android:textSize="30px"
+            android:layout_weight="1"
+            android:layout_width="0px"
+            android:layout_height="match_parent" />
+        <TextView android:id="@+id/txtMerchantHotel"
+            android:text="@string/title_merchant_hotel"
+            android:textColor="@color/zilanmu_textcolor"
+            android:gravity="center"
+            android:textSize="30px"
+            android:layout_weight="1"
+            android:layout_width="0px"
+            android:layout_height="match_parent" />
+        <TextView android:id="@+id/txtMerchantPlay"
+            android:text="@string/title_merchant_play"
+            android:textColor="@color/zilanmu_textcolor"
+            android:gravity="center"
+            android:textSize="30px"
+            android:layout_weight="1"
+            android:layout_width="0px"
+            android:layout_height="match_parent" />
+        <TextView android:id="@+id/txtMerchantTravel"
+            android:text="@string/title_merchant_travel"
+            android:textColor="@color/zilanmu_textcolor"
+            android:gravity="center"
+            android:textSize="30px"
+            android:layout_weight="1"
+            android:layout_width="0px"
+            android:layout_height="match_parent" />
+        <TextView android:id="@+id/txtMerchantAll"
+            android:text="@string/title_merchant_all"
+            android:textColor="@color/zilanmu_textcolor"
+            android:gravity="center"
+            android:textSize="30px"
+            android:layout_weight="1"
+            android:layout_width="0px"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <View android:id="@+id/viewLine"
+        android:layout_width="@dimen/img_max_height"
+        android:layout_height="2px"
+        android:background="@color/titlecolor"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vpMerchant"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@mipmap/icon_09"/>
-
-
-
-
+        />
 </LinearLayout>

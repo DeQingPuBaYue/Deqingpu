@@ -11,8 +11,8 @@ public class API {
         return 1 == 2;
     }
     //http://192.168.1.120/bayue/deqingpu/public/
-    private final static String baseUrl_inner = "http://192.168.1.120/bayue/deqingpu/public/";
-    private final static String Domain_Inner = "http://192.168.1.120/bayue/deqingpu/public/";
+    private final static String baseUrl_inner = "http://192.168.1.200/bayue/deqingpu/public/";
+    private final static String Domain_Inner = "http://192.168.1.200/bayue/deqingpu/public/";
     private final static String Domain_net = "http://dqp.bayuenet.com/";
     private final static String baseUrl_net = isInner() ? Domain_Inner  : Domain_net;
     public final static String baseUrl = Tracer.isUseDebugNet() ? baseUrl_inner : baseUrl_net;
@@ -28,6 +28,29 @@ public class API {
     public static String DEFAULT= "api/address/setdefault";
     //删除地址（address_id，token ）
     public static String DELECT= "api/address/delete";
+
+    /**
+     * 认证
+     * */
+    public static class AUTH{
+        public static String REAL= "api/preaudit/real";
+        public static String STORE= "api/preaudit/store";
+        public static String COMPANY= "api/preaudit/company";
+        public static String IDENTITY= "api/preaudit/identity";
+        public static String STATE= "api/preaudit/state";
+    }
+
+    /**
+     * 商家
+     * */
+    public static class Merchant{
+        public static String STORE_LIST = "api/goods/store_list";
+        public static String STORE_DETAIL = "api/goods/store_detail";
+        public static String COMMENT_LIST = "api/goods/comment_list";
+        public static String COMMENT_ADD = "api/goods/add_comment";
+        public static String GOODS_LIST = "api/goods/goods_list";
+        public static String GOODS_DETAIL = "api/goods/goods_detail";
+    }
 
     //登录
     public static String DENGLU="api/login/signin";

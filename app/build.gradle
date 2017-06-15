@@ -45,6 +45,10 @@ dependencies {
     compile 'com.contrarywind:Android-PickerView:3.2.5'
     compile 'com.library.tangxiaolv:telegramgallery:1.0.1'
     compile 'com.github.bumptech.glide:glide:3.6.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     //https://github.com/Tamicer/Novate  http://blog.csdn.net/sk719887916/article/details/52195428
     //    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta4'
+//    compile 'com.github.bumptech.glide:glide:4.0.0-RC0'
+//    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC0'
+    compile 'com.jph.takephoto:takephoto_library:4.0.3'
 }

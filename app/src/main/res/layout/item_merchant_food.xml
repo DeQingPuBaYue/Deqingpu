@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="4dp"
+    app:cardUseCompatPadding="true">
+    <LinearLayout
+        android:padding="@dimen/fixed_width_padding"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imgMerchantShop"
+            android:src="@mipmap/ic_launcher_round"
+            android:layout_width="@dimen/dp_94"
+            android:layout_height="@dimen/dp_94" />
+        <LinearLayout
+            android:layout_marginLeft="@dimen/fixed_width_padding"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txtStoreName"
+                android:text="@string/app_name"
+                style="@style/BigSizeBlackStyle"
+                android:layout_marginLeft="@dimen/dp_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:padding="@dimen/dp_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/txtBusiness"
+                    android:text="@string/app_name"
+                    style="@style/normalSizeGreyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <View
+                    android:layout_margin="@dimen/dp_4"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent" android:background="@color/color_line" />
+                <TextView
+                    android:id="@+id/txtRegionName"
+                    android:text="@string/app_name"
+                    style="@style/normalSizeGreyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:gravity="right"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/txtDistance"
+                        android:gravity="center"
+                        android:text="@string/app_name"
+                        android:background="@color/color_line"
+                        android:textSize="@dimen/sp_10"
+                        android:paddingLeft="@dimen/dp_4"
+                        android:paddingRight="@dimen/dp_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/txtCount"
+                style="@style/normalSizeBlackStyle"
+                android:gravity="left"
+                android:drawableLeft="@mipmap/icon_point"
+                android:drawablePadding="@dimen/dp_8"
+                android:padding="@dimen/dp_4"
+                android:text="@string/app_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_2"
+                android:background="@color/color_line" />
+            <TextView
+                android:id="@+id/txtDiscount"
+                android:text="@string/app_name"
+                style="@style/normalSizeGreyStyle"
+                android:layout_marginLeft="@dimen/dp_2"
+                android:drawableLeft="@mipmap/icon_discount"
+                android:drawablePadding="@dimen/dp_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

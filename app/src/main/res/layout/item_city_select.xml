@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/txtSelectAddress"
+    style="@style/normalSizeBlackStyle"
     android:background="@color/white"
-    android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/txtSelectAddress"
-        style="@style/normalSizeBlackStyle"
-        android:padding="@dimen/top_bar_text_margin"
-        android:gravity="center"
-        android:text="@string/app_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+    android:padding="@dimen/top_bar_text_margin"
+    android:gravity="center"
+    android:text="@string/app_name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+</TextView>

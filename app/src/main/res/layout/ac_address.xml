@@ -29,25 +29,32 @@
                             android:id="@+id/rvList_ad"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
-                        <TextView
-                            android:text="@string/tip_address"
+                        <LinearLayout
+                            android:id="@+id/linAddBtn"
+                            android:orientation="vertical"
+                            android:visibility="gone"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            style="@style/normalSizeGreyStyle"
-                            android:gravity="center_horizontal"
-                            android:layout_marginTop="@dimen/dp_10"/>
-                        <Button
-                            android:id="@+id/btnAdd"
-                            android:layout_marginTop="139dp"
-                            android:layout_marginLeft="@dimen/dp_10"
-                            android:layout_marginRight="@dimen/dp_10"
-                            android:layout_marginBottom="@dimen/dp_10"
-                            android:text="@string/btn_address"
-                            android:textColor="@color/white"
-                            android:background="@color/black"
-                            android:padding="@dimen/dp_10"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:text="@string/tip_address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/normalSizeGreyStyle"
+                                android:gravity="center_horizontal"
+                                android:layout_marginTop="@dimen/dp_10"/>
+                            <Button
+                                android:id="@+id/btnAdd"
+                                android:layout_marginTop="139dp"
+                                android:layout_marginLeft="@dimen/dp_10"
+                                android:layout_marginRight="@dimen/dp_10"
+                                android:layout_marginBottom="@dimen/dp_10"
+                                android:text="@string/btn_address"
+                                android:textColor="@color/white"
+                                android:background="@color/black"
+                                android:padding="@dimen/dp_10"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </LinearLayout>
                     </LinearLayout>
                 </ScrollView>
             </android.support.v4.widget.SwipeRefreshLayout>

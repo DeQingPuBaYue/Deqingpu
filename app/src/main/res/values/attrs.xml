@@ -198,7 +198,7 @@
         <attr name="civ_fill_color" format="color"/>
     </declare-styleable>
 
-
+    <attr name="cropImageStyle" format="reference" />
     <declare-styleable name="CropImageView">
         <attr name="guidelines">
             <enum name="on" value="2" />
@@ -209,8 +209,15 @@
         <attr name="aspectRatioX" format="integer" />
         <attr name="aspectRatioY" format="integer" />
         <attr name="imageResource" format="reference" />
+        <attr name="highlightColor" format="reference|color" />
+        <attr name="showThirds" format="boolean" />
+        <attr name="showCircle" format="boolean" />
+        <attr name="showHandles">
+            <enum name="changing" value="0" />
+            <enum name="always" value="1" />
+            <enum name="never" value="2" />
+        </attr>
     </declare-styleable>
-
 
     <declare-styleable name="SwitchButton">
         <attr name="frameDrawable" format="reference|color" />

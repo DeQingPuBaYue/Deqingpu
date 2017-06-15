@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/color_bg"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include layout="@layout/frag_auth_common" />
+            <include android:id="@+id/linAuthPhoto" layout="@layout/frag_auth_common_photo" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40" />
+            <include layout="@layout/common_btn" />
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

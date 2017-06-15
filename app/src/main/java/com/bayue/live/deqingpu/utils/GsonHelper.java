@@ -12,6 +12,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONObject;
+
 public class GsonHelper
 {
     public static Object getInstanceByJson(Class<?> clazz, String json)
@@ -51,5 +53,17 @@ public class GsonHelper
             arrayList.add(new Gson().fromJson(jsonObject, clazz));
         }
         return arrayList;
+    }
+
+    /**
+     * @author 对象转JSON
+     * @param obj
+     * @return
+     */
+    public static String ObjectToString(Object obj)
+    {
+        Gson gson = new Gson();
+        String str = gson.toJson(obj);//将json对象转换为字符串
+        return str;
     }
 }

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">德卿铺</string>
     <!-- 首页 -->
     <string name="item_sj">商家联盟</string>
@@ -22,10 +22,44 @@
     <string name="tv_save">保存</string>
     <string name="title_address">我的地址</string>
     <string name="title_edit_address">编辑地址</string>
+    <string name="title_auth">认证中心</string>
     <string name="btn_address">新增地址</string>
+    <string name="btn_submit">提交</string>
     <string name="tip_address">*注：最多保存5个地址</string>
     <string name="tip_detail">填写详细地址</string>
+    <string name="tip_update_photo">点击上传图片</string>
+    <string name="tip_look_ex">查看示例</string>
+    <string name="tip_store_type">商店类型</string>
+    <string name="tip_real_name">真实姓名</string>
+    <string name="tip_card">证件号</string>
+    <string name="tip_card_hand">手持证件号</string>
+    <string name="tip_auth_reminder">照片，要求面部清晰无遮挡，同时证件照片及号码清晰可辨认</string>
+    <string name="tip_store_name">商店名</string>
+    <string name="tip_store_address">商店地址</string>
+    <string name="tip_store_buslicense">商店的营业执照</string>
+    <string name="tip_company_name">公司名</string>
+    <string name="tip_company_address">公司地址</string>
+    <string name="tip_company_merge">公司营业执照/三证合一</string>
+    <string name="tip_star_id">邀请人的客观号</string>
 
+    <!-- 联盟商家-->
+    <string name="title_merchant_food">享美食</string>
+    <string name="title_merchant_hotel">住酒店</string>
+    <string name="title_merchant_play">爱玩乐</string>
+    <string name="title_merchant_travel">爱旅游</string>
+    <string name="title_merchant_all">全部</string>
+    <string name="tv_customer">联系客服</string>
+    <string name="tv_call">一键拨打电话</string>
+    <string name="btn_check">买单</string>
+    <string name="txt_comment_all">查看全部评论</string>
+
+
+
+
+    <!-- 服务器返回-->
+    <string name="net_param_error">参数错误</string>
+    <string name="net_service_error">服务器繁忙</string>
+    <string name="net_user_error">访问出错</string>
     <!-- ////// -->
     <string name="nick_name">Kevin</string>
     <string name="blog_site">Blog:http://blog.csdn.net/student9128</string>
@@ -47,5 +81,11 @@
     <string name="fanhui"><u>返回登录</u></string>
     <string name="zhuce"><u>立即注册</u></string>
     <string name="mima">1234567890qwertyuiopasdfghjklmnbvcxzQWERTYUIOPASDFGHJKLMNBVCXZ</string>
+    <string name="crop__saving">Saving picture…</string>
+    <string name="crop__wait">Please wait…</string>
+    <string name="crop__pick_error">No image sources available</string>
+
+    <string name="crop__done">DONE</string>
+    <string name="crop__cancel" tools:ignore="ButtonCase">CANCEL</string>
 
 </resources>

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.base.BaseActivity;
+import com.bayue.live.deqingpu.base.HTTPUtils;
 import com.bayue.live.deqingpu.entity.denglu.DengLuBean;
 import com.bayue.live.deqingpu.http.API;
 import com.bayue.live.deqingpu.preferences.Preferences;
@@ -23,6 +24,8 @@ import com.bayue.live.deqingpu.utils.ToolKit;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -132,17 +135,10 @@ public class DengLu extends BaseActivity {
             Toast.makeText(getApplicationContext(),"密码长度最少6位",Toast.LENGTH_SHORT).show();
             return;
         }
-        RequestBody body = new FormBody.Builder()
-                .add("apiversion","v.1.0")
-                .add("safecode","BaYue.deqingpu")
-                .add("phone", dianhua)
-                .add("password",mima)
-                .build();
-        Request request = new Request.Builder()
-                .url(API.baseUrl+API.DENGLU)
-                .post(body)
-                .build();
-        OKHttpUtils.enqueue(request, new Callback() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("phone", dianhua);
+        map.put("password",mima);
+        HTTPUtils.getNetDATA(API.baseUrl+API.DENGLU, map, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
 
@@ -164,9 +160,6 @@ public class DengLu extends BaseActivity {
                                 DensityUtil.showToast(DengLu.this,dengLuBean.getData());
                                 Preferences.saveString(getApplicationContext(),Preferences.TOKEN,dengLuBean.getToken());
                                 finish();
-
-
-
                             }else {
                                 DensityUtil.showToast(DengLu.this,dengLuBean.getMsg());
                                 Log.e(">>>>",dengLuBean.getMsg());
@@ -184,6 +177,7 @@ public class DengLu extends BaseActivity {
                 }
             }
         });
+
     }
     private  void wangJi(){
 

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.data.DataServer;
+import com.bayue.live.deqingpu.entity.ResultModel;
 import com.bayue.live.deqingpu.entity.Status;
 import com.bayue.live.deqingpu.utils.SpannableStringUtils;
 import com.bayue.live.deqingpu.utils.ToastUtils;
@@ -26,22 +27,22 @@ import java.util.List;
  * 修改时间：
  * 修改备注：
  */
-public class PullToRefreshAdapter extends BaseQuickAdapter<Status, BaseViewHolder>{
-    List<Status> data = new ArrayList<>();
-    public PullToRefreshAdapter(List<Status> data) {
+public class PullToRefreshAdapter extends BaseQuickAdapter<ResultModel.DataBean, BaseViewHolder>{
+    List<ResultModel.DataBean> data = new ArrayList<>();
+    public PullToRefreshAdapter(List<ResultModel.DataBean> data) {
         super( R.layout.layout_animation, data);
         this.data = data;
     }
     //默认第几项
-    private int mPosition = 0;
+    private int mPosition = -1;
 
     public void setPosition(int position) {
         mPosition = position;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, Status item) {
-        if (mPosition == helper.getLayoutPosition()){
+    protected void convert(BaseViewHolder helper, ResultModel.DataBean item) {
+        if (mPosition == helper.getLayoutPosition() || item.getDefaultX() == 1){
             helper.setImageResource(R.id.imgDefault,R.mipmap.icon_52);
         } else {
             helper.setImageResource(R.id.imgDefault,R.mipmap.icon_51);
@@ -49,11 +50,13 @@ public class PullToRefreshAdapter extends BaseQuickAdapter<Status, BaseViewHolde
         helper.addOnClickListener(R.id.layDefault);
         helper.addOnClickListener(R.id.txtEdit);
         helper.addOnClickListener(R.id.txtDel);
-        ((TextView)helper.getView(R.id.txtTell)).setText(helper.getLayoutPosition()+" position");
-        String msg="\"He was one of Australia's most of distinguished artistes, renowned for his portraits\"";
-        ( (TextView)helper.getView(R.id.txtAddressDetail)).setText(SpannableStringUtils.getBuilder(msg)
-                .append("landscapes and nedes").setClickSpan(clickableSpan).create());
-        ( (TextView)helper.getView(R.id.txtAddressDetail)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView)helper.getView(R.id.txtTell)).setText(item.getMobile());
+        ((TextView)helper.getView(R.id.txtConsignee)).setText(item.getConsignee());
+        ((TextView)helper.getView(R.id.txtAddressDetail)).setText(item.getProvince_name()+ "" +item.getCity_name() + "" + item.getDistrict_name() + item.getAddress());
+//        String msg="\"He was one of Australia's most of distinguished artistes, renowned for his portraits\"";
+//        ( (TextView)helper.getView(R.id.txtAddressDetail)).setText(SpannableStringUtils.getBuilder(msg)
+//                .append("landscapes and nedes").setClickSpan(clickableSpan).create());
+//        ( (TextView)helper.getView(R.id.txtAddressDetail)).setMovementMethod(LinkMovementMethod.getInstance());
 
     }
 

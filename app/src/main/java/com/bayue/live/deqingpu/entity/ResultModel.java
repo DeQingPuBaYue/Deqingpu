@@ -1,144 +1,154 @@
 package com.bayue.live.deqingpu.entity;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * 实际项目中你可以把这个类删除
  * Created by Tamic on 2016-06-03.
  */
-public class ResultModel {
-    private String country;
-    private String country_id;
-    private String area;
-    private String area_id;
-    private String region;
-    private String region_id;
-    private String city;
-    private String city_id;
-    private String county;
-    private String county_id;
-    private String isp;
-    private String isp_id;
-    private String ip;
+public class ResultModel implements Serializable {
 
-    public String getCountry() {
-        return country;
+    /**
+     * data : [{"address_id":5,"consignee":"老王","mobile":"15121511285","address":"来看你knows","province":"安徽","city":"安庆","district":"迎江区","default":false},{"address_id":6,"consignee":"老王","mobile":"15121511285","address":"来看你knows","province":"安徽","city":"安庆","district":"迎江区","default":false},{"address_id":7,"consignee":"老李","mobile":"15212122548","address":"你妹","province":"安徽","city":"安庆","district":"迎江区","default":false},{"address_id":8,"consignee":"老李","mobile":"15212122548","address":"你妹","province":"安徽","city":"安庆","district":"迎江区","default":false},{"address_id":9,"consignee":"老李","mobile":"15212122548","address":"你妹","province":"安徽","city":"安庆","district":"迎江区","default":false}]
+     * code : 200
+     */
+
+    private int code;
+    private List<DataBean> data;
+
+    public int getCode() {
+        return code;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public String getCountry_id() {
-        return country_id;
+    public List<DataBean> getData() {
+        return data;
     }
 
-    public void setCountry_id(String country_id) {
-        this.country_id = country_id;
+    public void setData(List<DataBean> data) {
+        this.data = data;
     }
 
-    public String getArea() {
-        return area;
-    }
+    public static class DataBean {
+        /**
+         * address : 中国区银河系
+         * address_id : 2
+         * city : 36
+         * city_name : 安庆
+         * consignee : 老哥
+         * default : 0
+         * district : 398
+         * district_name : 迎江区
+         * mobile : 13521213656
+         * province : 3
+         * province_name : 安徽
+         */
 
-    public void setArea(String area) {
-        this.area = area;
-    }
+        private String address;
+        private int address_id;
+        private int city;
+        private String city_name;
+        private String consignee;
+        @SerializedName("default")
+        private int defaultX;
+        private int district;
+        private String district_name;
+        private String mobile;
+        private int province;
+        private String province_name;
 
-    public String getArea_id() {
-        return area_id;
-    }
+        public String getAddress() {
+            return address;
+        }
 
-    public void setArea_id(String area_id) {
-        this.area_id = area_id;
-    }
+        public void setAddress(String address) {
+            this.address = address;
+        }
 
-    public String getRegion() {
-        return region;
-    }
+        public int getAddress_id() {
+            return address_id;
+        }
 
-    public void setRegion(String region) {
-        this.region = region;
-    }
+        public void setAddress_id(int address_id) {
+            this.address_id = address_id;
+        }
 
-    public String getRegion_id() {
-        return region_id;
-    }
+        public int getCity() {
+            return city;
+        }
 
-    public void setRegion_id(String region_id) {
-        this.region_id = region_id;
-    }
+        public void setCity(int city) {
+            this.city = city;
+        }
 
-    public String getCity() {
-        return city;
-    }
+        public String getCity_name() {
+            return city_name;
+        }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+        public void setCity_name(String city_name) {
+            this.city_name = city_name;
+        }
 
-    public String getCity_id() {
-        return city_id;
-    }
+        public String getConsignee() {
+            return consignee;
+        }
 
-    public void setCity_id(String city_id) {
-        this.city_id = city_id;
-    }
+        public void setConsignee(String consignee) {
+            this.consignee = consignee;
+        }
 
-    public String getCounty() {
-        return county;
-    }
+        public int getDefaultX() {
+            return defaultX;
+        }
 
-    public void setCounty(String county) {
-        this.county = county;
-    }
+        public void setDefaultX(int defaultX) {
+            this.defaultX = defaultX;
+        }
 
-    public String getCounty_id() {
-        return county_id;
-    }
+        public int getDistrict() {
+            return district;
+        }
 
-    public void setCounty_id(String county_id) {
-        this.county_id = county_id;
-    }
+        public void setDistrict(int district) {
+            this.district = district;
+        }
 
-    public String getIsp() {
-        return isp;
-    }
+        public String getDistrict_name() {
+            return district_name;
+        }
 
-    public void setIsp(String isp) {
-        this.isp = isp;
-    }
+        public void setDistrict_name(String district_name) {
+            this.district_name = district_name;
+        }
 
-    public String getIsp_id() {
-        return isp_id;
-    }
+        public String getMobile() {
+            return mobile;
+        }
 
-    public void setIsp_id(String isp_id) {
-        this.isp_id = isp_id;
-    }
+        public void setMobile(String mobile) {
+            this.mobile = mobile;
+        }
 
-    public String getIp() {
-        return ip;
-    }
+        public int getProvince() {
+            return province;
+        }
 
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
+        public void setProvince(int province) {
+            this.province = province;
+        }
 
-    @Override
-    public String toString() {
-        return "DataBean{" +
-                "country='" + country + '\'' +
-                ", country_id='" + country_id + '\'' +
-                ", area='" + area + '\'' +
-                ", area_id='" + area_id + '\'' +
-                ", region='" + region + '\'' +
-                ", region_id='" + region_id + '\'' +
-                ", city='" + city + '\'' +
-                ", city_id='" + city_id + '\'' +
-                ", county='" + county + '\'' +
-                ", county_id='" + county_id + '\'' +
-                ", isp='" + isp + '\'' +
-                ", isp_id='" + isp_id + '\'' +
-                ", ip='" + ip + '\'' +
-                '}';
+        public String getProvince_name() {
+            return province_name;
+        }
+
+        public void setProvince_name(String province_name) {
+            this.province_name = province_name;
+        }
     }
 }
