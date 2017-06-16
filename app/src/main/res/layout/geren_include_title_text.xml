@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="128px">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="128px"
+        android:background="@color/titlecolor"
+        android:paddingLeft="28px"
+        android:paddingRight="36px">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="90px"
+            android:layout_marginTop="28px">
+
+            <LinearLayout
+                android:id="@+id/ll_back_title"
+                android:layout_width="60px"
+                android:layout_height="60px"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="14px"
+                android:gravity="bottom">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40px"
+                    android:src="@drawable/icon_24" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_titletext_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="18px"
+                android:text="圈 子"
+                android:textColor="@color/white"
+                android:textSize="35px" />
+            <LinearLayout android:id="@+id/ll_rigthtext_title"
+                android:layout_width="70px"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:gravity="bottom|right"
+                android:layout_marginBottom="14px">
+
+                <TextView
+                    android:id="@+id/tv_rigthtext_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="关闭"
+                    android:textColor="@color/white"
+                    android:textSize="30px" />
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F9F9">
+    <include layout="@layout/geren_include_title"/>
+    
+    <RelativeLayout
+        android:layout_width="687px"
+        android:layout_height="101px"
+        android:layout_marginTop="80px"
+        android:background="@drawable/jine_bk"
+        android:layout_gravity="center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="消费总额:"
+            android:textColor="@color/black"
+            android:textSize="30px"
+            android:layout_marginLeft="22px"
+            android:layout_centerVertical="true"/>
+        <EditText android:id="@+id/ed_jine_pay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:hint="询问服务员后输入"
+            android:layout_marginLeft="160px"
+            android:textSize="30px"
+            android:textColor="@color/black"
+            android:background="@color/transparent"
+            android:maxLength="18"
+            android:gravity="center_vertical|right"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="157px"
+
+        android:background="#09323232"/>
+    <RelativeLayout android:id="@+id/rl_quanzi_geren"
+        android:layout_width="match_parent"
+        android:layout_height="89px"
+        android:background="@color/white">
+        <RelativeLayout
+            android:layout_width="687px"
+            android:layout_centerHorizontal="true"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_gr_quanzi"
+                android:layout_width="35px"
+                android:layout_height="36px"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_53" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="67px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16px"
+                android:layout_toRightOf="@+id/iv_gr_quanzi">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="客观购买，9.5折"
+                    android:textColor="@color/black"
+                    android:textSize="28px" />
+
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#09323232"/>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="19px"
+
+        android:background="#09323232"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="89px"
+        android:background="@color/white">
+        <RelativeLayout
+            android:layout_width="687px"
+            android:layout_centerHorizontal="true"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="实付金额"
+                android:textSize="30px"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"/>
+            <TextView android:id="@+id/tv_shifu_pay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="110"
+                android:textSize="36px"
+                android:textColor="@color/black"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥"
+                android:textColor="@color/black"
+                android:textSize="30px"
+                android:layout_toLeftOf="@+id/tv_shifu_pay"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#09323232"/>
+    <Button android:id="@+id/bt_pay_pay"
+        android:layout_width="687px"
+        android:layout_height="111px"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="99px"
+        android:background="@drawable/zhifu_bk"
+        android:text="确认买单"
+        android:textColor="@color/white"
+        android:textSize="44px"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="买单仅限于到店支付，请确认金额后提交"
+        android:textSize="24px"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30px"
+        android:textColor="@color/zilanmu_textcolor"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="问题反馈"
+        android:textColor="@color/zilanmu_textcolor"
+        android:textSize="24px"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="343px"/>
+
+</LinearLayout>
