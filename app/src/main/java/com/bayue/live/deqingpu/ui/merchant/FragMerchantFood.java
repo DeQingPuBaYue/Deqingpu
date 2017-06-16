@@ -30,6 +30,7 @@ import com.bayue.live.deqingpu.utils.Tracer;
 import com.bayue.live.deqingpu.view.CustomLoadMoreView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.tamic.novate.BaseSubscriber;
 import com.tamic.novate.Novate;
 import com.tamic.novate.Throwable;
 
@@ -68,7 +69,7 @@ public class FragMerchantFood extends BaseFragment implements SwipeRefreshLayout
     int LOAD_MORE = 0x0004;
     MerchantFood merchantFood;
     StoreDetail storeDetail;
-    String store_type = "";
+    String store_type = "", storeId= "";
     int page = 1, count_page;
     @Override
     protected int getViewId() {
@@ -128,22 +129,14 @@ public class FragMerchantFood extends BaseFragment implements SwipeRefreshLayout
 //                map.put("token", Preferences.getString(getContext(), Preferences.TOKEN));
                 MerchantFood.DataBean bean = (MerchantFood.DataBean) baseQuickAdapter.getData().get(position);
                 Tracer.e(TAG, bean.getStore_id() + "");
+                storeId = bean.getStore_id()+"";
                 map.put("store_id",bean.getStore_id());//
                 getDataFromNet(API.Merchant.STORE_DETAIL, map, LOAD_DETAIL, 0);
             }
         });
     }
     private void getDataFromNet(String url, Map<String, Object> hashMap, final int status, final int loadStatus) {
-        novate.post(url, hashMap, new MyBaseSubscriber<ResponseBody>(baseActivity) {
-
-            @Override
-            public void forceClose(ProgressDialog progress) {
-                if (progress != null){
-                    if (progress.isShowing()) {
-                        progress.dismiss();
-                    }
-                }
-            }
+        novate.post(url, hashMap, new BaseSubscriber<ResponseBody>(baseActivity) {
 
             @Override
             public void onError(Throwable e) {
@@ -181,7 +174,7 @@ public class FragMerchantFood extends BaseFragment implements SwipeRefreshLayout
                     }
                 }else if (status == LOAD_DETAIL){
 //                    storeDetail = (StoreDetail) GsonHelper.getInstanceByJson(StoreDetail.class, jstr);
-                    startActivity(new Intent(baseActivity, MerchantDetailActivity.class).putExtra("json", jstr));
+                    startActivity(new Intent(baseActivity, MerchantDetailActivity.class).putExtra("json", jstr).putExtra("storeId",storeId));
                 }
             }
         });
