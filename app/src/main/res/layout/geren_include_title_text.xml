@@ -13,7 +13,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="90px"
+            android:layout_height="100px"
             android:layout_marginTop="28px">
 
             <LinearLayout
@@ -24,7 +24,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_marginBottom="14px"
+                android:layout_marginBottom="18px"
                 android:gravity="bottom">
 
                 <ImageView
@@ -44,12 +44,12 @@
                 android:textColor="@color/white"
                 android:textSize="35px" />
             <LinearLayout android:id="@+id/ll_rigthtext_title"
-                android:layout_width="70px"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:gravity="bottom|right"
-                android:layout_marginBottom="14px">
+                android:layout_marginBottom="18px">
 
                 <TextView
                     android:id="@+id/tv_rigthtext_title"

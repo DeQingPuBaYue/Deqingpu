@@ -7,9 +7,9 @@
         <!--<item android:id="@android:id/progress"-->
             <!--android:drawable="@drawable/w_zl_star_full" />-->
     <item android:id="@android:id/background"
-        android:drawable="@mipmap/pj_icon_starsempty" /> <span></span>
+        android:drawable="@mipmap/icon_18_20" /> <span></span>
     <item android:id="@android:id/secondaryProgress"
-        android:drawable="@mipmap/pj_icon_starsempty" />
+        android:drawable="@mipmap/icon_18_20" />
     <item android:id="@android:id/progress"
-        android:drawable="@mipmap/pj_icon_starsfull" />
+        android:drawable="@mipmap/icon_17_20" />
 </layer-list>

@@ -206,7 +206,7 @@
         android:layout_height="91px"
         android:orientation="horizontal"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="443px"
+        android:layout_marginTop="403px"
         android:background="@drawable/zhifu_bk">
         <TextView
             android:layout_width="0px"

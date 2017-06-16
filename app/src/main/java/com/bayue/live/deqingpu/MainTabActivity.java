@@ -72,7 +72,7 @@ public class MainTabActivity extends BaseActivity {
     private boolean bPermission = false;
     private final int WRITE_PERMISSION_REQ_CODE = 100;
 
-    private boolean checkPublishPermission() {
+    private boolean checkPublishPermission(){
         if (Build.VERSION.SDK_INT >= 23) {
             List<String> permissiions = new ArrayList<>();
             if (PackageManager.PERMISSION_GRANTED != ActivityCompat.checkSelfPermission(MainTabActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {

@@ -62,7 +62,8 @@ public class ConfirmPayActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-
+        tvTitletextTitle.setText("确认支付");
+        ivBianjiTitle.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -84,14 +85,33 @@ public class ConfirmPayActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.rl_yinliang_confirm:
+                setImage();
+                ivYinliangConfirm.setImageResource(R.drawable.icon_52);
+
                 break;
             case R.id.rl_weixin_confirm:
+                setImage();
+                ivWeixinConfirm.setImageResource(R.drawable.icon_52);
+
                 break;
             case R.id.rl_zhifubao_confirm:
+                setImage();
+                ivZhifubaoConfirm.setImageResource(R.drawable.icon_52);
+
                 break;
             case R.id.ll_pay_confirm:
-                startActivity(new Intent(ConfirmPayActivity.this,SuccessPayActivity.class));
+                startActivity(new Intent(ConfirmPayActivity.this,CompletePayActivity.class));
                 break;
         }
+    }
+    //圆点恢复
+    private void setImage(){
+        ivYinliangConfirm.setImageResource(R.drawable.icon_51);
+        ivWeixinConfirm.setImageResource(R.drawable.icon_51);
+        ivZhifubaoConfirm.setImageResource(R.drawable.icon_51);
+
+
+
+
     }
 }

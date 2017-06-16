@@ -71,6 +71,14 @@
         <activity android:name=".ui.merchant.pay.SuccessPayActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <!--支付完成界面-->
+        <activity android:name=".ui.merchant.pay.CompletePayActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <!--评价界面-->
+        <activity android:name=".ui.merchant.pay.EvaluationActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
 
 
     </application>

@@ -2,6 +2,9 @@ package com.bayue.live.deqingpu.ui.merchant.pay;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +15,8 @@ import android.widget.TextView;
 
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.base.BaseActivity;
+
+import java.text.DecimalFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +51,40 @@ public class PayActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        tvTitletextTitle.setText("买单");
+        ivBianjiTitle.setVisibility(View.INVISIBLE);
+
+        edJinePay.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                double d;
+                String ss=s.toString();
+                        if(ss.isEmpty()){
+                            d=0.0;
+                            tvShifuPay.setText("0");
+                            return;
+                        }
+
+
+                 d=Double.valueOf(s.toString());
+                DecimalFormat format = new DecimalFormat("#.##");
+
+                Log.e(">>>>>>",d+"");
+                tvShifuPay.setText(format.format(d));
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
 
     }
 

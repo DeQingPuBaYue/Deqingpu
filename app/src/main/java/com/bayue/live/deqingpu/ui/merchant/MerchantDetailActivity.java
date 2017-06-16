@@ -23,6 +23,7 @@ import com.bayue.live.deqingpu.entity.CommentBean;
 import com.bayue.live.deqingpu.entity.MerchantFood;
 import com.bayue.live.deqingpu.entity.StoreDetail;
 import com.bayue.live.deqingpu.http.API;
+import com.bayue.live.deqingpu.ui.merchant.pay.PayActivity;
 import com.bayue.live.deqingpu.utils.GsonHelper;
 import com.bayue.live.deqingpu.utils.Guard;
 import com.bayue.live.deqingpu.utils.ToastUtils;
@@ -215,6 +216,7 @@ public class MerchantDetailActivity extends BaseActivity {
     void setOnClick(View view){
         switch (view.getId()){
             case R.id.btnMerchantCheck:
+                startActivity(new Intent(MerchantDetailActivity.this, PayActivity.class));
                 break;
             case R.id.txtMerchantCall:
                 break;

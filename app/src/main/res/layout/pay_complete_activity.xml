@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/geren_include_title"></include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="902px"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView android:id="@+id/tv_merchantsname_complete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="zoo咖啡店"
+            android:textSize="36px"
+            android:textColor="@color/black"/>
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="￥"
+               android:textColor="@color/black"
+               android:textSize="48px"/>
+           <TextView android:id="@+id/tv_money_complete"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="66.00"
+               android:textSize="72px"
+               android:textColor="@color/black"/>
+
+       </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0px"
+        android:layout_marginLeft="32px"
+        android:layout_marginRight="32px"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <Button android:id="@+id/but_complete_complete"
+            android:layout_width="340px"
+            android:layout_height="90px"
+            android:text="完成"
+            android:textColor="@color/black"
+            android:textSize="36px"
+            android:layout_marginRight="2px"
+            android:background="@drawable/zhifu2_bk"/>
+        <Button android:id="@+id/but_evaluation_complete"
+            android:layout_width="340px"
+            android:layout_height="90px"
+            android:text="立即评价"
+            android:layout_marginLeft="2px"
+            android:textColor="@color/white"
+            android:textSize="36px"
+            android:background="@drawable/zhifu_bk"/>
+    </LinearLayout>
+    <TextView  android:id="@+id/tv_problem_complete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="问题反馈"
+        android:textSize="24px"
+        android:textColor="@color/zilanmu_textcolor"
+        android:layout_marginTop="153px"/>
+
+
+</LinearLayout>
