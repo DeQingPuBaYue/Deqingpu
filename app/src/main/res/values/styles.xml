@@ -44,6 +44,12 @@
 
         <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
     </style>
+    <style name="roomRatingBar"
+        parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/room_rating_bar</item>
+        <item name="android:minHeight">20dp</item>
+        <item name="android:maxHeight">20dp</item>
+    </style>
     <style name="normalSizeGreyStyle" >
         <item name="android:textSize">@dimen/sample_text_size</item>
         <item name="android:textColor">@color/zilanmu_textcolor</item>
@@ -53,6 +59,18 @@
         <item name="android:textSize">@dimen/sample_text_size</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/black</item>
+        <item name="android:padding">2dp</item>
+    </style>
+    <style name="smallSizeBlackStyle" >
+        <item name="android:textSize">@dimen/sp_10</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:padding">2dp</item>
+    </style>
+    <style name="smallSizeGreyStyle" >
+        <item name="android:textSize">@dimen/sp_10</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/zilanmu_textcolor</item>
         <item name="android:padding">2dp</item>
     </style>
     <style name="BigSizeBlackStyle" >

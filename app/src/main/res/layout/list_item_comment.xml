@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="@dimen/dp_10"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/ic_launcher_round"
+            android:id="@+id/imgCommentUserAvator"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45" />
+        <TextView
+            android:id="@+id/txtCommentUser"
+            android:text="@string/app_name"
+            style="@style/normalSizeBlackStyle"
+            android:layout_toRightOf="@id/imgCommentUserAvator"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RatingBar
+            android:id="@+id/rateComment"
+            style="@style/roomRatingBar"
+            android:isIndicator="false"
+            android:padding="0.3dp"
+            android:layout_margin="@dimen/dp_4"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:rating="0" />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/txtCommentContent"
+        android:text="@string/app_name"
+        style="@style/smallSizeBlackStyle"
+        android:layout_marginTop="@dimen/dp_4"
+        android:layout_marginBottom="@dimen/dp_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:id="@+id/linCommentPicture"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imgCommentPicOne"
+            android:src="@mipmap/ic_launcher_round"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45" />
+        <ImageView
+            android:id="@+id/imgCommentPicTwo"
+            android:src="@mipmap/ic_launcher_round"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45" />
+        <ImageView
+            android:id="@+id/imgCommentPicThree"
+            android:src="@mipmap/ic_launcher_round"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/txtCommentStoreReplyTime"
+        style="@style/smallSizeGreyStyle"
+        android:text="@string/app_name"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/txtCommentStoreReplyContent"
+        style="@style/normalSizeGreyStyle"
+        android:text="@string/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/txtCommentUserAddTime"
+        style="@style/normalSizeBlackStyle"
+        android:text="@string/app_name"
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
