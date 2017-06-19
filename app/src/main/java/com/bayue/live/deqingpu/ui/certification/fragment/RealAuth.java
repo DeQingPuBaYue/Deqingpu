@@ -16,12 +16,12 @@ import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.ui.certification.CustomHelper;
 import com.bayue.live.deqingpu.utils.Tracer;
 import com.bayue.live.deqingpu.view.PhotoPopWindow;
+import com.bumptech.glide.Glide;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoFragment;
 import com.jph.takephoto.model.InvokeParam;
 import com.jph.takephoto.model.TImage;
 import com.jph.takephoto.model.TResult;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -111,9 +111,9 @@ public class RealAuth extends TakePhotoFragment {
         if (images.size() > 0) {
             Tracer.e(TAG, images.size()+ " path:" + images.get(0).getCompressPath());
 //            Glide.with(baseActivity).load(R.mipmap.upload_ex).into(imgAuthPhoto);
-//            Glide.with(this).load(new File(images.get(0).getCompressPath()))
-//                    .placeholder(R.mipmap.upload_ex).error(R.mipmap.ic_launcher).into(imgAuthPhoto);
-            Picasso.with(getContext()).load(new File(images.get(0).getCompressPath())).into(imgAuthPhoto);
+            Glide.with(this).load(new File(images.get(0).getCompressPath()))
+                    .placeholder(R.mipmap.upload_ex).error(R.mipmap.ic_launcher).into(imgAuthPhoto);
+//            Picasso.with(getContext()).load(new File(images.get(0).getCompressPath())).into(imgAuthPhoto);
 //            imgAuthPhoto.setImageResource(R.mipmap.upload_ex);
         }
     }

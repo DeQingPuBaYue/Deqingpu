@@ -91,6 +91,7 @@ public class MerchantDetailActivity extends BaseActivity {
     Toolbar toolbar;
     private Novate novate;
     String storePhone = "", storeId;
+    int goodsCount = 0;
     CommentAdapter commentAdapter;
     @Override
     protected int getViewId() {
@@ -143,7 +144,8 @@ public class MerchantDetailActivity extends BaseActivity {
             txtMerchantDetailLocation.setText(bean.getStore_address());
             txtMerchantAvatorShop.setText(bean.getStore_name());
             txtMerchantAvatorBusi.setText(bean.getName());
-            txtMerchantGoodsCount.setText(bean.getNumber()+"\n" +"全部商品");
+            goodsCount = bean.getNumber();
+            txtMerchantGoodsCount.setText(goodsCount+"\n" +"全部商品");
             txtNotice.setText(bean.getNote());
         }
         initComment();
@@ -227,6 +229,9 @@ public class MerchantDetailActivity extends BaseActivity {
                 }
                 break;
             case R.id.linMerchantGoods:
+//                if (goodsCount>0){
+                    startActivity(new Intent(baseContext,GoodsListActivity.class));
+//                }
                 break;
             case R.id.txtCommentAll:
                 break;

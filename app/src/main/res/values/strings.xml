@@ -1,5 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">德卿铺</string>
+    <!-- 空格：&#160; 窄空格：&#8210; &#160;&#160;&#8210  一个汉字宽度的空格  身&#160;&#160;份&#160;&#160;证=4个汉字-->
+    <!-- %1$s，%1$d可以在一个字符串里定义多个统配字符-->
+    <!-- \u3000\u3000 首行缩进-->
     <!-- 首页 -->
     <string name="item_sj">商家联盟</string>
     <string name="item_zb">掌柜直播</string>
@@ -47,13 +50,17 @@
     <string name="title_merchant_hotel">住酒店</string>
     <string name="title_merchant_play">爱玩乐</string>
     <string name="title_merchant_travel">爱旅游</string>
-    <string name="title_merchant_all">全部</string>
+    <string name="title_merchant_all">&#160;全部&#160;</string>
     <string name="tv_customer">联系客服</string>
     <string name="tv_call">一键拨打电话</string>
     <string name="btn_check">买单</string>
     <string name="txt_comment_all">查看全部评论</string>
-
-
+    <!-- 产品-->
+    <string name="txt_goods_default">默认</string>
+    <string name="txt_goods_sales_volume">销量</string>
+    <string name="txt_goods_price">价格</string>
+    <string name="txt_goods_activity">活动</string>
+    <string name="title_goods">列表详情</string>
 
 
     <!-- 服务器返回-->

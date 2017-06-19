@@ -50,6 +50,16 @@
         <item name="android:minHeight">20dp</item>
         <item name="android:maxHeight">20dp</item>
     </style>
+    <style name="titleCommonSizeStyle">
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/dp_8</item>
+        <item name="android:textColor">@color/zilanmu_textcolor</item>
+    </style>
+    <style name="titleCommonSizeStyle.Base">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/dp_40</item>
+    </style>
     <style name="normalSizeGreyStyle" >
         <item name="android:textSize">@dimen/sample_text_size</item>
         <item name="android:textColor">@color/zilanmu_textcolor</item>
@@ -75,6 +85,13 @@
     </style>
     <style name="BigSizeBlackStyle" >
         <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:padding">2dp</item>
+    </style>
+    <style name="BigThanSizeBlackStyle" >
+        <item name="android:textSize">@dimen/button_text_size</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:padding">2dp</item>
     </style>

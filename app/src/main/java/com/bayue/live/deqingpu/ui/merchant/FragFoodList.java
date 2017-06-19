@@ -1,20 +1,23 @@
-package com.bayue.live.deqingpu.fragment;
+package com.bayue.live.deqingpu.ui.merchant;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.adapter.QuanzhiAdapter;
+import com.bayue.live.deqingpu.adapter.ViewAdapter;
+import com.bayue.live.deqingpu.adapter.ViewPagerAdapter;
 import com.bayue.live.deqingpu.base.BaseFragment;
+import com.bayue.live.deqingpu.base.LazyLoadFragment;
 import com.bayue.live.deqingpu.data.Constants;
-import com.bayue.live.deqingpu.ui.merchant.FragMerchantFood;
+import com.bayue.live.deqingpu.utils.ToastUtils;
 import com.bayue.live.deqingpu.utils.Tracer;
 import com.bayue.live.deqingpu.utils.Utils;
 import com.bayue.live.deqingpu.view.TopActionBar;
@@ -27,11 +30,13 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
- * Created by Administrator on 2017/5/31.
+ * Created by BaYue on 2017/6/16.
+ * email : 2651742485@qq.com
  */
 
-public class MainShangjiaFragment extends BaseFragment {
-    String TAG = "MainShangjiaFragment";
+public class FragFoodList extends BaseFragment {
+
+    String TAG = "FragFoodList";
     @BindView(R.id.topBar)
     TopActionBar topBar;
     @BindView(R.id.txtMerchantFood)
@@ -42,50 +47,75 @@ public class MainShangjiaFragment extends BaseFragment {
     TextView txtMerchantPlay;
     @BindView(R.id.txtMerchantTravel)
     TextView txtMerchantTravel;
-    @BindView(R.id.txtMerchantAll)
-    TextView txtMerchantAll;
     @BindView(R.id.viewLine)
     View viewLine;
     @BindView(R.id.vpMerchant)
     ViewPager vpMerchant;
     Unbinder unbinder;
+    @BindView(R.id.linGoodsMenu)
+    LinearLayout linGoodsMenu;
+    @BindView(R.id.linGoodsDefault)
+    LinearLayout linGoodsDefault;
+    @BindView(R.id.imgGoodsSortTipValume)
+    ImageView imgGoodsSortTipValume;
+    @BindView(R.id.linGoodsValume)
+    LinearLayout linGoodsValume;
+    @BindView(R.id.imgGoodsSortTipPrice)
+    ImageView imgGoodsSortTipPrice;
+    @BindView(R.id.linGoodsPrice)
+    LinearLayout linGoodsPrice;
+    @BindView(R.id.imgGoodsSortTipAct)
+    ImageView imgGoodsSortTipAct;
+    @BindView(R.id.linGoodsAct)
+    LinearLayout linGoodsAct;
     private int currentIndex;
-    private int screenWidth;
-    ArrayList<BaseFragment> fragments=new ArrayList<>();
+    private int screenWidth, screenHeight;
+    int valumeStatus = 1, priceStatus = 1, actStatus = 1;
+    ArrayList<LazyLoadFragment> fragments = new ArrayList<>();
     private Handler mHandler = new Handler();
-    public static MainShangjiaFragment newInstance(String s) {
-        MainShangjiaFragment homeFragment = new MainShangjiaFragment();
+
+    public static FragFoodList newInstance(String s) {
+        FragFoodList viewPagerFragment = new FragFoodList();
         Bundle bundle = new Bundle();
         bundle.putString(Constants.ARGS, s);
-        homeFragment.setArguments(bundle);
-        return homeFragment;
-    }
-
-    @Override
-    protected int getViewId() {
-        return R.layout.main_fragm_shangjia;
+        viewPagerFragment.setArguments(bundle);
+        return viewPagerFragment;
     }
 
     private final Runnable mLoopRunnable = new Runnable() {
         @Override
         public void run() {
-            if (vpMerchant!=null) {
+            if (vpMerchant != null) {
                 vpMerchant.setCurrentItem(0);
             }
         }
     };
 
     @Override
+    protected int getViewId() {
+        return R.layout.frag_goodlist_viewpager;
+    }
+
+    @Override
     public void init() {
-        Tracer.d(TAG, "");
-        txtMerchantAll.setVisibility(View.VISIBLE);
+        topBar.setTitle(getString(R.string.title_goods));
+        topBar.setBackClickListener(new TopActionBar.BackClickListener() {
+            @Override
+            public void backClick() {
+                getActivity().finish();
+            }
+        });
         screenWidth = Utils.getScreenSize(baseActivity)[0];
-        fragments.add(new FragMerchantFood());
-        fragments.add(new FragMerchantFood());
-        fragments.add(new FragMerchantFood());
-        fragments.add(new FragMerchantFood());
-        fragments.add(new FragMerchantFood());
-        QuanzhiAdapter adapter=new QuanzhiAdapter(getChildFragmentManager(),fragments);
+        screenHeight = Utils.getScreenSize(baseActivity)[1];
+        FragGoodlist defaultFrag = FragGoodlist.newInstance(0);
+        FragGoodlist valumeFrag = FragGoodlist.newInstance(1);
+        FragGoodlist priceFrag = FragGoodlist.newInstance(2);
+        FragGoodlist actFrag = FragGoodlist.newInstance(3);
+        fragments.add(defaultFrag);
+        fragments.add(valumeFrag);
+        fragments.add(priceFrag);
+        fragments.add(actFrag);
+        ViewAdapter adapter = new ViewAdapter(getChildFragmentManager(), fragments);
         vpMerchant.setAdapter(adapter);
         mHandler.postDelayed(mLoopRunnable, 300);
 //        vpMerchant.setCurrentItem(0);
@@ -109,8 +139,8 @@ public class MainShangjiaFragment extends BaseFragment {
                  * 0->1; 1->2; 2->1; 1->0
                  * 5
                  */
-                int vLineRight = (int) (offset * (screenWidth * 1.0 / 5) + currentIndex * (screenWidth / 5));
-                int vLineLeft = (int) (-(1 - offset) * (screenWidth * 1.0 / 5) + currentIndex * (screenWidth / 5));
+                int vLineRight = (int) (offset * (screenWidth * 1.0 / 4) + currentIndex * (screenWidth / 4));
+                int vLineLeft = (int) (-(1 - offset) * (screenWidth * 1.0 / 4) + currentIndex * (screenWidth / 4));
                 if (currentIndex == 0 && position == 0)// 0->1
                 {
                     lp.leftMargin = vLineRight;
@@ -128,13 +158,7 @@ public class MainShangjiaFragment extends BaseFragment {
                 } else if (currentIndex == 2 && position == 2) //2->3
                 {
                     lp.leftMargin = vLineRight;
-                }else if (currentIndex == 3 && position == 2) // 3->2
-                {
-                    lp.leftMargin = vLineLeft;
-                }else if (currentIndex == 3 && position == 3) //3->4
-                {
-                    lp.leftMargin = vLineRight;
-                }else if (currentIndex == 4 && position == 3) //4->3
+                } else if (currentIndex == 3 && position == 2) // 3->2
                 {
                     lp.leftMargin = vLineLeft;
                 }
@@ -158,12 +182,10 @@ public class MainShangjiaFragment extends BaseFragment {
                     case 3:
                         setItemSelect(txtMerchantTravel);
                         break;
-                    case 4:
-                        setItemSelect(txtMerchantAll);
-                        break;
                 }
                 currentIndex = i;
             }
+
             /**
              * state滑动中的状态 有三种状态（0，1，2） 1：正在滑动 2：滑动完毕 0：什么都没做。
              */
@@ -172,33 +194,36 @@ public class MainShangjiaFragment extends BaseFragment {
 
             }
         });
-        vpMerchant.setOffscreenPageLimit(1);
+        vpMerchant.setOffscreenPageLimit(0);
     }
 
-    @OnClick({R.id.txtMerchantFood, R.id.txtMerchantHotel, R.id.txtMerchantPlay, R.id.txtMerchantTravel,R.id.txtMerchantAll})
+    private void setItemSelect(TextView textView) {
+        textView.setTextColor(getResources().getColor(R.color.black));
+    }
+    @OnClick({R.id.linGoodsDefault, R.id.linGoodsValume, R.id.linGoodsPrice, R.id.linGoodsAct})
     void setOnClick(View view){
         switch (view.getId()){
-            case R.id.txtMerchantFood:
+            case R.id.linGoodsDefault:
                 vpMerchant.setCurrentItem(0);
                 break;
-            case R.id.txtMerchantHotel:
+            case R.id.linGoodsValume:
+                if (valumeStatus == 1){valumeStatus = 2;}
+                else{valumeStatus = 1;}
                 vpMerchant.setCurrentItem(1);
                 break;
-            case R.id.txtMerchantPlay:
+            case R.id.linGoodsPrice:
+                if (priceStatus == 1){priceStatus = 2;}
+                else{priceStatus = 1;}
                 vpMerchant.setCurrentItem(2);
                 break;
-            case R.id.txtMerchantTravel:
+            case R.id.linGoodsAct:
+                if (actStatus == 1){actStatus = 2;}
+                else{actStatus = 1;}
                 vpMerchant.setCurrentItem(3);
-                break;
-            case R.id.txtMerchantAll:
-                vpMerchant.setCurrentItem(4);
                 break;
         }
     }
 
-    private void setItemSelect(TextView textView){
-        textView.setTextColor(getResources().getColor(R.color.black));
-    }
     /**
      * 重置颜色
      */
@@ -207,8 +232,8 @@ public class MainShangjiaFragment extends BaseFragment {
         txtMerchantHotel.setTextColor(getResources().getColor(R.color.zilanmu_textcolor));
         txtMerchantPlay.setTextColor(getResources().getColor(R.color.zilanmu_textcolor));
         txtMerchantTravel.setTextColor(getResources().getColor(R.color.zilanmu_textcolor));
-        txtMerchantAll.setTextColor(getResources().getColor(R.color.zilanmu_textcolor));
     }
+
     /**
      * 设置滑动条的宽度为屏幕的1/3(根据Tab的个数而定)
      * Utils.getScreenSize(baseContext) 0 :width, 1 : height
@@ -216,9 +241,22 @@ public class MainShangjiaFragment extends BaseFragment {
     private void initTabLineWidth() {
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) viewLine
                 .getLayoutParams();
-        lp.width = screenWidth / 5;
+        lp.width = screenWidth / 4;
         viewLine.setLayoutParams(lp);
+        Tracer.e(TAG, linGoodsMenu.getHeight() + " menu height");
+//        LinearLayout.LayoutParams lh = (LinearLayout.LayoutParams) linGoodsMenu
+//                .getLayoutParams();
+//        lh.height = screenWidth / 10;
+//        linGoodsMenu.setLayoutParams(lh);
+//        Drawable drawable= getResources().getDrawable(R.mipmap.icon_asc);
+        // 这一步必须要做,否则不会显示.
+//        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+//        txtMerchantHotel.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
+//        txtMerchantHotel.setCompoundDrawablePadding(-10);
+//        txtMerchantPlay.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
+//        txtMerchantTravel.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view

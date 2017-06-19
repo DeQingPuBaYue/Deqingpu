@@ -30,6 +30,7 @@
         <activity android:name=".ui.address.AddAddressActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
         <activity android:name=".ui.certification.CertificationActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
         <activity android:name=".ui.merchant.MerchantDetailActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.merchant.GoodsListActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
 
         <!--注册界面-->
         <activity android:name=".ui.denglu.ZhuCe"

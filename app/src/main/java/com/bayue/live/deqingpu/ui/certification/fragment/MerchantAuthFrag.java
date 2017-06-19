@@ -35,6 +35,7 @@ import com.bayue.live.deqingpu.utils.Tracer;
 import com.bayue.live.deqingpu.utils.Utils;
 import com.bayue.live.deqingpu.view.PhotoPopWindow;
 import com.bayue.live.deqingpu.view.PopupWindowListView;
+import com.bumptech.glide.Glide;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoImpl;
 import com.jph.takephoto.model.InvokeParam;
@@ -44,7 +45,6 @@ import com.jph.takephoto.model.TResult;
 import com.jph.takephoto.permission.InvokeListener;
 import com.jph.takephoto.permission.PermissionManager;
 import com.jph.takephoto.permission.TakePhotoInvocationHandler;
-import com.squareup.picasso.Picasso;
 import com.tamic.novate.Novate;
 import com.tamic.novate.Throwable;
 
@@ -458,9 +458,9 @@ public class MerchantAuthFrag extends BaseFragment implements TakePhoto.TakeResu
                     baseFile = FileUtils.fileToBase64(new File(images.get(0).getCompressPath()));
                 }
             });
-//            Glide.with(this).load(new File(images.get(0).getCompressPath()))
-//                    .placeholder(R.mipmap.upload_ex).error(R.mipmap.ic_launcher).into(imgAuthPhoto);
-            Picasso.with(baseActivity).load(R.mipmap.upload_ex).into(imgAuthPhoto);
+            Glide.with(this).load(new File(images.get(0).getCompressPath()))
+                    .placeholder(R.mipmap.upload_ex).error(R.mipmap.ic_launcher).into(imgAuthPhoto);
+//            Picasso.with(baseActivity).load(R.mipmap.upload_ex).into(imgAuthPhoto);
 //            imgAuthPhoto.setImageResource(R.mipmap.upload_ex);
         }
     }
