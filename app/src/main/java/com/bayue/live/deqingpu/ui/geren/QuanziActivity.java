@@ -47,8 +47,8 @@ public class QuanziActivity extends BaseActivity {
     LinearLayout llBackTitle;
     @BindView(R.id.tv_titletext_title)
     TextView tvTitletextTitle;
-    @BindView(R.id.iv_bianji_title)
-    ImageView ivBianjiTitle;
+    @BindView(R.id.ll_rigthimage_title)
+    LinearLayout llRigthimageTitle;
     @BindView(R.id.tv_rizhi_quanzi)
     TextView tvRizhiQuanzi;
     @BindView(R.id.tv_haoyou_quanzi)
@@ -199,13 +199,13 @@ public class QuanziActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.ll_back_title, R.id.iv_bianji_title, R.id.tv_rizhi_quanzi, R.id.tv_haoyou_quanzi, R.id.tv_guanzhu_quanzi})
+    @OnClick({R.id.ll_back_title, R.id.ll_rigthimage_title, R.id.tv_rizhi_quanzi, R.id.tv_haoyou_quanzi, R.id.tv_guanzhu_quanzi})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_back_title:
                 finish();
                 break;
-            case R.id.iv_bianji_title:
+            case R.id.ll_rigthimage_title:
                 startActivity(new Intent(QuanziActivity.this,XierizhiActivity.class));
                 break;
             case R.id.tv_rizhi_quanzi:

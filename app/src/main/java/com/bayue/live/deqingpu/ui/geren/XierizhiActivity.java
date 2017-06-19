@@ -71,6 +71,8 @@ public class XierizhiActivity extends BaseActivity {
     RelativeLayout rlGongkaiXie;
     @BindView(R.id.rl_bukejian_xie)
     RelativeLayout rlBukejianXie;
+    @BindView(R.id.ll_rigthimage_title)
+    LinearLayout llRigthimageTitle;
 
     String desc="";//消息
     String pic="";//图片
@@ -122,9 +124,12 @@ public class XierizhiActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.ll_back_title, R.id.iv_bianji_title, R.id.iv_tupian_xie, R.id.iv_gongkai_xie, R.id.iv_bukejian_xie, R.id.rl_sheikejian_xie})
+    @OnClick({R.id.ll_rigthimage_title,R.id.ll_back_title, R.id.iv_bianji_title, R.id.iv_tupian_xie, R.id.iv_gongkai_xie, R.id.iv_bukejian_xie, R.id.rl_sheikejian_xie})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.ll_rigthimage_title:
+                tiJiao();
+                break;
             case R.id.ll_back_title:
                 finish();
                 break;

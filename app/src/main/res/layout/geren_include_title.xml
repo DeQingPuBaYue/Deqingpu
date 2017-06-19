@@ -12,14 +12,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="100px"
-            android:layout_marginTop="28px">
+            android:layout_marginTop="28px"
+            android:paddingBottom="14px">
             <LinearLayout android:id="@+id/ll_back_title"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:gravity="bottom"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="14px"
                 android:layout_width="60px"
                 android:layout_height="60px">
                 <ImageView
@@ -34,19 +34,19 @@
                 android:textColor="@color/white"
                 android:textSize="35px"
                 android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="18px"/>
+                android:layout_alignParentBottom="true"/>
             <LinearLayout android:id="@+id/ll_rigthimage_title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:gravity="bottom|right"
-                android:layout_marginBottom="18px">
-                <ImageView
+                android:gravity="bottom|right">
+                <ImageView android:id="@+id/iv_bianji_title"
                     android:layout_width="44px"
                     android:layout_height="40px"
-                    android:src="@drawable/icon_125"/>
+                    android:layout_marginLeft="20px"
+                    android:src="@drawable/icon_125"
+                    android:layout_marginBottom="-1px"/>
             </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>

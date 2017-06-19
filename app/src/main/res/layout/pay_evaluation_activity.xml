@@ -4,13 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.bayue.live.deqingpu.view.TopActionBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/title"
-        app:canClose="true"
-
-        ></com.bayue.live.deqingpu.view.TopActionBar>
+    <include layout="@layout/geren_include_title"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
@@ -61,7 +55,7 @@
         android:padding="31px"
         android:orientation="vertical"
         android:background="@color/white">
-        <EditText
+        <EditText android:id="@+id/ed_content_eval"
             android:layout_width="match_parent"
             android:layout_height="260px"
             android:hint="宝贝满足你的期待吗？说说它的优点和美中不足的地方吧"
@@ -78,7 +72,7 @@
             android:textSize="28px"
             android:layout_gravity="right"/>
     </LinearLayout>
-    <ImageView
+    <ImageView android:id="@+id/iv_photo_eval"
         android:layout_width="161px"
         android:layout_height="161px"
         android:src="@drawable/icon_59"
