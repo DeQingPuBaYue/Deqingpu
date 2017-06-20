@@ -1,5 +1,7 @@
 package com.bayue.live.deqingpu.entity;
 
+import java.util.List;
+
 /**
  * Created by BaYue on 2017/6/14.
  * email : 2651742485@qq.com
@@ -46,7 +48,7 @@ public class StoreDetail {
          */
 
         private String name;
-        private String note;
+        private List<String> note;
         private int number;
         private String phone;
         private int sales;
@@ -63,11 +65,11 @@ public class StoreDetail {
             this.name = name;
         }
 
-        public String getNote() {
+        public List<String> getNote() {
             return note;
         }
 
-        public void setNote(String note) {
+        public void setNote(List<String> notice) {
             this.note = note;
         }
 
