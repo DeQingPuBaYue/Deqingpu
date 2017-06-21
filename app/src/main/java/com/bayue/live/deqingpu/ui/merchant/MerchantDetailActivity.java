@@ -146,7 +146,7 @@ public class MerchantDetailActivity extends BaseActivity {
             txtMerchantAvatorBusi.setText(bean.getName());
             goodsCount = bean.getNumber();
             txtMerchantGoodsCount.setText(goodsCount+"\n" +"全部商品");
-            txtNotice.setText(bean.getNote());
+//            txtNotice.setText(bean.getNote());
         }
         initComment();
     }
