@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.text.TextWatcher;
+import android.widget.TextView;
 
 import com.bayue.live.deqingpu.R;
 

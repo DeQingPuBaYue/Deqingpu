@@ -498,7 +498,6 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
         imgSpecSelectCancel = (ImageView) contentView.findViewById(R.id.imgSpecSelectCancel);
         ivSpecHeadPic = (ImageView) contentView.findViewById(R.id.ivSpecHeadPic);
         rvSpecSelect = (RecyclerView) contentView.findViewById(R.id.rvSpecSelect);
-        edtSelectNumber = (EditText) contentView.findViewById(R.id.edtSelectNumber);
         rvSpecSelect.setLayoutManager(new LinearLayoutManager(baseActivity));
         txtSpecSelectValue.setText(detail.getData().getGoods_name());
         txtSpecSelectPrice.setText("￥"+detail.getData().getMerchant_price());
@@ -509,6 +508,10 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
             @Override
             public void onAmountChange(View view, int amount) {
                 addNumber = amount;
+                if (addNumber>=0) {
+                    double price = Double.parseDouble(detail.getData().getMerchant_price());
+                    txtSpecSelectPrice.setText("￥"+ amount * price);
+                }
             }
         });
 
@@ -562,11 +565,7 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
                     mFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
                         @Override
                         public boolean onTagClick(View view, int position, FlowLayout parent) {
-//                        TextView tv = (TextView) view;
-//                        tv.setTextColor(getResources().getColor(R.color.orange_red));
-//                        tv.setBackgroundResource(R.drawable.opt_orange_red);
                             txtSpecSelectPrice.setText("￥" + valuesList.get(position).getFormat_price());
-//                            if (finalIsMulti) {
                             if (stringBuilder.length()>0) {
                                 if (tempTagId > 0) {
                                     String tempStr = tempTagId + "";
@@ -575,7 +574,6 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
                                 }
                                 tempTagId = valuesList.get(position).getId();
                                 stringBuilder.append(tempTagId);
-//                                mFlowLayout.getAdapter().notifyDataChanged();
                             }else {
                                 ToastUtils.showLongToast("请选择至少一种"+bean.getName());
                             }
