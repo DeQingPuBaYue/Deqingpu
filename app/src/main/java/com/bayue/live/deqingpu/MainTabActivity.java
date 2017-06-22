@@ -87,6 +87,12 @@ public class MainTabActivity extends BaseActivity {
             if (PackageManager.PERMISSION_GRANTED != ActivityCompat.checkSelfPermission(MainTabActivity.this, Manifest.permission.READ_PHONE_STATE)) {
                 permissiions.add(Manifest.permission.READ_PHONE_STATE);
             }
+            if (PackageManager.PERMISSION_GRANTED != ActivityCompat.checkSelfPermission(MainTabActivity.this, Manifest.permission.READ_PHONE_STATE)) {
+                permissiions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+            }
+            if (PackageManager.PERMISSION_GRANTED != ActivityCompat.checkSelfPermission(MainTabActivity.this, Manifest.permission.READ_PHONE_STATE)) {
+                permissiions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+            }
             if (permissiions.size() != 0) {
                 ActivityCompat.requestPermissions(MainTabActivity.this,
                         (String[]) permissiions.toArray(new String[0]),

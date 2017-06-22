@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+    <LinearLayout
+        style="@style/RegionBox"
+        android:layout_width="fill_parent"
+        android:layout_height="86dp"
+        android:layout_marginTop="66dp"
+        android:background="@drawable/click_of_result"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_marginLeft="120dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/txtSpecSelectValue"
+                android:text="@string/app_name"
+                style="@style/BigThanSizeBlackStyle"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/sp_12"/>
+            <TextView
+                android:id="@+id/txtSpecSelectPrice"
+                android:text="@string/app_name"
+                style="@style/BigThanSizeBlackStyle"
+                android:layout_marginTop="@dimen/dp_10"
+                android:textColor="@color/orange_red"
+                />
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/imgSpecSelectCancel"
+            android:padding="@dimen/dp_10"
+            android:src="@mipmap/icon_exit_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivSpecHeadPic"
+        android:layout_width="@dimen/edit_hight"
+        android:layout_height="@dimen/edit_hight"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@mipmap/ic_launcher_round"
+        android:padding="1.5dp"
+        />
+</FrameLayout>

@@ -159,6 +159,7 @@ public class FragGoodlist extends LazyLoadFragment implements SwipeRefreshLayout
             public void onItemClick(View view, RecyclerView.ViewHolder holder,  int position)
             {
 //                mAdapter.notifyItemRemoved(position);
+                startActivity(new Intent(baseActivity, MerchantGoodsDetailActivity.class).putExtra("goods_id",commenList.get(position).getGoods_id()));
             }
 
             @Override

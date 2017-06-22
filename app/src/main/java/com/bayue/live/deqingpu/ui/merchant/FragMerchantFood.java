@@ -1,10 +1,18 @@
 package com.bayue.live.deqingpu.ui.merchant;
 
-import android.app.ProgressDialog;
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,17 +21,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bayue.live.deqingpu.R;
-import com.bayue.live.deqingpu.adapter.FullyLinearLayoutManager;
 import com.bayue.live.deqingpu.adapter.PullToRefreshMerchantAdapter;
 import com.bayue.live.deqingpu.base.BaseFragment;
-import com.bayue.live.deqingpu.base.MyBaseSubscriber;
 import com.bayue.live.deqingpu.data.Constants;
 import com.bayue.live.deqingpu.entity.MerchantFood;
-import com.bayue.live.deqingpu.entity.ResultModel;
-import com.bayue.live.deqingpu.entity.Return;
 import com.bayue.live.deqingpu.entity.StoreDetail;
 import com.bayue.live.deqingpu.http.API;
-import com.bayue.live.deqingpu.ui.address.AddAddressActivity;
 import com.bayue.live.deqingpu.utils.GsonHelper;
 import com.bayue.live.deqingpu.utils.ToastUtils;
 import com.bayue.live.deqingpu.utils.Tracer;
@@ -48,8 +51,7 @@ import okhttp3.ResponseBody;
  * Created by BaYue on 2017/6/14.
  * email : 2651742485@qq.com
  */
-
-public class FragMerchantFood extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener ,BaseQuickAdapter.RequestLoadMoreListener{
+public class FragMerchantFood extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
     String TAG = "FragMerchantFood";
     @BindView(R.id.rv_merchant)
     RecyclerView rvMerchant;
@@ -69,8 +71,9 @@ public class FragMerchantFood extends BaseFragment implements SwipeRefreshLayout
     int LOAD_MORE = 0x0004;
     MerchantFood merchantFood;
     StoreDetail storeDetail;
-    String store_type = "", storeId= "";
+    String store_type = "", storeId = "";
     int page = 1, count_page;
+
     @Override
     protected int getViewId() {
         return R.layout.frag_merchant_food;
@@ -78,6 +81,16 @@ public class FragMerchantFood extends BaseFragment implements SwipeRefreshLayout
 
     @Override
     public void init() {
+//        if (ContextCompat.checkSelfPermission(baseActivity, Manifest.permission.ACCESS_COARSE_LOCATION)
+//                != PackageManager.PERMISSION_GRANTED
+//                || ContextCompat.checkSelfPermission(baseActivity, Manifest.permission.ACCESS_FINE_LOCATION)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            //申请WRITE_EXTERNAL_STORAGE权限
+//            ActivityCompat.requestPermissions(baseActivity,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION},
+//                    ACCESS_COARSE_LOCATION_REQUEST_CODE);
+//        } else {
+////            initMap();
+//        }
         swipeLayoutMerchant.setOnRefreshListener(this);
         swipeLayoutMerchant.setColorSchemeColors(Color.rgb(47, 223, 189));
         rvMerchant.setLayoutManager(new LinearLayoutManager(baseActivity));
@@ -94,7 +107,8 @@ public class FragMerchantFood extends BaseFragment implements SwipeRefreshLayout
         beginGet(LOAD_REFRESH, page);
 
     }
-    private void beginGet(final int loadStatus, final int pages){
+
+    private void beginGet(final int loadStatus, final int pages) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -108,6 +122,7 @@ public class FragMerchantFood extends BaseFragment implements SwipeRefreshLayout
         }, 300);
 
     }
+
     private void initAdapter() {
         //兼容scrollview
 //        FullyLinearLayoutManager linearLayoutManager = new FullyLinearLayoutManager(baseActivity);
@@ -129,12 +144,13 @@ public class FragMerchantFood extends BaseFragment implements SwipeRefreshLayout
 //                map.put("token", Preferences.getString(getContext(), Preferences.TOKEN));
                 MerchantFood.DataBean bean = (MerchantFood.DataBean) baseQuickAdapter.getData().get(position);
                 Tracer.e(TAG, bean.getStore_id() + "");
-                storeId = bean.getStore_id()+"";
-                map.put("store_id",bean.getStore_id());//
+                storeId = bean.getStore_id() + "";
+                map.put("store_id", bean.getStore_id());//
                 getDataFromNet(API.Merchant.STORE_DETAIL, map, LOAD_DETAIL, 0);
             }
         });
     }
+
     private void getDataFromNet(String url, Map<String, Object> hashMap, final int status, final int loadStatus) {
         novate.post(url, hashMap, new BaseSubscriber<ResponseBody>(baseActivity) {
 
@@ -144,6 +160,7 @@ public class FragMerchantFood extends BaseFragment implements SwipeRefreshLayout
                     Tracer.e("OkHttp", e.getMessage());
                 }
             }
+
             @Override
             public void onNext(ResponseBody responseBody) {
                 String jstr = null;
@@ -153,33 +170,105 @@ public class FragMerchantFood extends BaseFragment implements SwipeRefreshLayout
                     e.printStackTrace();
                 }
                 Tracer.e(TAG, jstr);
-                if (!jstr.contains("code")){
+                if (!jstr.contains("code")) {
                     ToastUtils.showLongToast(getString(R.string.net_user_error));
                     return;
                 }
                 if (status == LOAD_LIST) {
                     merchantFood = (MerchantFood) GsonHelper.getInstanceByJson(MerchantFood.class, jstr);
-                    if (merchantFood.getCode() == Constants.CODE_OK){
+                    if (merchantFood.getCode() == Constants.CODE_OK) {
                         count_page = merchantFood.getCount_page();
                         if (loadStatus == LOAD_REFRESH) {
                             swipeLayoutMerchant.setRefreshing(false);
                             foodList.clear();
                             foodList.addAll(merchantFood.getData());
                             merchantAdapter.notifyDataSetChanged();
-                        }else {
+                        } else {
                             foodList.addAll(merchantFood.getData());
                             merchantAdapter.notifyDataSetChanged();
                             merchantAdapter.loadMoreComplete();
                         }
                     }
-                }else if (status == LOAD_DETAIL){
+                } else if (status == LOAD_DETAIL) {
 //                    storeDetail = (StoreDetail) GsonHelper.getInstanceByJson(StoreDetail.class, jstr);
-                    startActivity(new Intent(baseActivity, MerchantDetailActivity.class).putExtra("json", jstr).putExtra("storeId",storeId));
+                    startActivity(new Intent(baseActivity, MerchantDetailActivity.class).putExtra("json", jstr).putExtra("storeId", storeId));
                 }
             }
         });
 
     }
+
+    private void getLocation() {
+        LocationManager locationManager = (LocationManager) baseActivity.getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            if (ActivityCompat.checkSelfPermission(baseActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(baseActivity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location != null) {
+                latitude = location.getLatitude();
+                longtitude = location.getLongitude();
+                Tracer.e(TAG, "latitude:"+ latitude +" "+ longtitude);
+            }
+        } else {
+            LocationListener locationListener = new LocationListener() {
+
+                // Provider的状态在可用、暂时不可用和无服务三个状态直接切换时触发此函数
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                }
+
+                // Provider被enable时触发此函数，比如GPS被打开
+                @Override
+                public void onProviderEnabled(String provider) {
+
+                }
+
+                // Provider被disable时触发此函数，比如GPS被关闭
+                @Override
+                public void onProviderDisabled(String provider) {
+
+                }
+
+                //当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发
+                @Override
+                public void onLocationChanged(Location location) {
+                    if (location != null) {
+                        Tracer.e("Map", "Location changed : Lat: "
+                                + location.getLatitude() + " Lng: "
+                                + location.getLongitude());
+                    }
+                }
+            };
+            if (ActivityCompat.checkSelfPermission(baseActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(baseActivity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            if(location != null){
+                latitude = location.getLatitude(); //经度
+                longtitude = location.getLongitude(); //纬度
+            }
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view

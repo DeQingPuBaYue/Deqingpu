@@ -24,7 +24,7 @@ public class HTTPUtils {
         FormBody.Builder formBody = new FormBody.Builder();
         for (Map.Entry<String, Object> entry : map.entrySet()){
             formBody.add(entry.getKey(), String.valueOf(entry.getValue()));
-            Tracer.e("AddAddressActivity", entry.getKey() +":"+String.valueOf(entry.getValue()));
+//            Tracer.e("AddAddressActivity", entry.getKey() +":"+String.valueOf(entry.getValue()));
         }
         body = formBody.build();
         Request request = new Request.Builder()

@@ -17,7 +17,6 @@
         <attr name="canClose" format="boolean"/>
 
 
-
         <!-- 这些暂时都用不上了-->
         <attr name="leftText" format="string" />
         <attr name="rightText" format="string" />
@@ -32,8 +31,61 @@
         <attr name="rightBackground" format="reference|color" />
 
     </declare-styleable>
-
-
+    <!-- 加减器 -->
+    <declare-styleable name="AmountView">
+        <!-- 左右2边+-按钮的宽度 -->
+        <attr name="btnWidth" format="dimension" />
+        <!-- 中间TextView的宽度 -->
+        <attr name="tvWidth" format="dimension" />
+        <!--<attr name="tvColor" format="color"/>-->
+        <attr name="tvTextSize" format="dimension"/>
+        <attr name="btnTextSize" format="dimension"/>
+    </declare-styleable>
+    <declare-styleable name="VerticalMarqueeTextView">
+        <attr
+            name="autoStartMarquee"
+            format="boolean" />
+        <attr
+            name="marqueeSpeed"
+            format="reference|integer" />
+        <attr
+            name="text"
+            format="reference|string" />
+        <attr
+            name="textSize"
+            format="reference|dimension" />
+        <attr
+            name="textColor"
+            format="reference|color" />
+        <attr
+            name="textAppearance"
+            format="reference" />
+        <attr name="textStyle">
+            <enum
+                name="normal"
+                value="0" />
+            <enum
+                name="bold"
+                value="1" />
+            <enum
+                name="italic"
+                value="2" />
+        </attr>
+        <attr name="typeface">
+            <enum
+                name="normal"
+                value="0" />
+            <enum
+                name="sans"
+                value="1" />
+            <enum
+                name="serif"
+                value="2" />
+            <enum
+                name="monospace"
+                value="3" />
+        </attr>
+    </declare-styleable>
 
     <declare-styleable name="drop_down_list_attr">
         <attr name="isDropDownStyle" format="boolean" />
@@ -153,23 +205,23 @@
         <attr name="noEmpty" format="boolean" />
         <attr name="isEnable" format="boolean" />
     </declare-styleable>
-    <declare-styleable name="custom_attr">
-        <attr name="text" format="string|reference" />
-        <!-- 文本内容 -->
-        <attr name="textSize" format="float" />
-        <!-- 文本字体大小 -->
-        <attr name="textColor" format="color" />
-        <!-- 字体颜色 -->
-        <attr name="checked" format="boolean" />
-        <!-- 是否选中 -->
-        <attr name="checkedBg" format="reference|color" />
-        <!-- 选中时的背景 -->
-        <attr name="unCheckedBg" format="reference|color" />
-        <!-- 未选中时的背景 -->
-        <attr name="id" format="reference" />
-        <!-- id -->
-        <attr name="image" format="reference" />
-    </declare-styleable>
+    <!--<declare-styleable name="custom_attr">-->
+        <!--<attr name="text" format="string|reference" />-->
+        <!--&lt;!&ndash; 文本内容 &ndash;&gt;-->
+        <!--<attr name="textSize" format="float" />-->
+        <!--&lt;!&ndash; 文本字体大小 &ndash;&gt;-->
+        <!--<attr name="textColor" format="color" />-->
+        <!--&lt;!&ndash; 字体颜色 &ndash;&gt;-->
+        <!--<attr name="checked" format="boolean" />-->
+        <!--&lt;!&ndash; 是否选中 &ndash;&gt;-->
+        <!--<attr name="checkedBg" format="reference|color" />-->
+        <!--&lt;!&ndash; 选中时的背景 &ndash;&gt;-->
+        <!--<attr name="unCheckedBg" format="reference|color" />-->
+        <!--&lt;!&ndash; 未选中时的背景 &ndash;&gt;-->
+        <!--<attr name="id" format="reference" />-->
+        <!--&lt;!&ndash; id &ndash;&gt;-->
+        <!--<attr name="image" format="reference" />-->
+    <!--</declare-styleable>-->
 
     <declare-styleable name="gridPasswordView">
 

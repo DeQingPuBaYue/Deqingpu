@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="@dimen/dp_10" android:background="@color/white"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txtStoreName"
+            style="@style/BigThanSizeBlackStyle"
+            android:layout_weight="1"
+            android:text="@string/app_name"/>
+        <ImageView
+            android:id="@+id/imgGoodsDetailShare"
+            android:src="@mipmap/icon_share_black"
+            android:padding="@dimen/dp_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/imgGoodsDetailComplaint"
+            android:src="@mipmap/icon_complaint"
+            android:padding="@dimen/dp_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txtPriceTip"
+            style="@style/normalSizeBlackStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_goods_price_tip"/>
+        <TextView
+            android:id="@+id/txtGoodsDetailPrice"
+            style="@style/BigThanSizeBlackStyle"
+            android:text="@string/app_name"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/txtGoodsMarketPrice"
+        style="@style/smallSizeGreyStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_4"
+        android:text="@string/app_name"
+        android:gravity="left"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imgMerchantShop"
+            android:src="@mipmap/icon_merchant_mark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="1dp" />
+        <TextView
+            style="@style/normalSizeBlackStyle"
+            android:text="@string/tv_customer"
+            android:padding="@dimen/dp_10"
+            android:gravity="right"
+            android:drawablePadding="@dimen/dp_8"
+            android:drawableRight="@mipmap/icon_customer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

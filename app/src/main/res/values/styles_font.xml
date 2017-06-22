@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="normalSizeBlackPaddingStyle" >
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:padding">@dimen/dp_10</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <!-- 只有红色强调的，才有左右边距-->
+    <style name="RedBigFont">
+        <item name="android:layout_marginLeft">3dp</item>
+        <item name="android:layout_marginRight">3dp</item>
+        <item name="android:textColor">@color/orange_red</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="BigFont" parent="NormalFont">
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="NormalFont" parent="BaseFont">
+        <item name="android:textColor">@color/face_black</item>
+    </style>
+    <style name="LabelSmallText">
+        <item name="android:textColor">@color/face_grey</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    <style name="NormalText">
+        <item name="android:textColor">@color/face_black</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="BaseFont">
+        <item name="android:textSize">@dimen/normal_text_size</item>
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+</resources>

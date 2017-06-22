@@ -1,6 +1,5 @@
 package com.bayue.live.deqingpu.ui.merchant;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,10 +16,8 @@ import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.adapter.CommentAdapter;
 import com.bayue.live.deqingpu.base.BaseActivity;
 import com.bayue.live.deqingpu.base.BaseSubscriber;
-import com.bayue.live.deqingpu.base.MyBaseSubscriber;
 import com.bayue.live.deqingpu.data.Constants;
 import com.bayue.live.deqingpu.entity.CommentBean;
-import com.bayue.live.deqingpu.entity.MerchantFood;
 import com.bayue.live.deqingpu.entity.StoreDetail;
 import com.bayue.live.deqingpu.http.API;
 import com.bayue.live.deqingpu.ui.merchant.pay.PayActivity;
@@ -28,6 +25,7 @@ import com.bayue.live.deqingpu.utils.GsonHelper;
 import com.bayue.live.deqingpu.utils.Guard;
 import com.bayue.live.deqingpu.utils.ToastUtils;
 import com.bayue.live.deqingpu.utils.Tracer;
+import com.bayue.live.deqingpu.view.AutoVerticalScrollTextView;
 import com.bayue.live.deqingpu.view.ScrollViewForListView;
 import com.bumptech.glide.Glide;
 import com.tamic.novate.Novate;
@@ -77,8 +75,8 @@ public class MerchantDetailActivity extends BaseActivity {
     TextView txtMerchantGoodsCount;
     @BindView(R.id.linMerchantGoods)
     LinearLayout linMerchantGoods;
-    @BindView(R.id.txtNotice)
-    TextView txtNotice;
+    //    @BindView(R.id.txtNotice)
+//    TextView txtNotice;
     @BindView(R.id.txtShowCommentSlide)
     TextView txtShowCommentSlide;
     @BindView(R.id.txtFavorableRate)
@@ -89,10 +87,13 @@ public class MerchantDetailActivity extends BaseActivity {
     TextView txtCommentAll;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.txtNotice)
+    AutoVerticalScrollTextView txtNotice;
     private Novate novate;
     String storePhone = "", storeId;
     int goodsCount = 0;
     CommentAdapter commentAdapter;
+    List<String> noticeList = new ArrayList<>();
     @Override
     protected int getViewId() {
         return R.layout.ac_merchant;
@@ -140,13 +141,15 @@ public class MerchantDetailActivity extends BaseActivity {
             Glide.with(baseActivity).load(bean.getStore_avatar())
                     .placeholder(R.mipmap.ic_launcher_round).error(R.mipmap.ic_launcher_round).into(imgMerchantShopAvator);
             txtMerchantDetailStoreName.setText(bean.getStore_name());
-            txtMerchantDetailCount.setText(bean.getSales()+"人消费");
+            txtMerchantDetailCount.setText(bean.getSales() + "人消费");
             txtMerchantDetailLocation.setText(bean.getStore_address());
             txtMerchantAvatorShop.setText(bean.getStore_name());
             txtMerchantAvatorBusi.setText(bean.getName());
             goodsCount = bean.getNumber();
-            txtMerchantGoodsCount.setText(goodsCount+"\n" +"全部商品");
-            txtNotice.setText(bean.getNote());
+            txtMerchantGoodsCount.setText(goodsCount + "\n" + "全部商品");
+            noticeList.addAll(bean.getNote());
+            txtNotice.getResource(noticeList);
+//            txtNotice.setText(bean.getNote());
         }
         initComment();
     }
@@ -164,6 +167,7 @@ public class MerchantDetailActivity extends BaseActivity {
             }
         }, 300);
     }
+
     private void getDataFromNet(String url, Map<String, Object> hashMap, final int status, final int loadStatus) {
         novate.post(url, hashMap, new BaseSubscriber<ResponseBody>(baseActivity) {
 
@@ -173,6 +177,7 @@ public class MerchantDetailActivity extends BaseActivity {
                     Tracer.e("OkHttp", e.getMessage());
                 }
             }
+
             @Override
             public void onNext(ResponseBody responseBody) {
                 String jstr = null;
@@ -182,23 +187,23 @@ public class MerchantDetailActivity extends BaseActivity {
                     e.printStackTrace();
                 }
                 Tracer.e(TAG, jstr);
-                if (!jstr.contains("code")){
+                if (!jstr.contains("code")) {
                     ToastUtils.showLongToast(getString(R.string.net_user_error));
                     return;
                 }
                 CommentBean commentBean = (CommentBean) GsonHelper.getInstanceByJson(CommentBean.class, jstr);
                 int count = 0, favorable = 100;
-                if (commentBean.getCount()>0){
+                if (commentBean.getCount() > 0) {
                     count = commentBean.getCount();
                 }
-                    favorable = commentBean.getFavorable();
-                txtShowCommentSlide.setText("评论晒图（"+ count + "）");
-                txtFavorableRate.setText("好评率："+ favorable + "%");
+                favorable = commentBean.getFavorable();
+                txtShowCommentSlide.setText("评论晒图（" + count + "）");
+                txtFavorableRate.setText("好评率：" + favorable + "%");
                 List<CommentBean.DataBean> dataBeans = new ArrayList<>();
-                if (!Guard.isNull(commentBean.getData())){
-                    if (commentBean.getData().size() > 0){
-                        for (int i=0;i<commentBean.getData().size();i++){
-                            if (!Guard.isNull(commentBean.getData().get(i).getComment_img())){
+                if (!Guard.isNull(commentBean.getData())) {
+                    if (commentBean.getData().size() > 0) {
+                        for (int i = 0; i < commentBean.getData().size(); i++) {
+                            if (!Guard.isNull(commentBean.getData().get(i).getComment_img())) {
                                 dataBeans.add(commentBean.getData().get(i));
                                 break;
                             }
@@ -206,7 +211,7 @@ public class MerchantDetailActivity extends BaseActivity {
 
                     }
                 }
-                Tracer.e(TAG, dataBeans.size() +" dataBeans");
+                Tracer.e(TAG, dataBeans.size() + " dataBeans");
                 commentAdapter = new CommentAdapter(baseContext, dataBeans);
                 listViewOneComment.setAdapter(commentAdapter);
 
@@ -214,9 +219,10 @@ public class MerchantDetailActivity extends BaseActivity {
         });
 
     }
+
     @OnClick({R.id.btnMerchantCheck, R.id.txtMerchantCall, R.id.txtJumpCall, R.id.linMerchantGoods, R.id.txtCommentAll})
-    void setOnClick(View view){
-        switch (view.getId()){
+    void setOnClick(View view) {
+        switch (view.getId()) {
             case R.id.btnMerchantCheck:
                 startActivity(new Intent(MerchantDetailActivity.this, PayActivity.class));
                 break;
@@ -230,7 +236,7 @@ public class MerchantDetailActivity extends BaseActivity {
                 break;
             case R.id.linMerchantGoods:
 //                if (goodsCount>0){
-                    startActivity(new Intent(baseContext,GoodsListActivity.class));
+                startActivity(new Intent(baseContext, GoodsListActivity.class));
 //                }
                 break;
             case R.id.txtCommentAll:

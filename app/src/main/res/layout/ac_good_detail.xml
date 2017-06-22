@@ -11,4 +11,83 @@
         android:layout_height="wrap_content"
         app:canClose="true"
         />
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.zhouwei.mzbanner.MZBannerView
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp"
+                app:open_mz_mode="false"
+                app:canLoop="true"
+                app:indicatorAlign="center"
+                app:indicatorPaddingLeft="10dp"
+                />
+            <include layout="@layout/goods_item_valume" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp" android:background="@color/color_line" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/txtGoodsDetailSalesVolume"
+                    style="@style/normalSizeBlackStyle"
+                    android:text="@string/app_name"
+                    android:padding="@dimen/dp_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="1dp" />
+                <TextView
+                    android:id="@+id/txtGoodsDetailOffline"
+                    style="@style/normalSizeBlackStyle"
+                    android:text="@string/txt_goods_offline"
+                    android:padding="@dimen/dp_10"
+                    android:drawablePadding="@dimen/dp_20"
+                    android:drawableRight="@mipmap/icon_jump"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <include layout="@layout/item_goods_detail_spec" />
+            <!--<TextView-->
+                <!--android:id="@+id/txtNotice"-->
+                <!--android:text="@string/app_name"-->
+                <!--style="@style/normalSizeBlackStyle"-->
+                <!--android:layout_marginBottom="@dimen/dp_10"-->
+                <!--android:padding="@dimen/dp_10"-->
+                <!--android:gravity="left"-->
+                <!--android:drawableLeft="@mipmap/icon_discount_tip"-->
+                <!--android:drawablePadding="@dimen/dp_8"-->
+                <!--android:scrollbars="vertical"-->
+                <!--android:scrollbarStyle="insideOverlay"-->
+                <!--android:fadeScrollbars="false"-->
+                <!--android:scrollbarFadeDuration="2000"-->
+                <!--android:background="@color/white"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content" />-->
+            <include layout="@layout/auto_scroll_textview" />
+            <include layout="@layout/item_merchant_detail_comment" />
+            <include layout="@layout/item_merchant_avator"/>
+            <include layout="@layout/item_viewpager_common" />
+        </LinearLayout>
+    </ScrollView>
+    <Button
+        android:id="@+id/btnConmon"
+        android:text="@string/btn_buy"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_fillet"
+        android:padding="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

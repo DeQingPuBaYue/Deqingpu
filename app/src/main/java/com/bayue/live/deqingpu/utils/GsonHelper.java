@@ -9,9 +9,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class GsonHelper
@@ -64,6 +68,23 @@ public class GsonHelper
     {
         Gson gson = new Gson();
         String str = gson.toJson(obj);//将json对象转换为字符串
+        return str;
+    }
+
+    /**
+     * @function 截取json串中的某个字段
+     * @param json
+     * @param param
+     * @return
+     * */
+    public static String getStrFromJson(String json, String param){
+        String str = "";
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            str = jsonObject.getString(param);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return str;
     }
 }
