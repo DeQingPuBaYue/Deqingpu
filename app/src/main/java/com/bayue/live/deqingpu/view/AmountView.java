@@ -76,7 +76,10 @@ public class AmountView extends LinearLayout implements TextWatcher, View.OnClic
     public void setGoods_storage(int goods_storage) {
         this.goods_storage = goods_storage;
     }
-
+    public void setDefault(int defaultValue){
+        this.amount = defaultValue;
+        etAmount.setText(amount + "");
+    }
     @Override
     public void onClick(View v) {
         int i = v.getId();
