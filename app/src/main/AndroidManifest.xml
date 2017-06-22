@@ -111,6 +111,10 @@
         <activity android:name=".ui.geren.CartActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <!--确认购物车-->
+        <activity android:name=".ui.geren.CartConfirmActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
 
 
     </application>

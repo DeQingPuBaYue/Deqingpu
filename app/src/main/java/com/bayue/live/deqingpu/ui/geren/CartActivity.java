@@ -1,5 +1,6 @@
 package com.bayue.live.deqingpu.ui.geren;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -50,16 +51,11 @@ public class CartActivity extends BaseActivity {
     private recyclerAdapter adapter;
     private RecyclerView.LayoutManager manager;
 
-    ArrayList<CartOutBean> outList=new ArrayList<>();
+    ArrayList<CartOutBean.DataBean> outList=new ArrayList<>();
 
     private void addOutList(){
 
-        for (int i = 0; i <5 ; i++) {
-            CartOutBean cartOutBean=new CartOutBean();
-            cartOutBean.setSelected(true);
-            cartOutBean.setEditor(false);
-            outList.add(cartOutBean);
-        }
+
 
     }
 
@@ -71,7 +67,7 @@ public class CartActivity extends BaseActivity {
     }
 
     @Override
-    protected void initViews() {
+    protected void initViews(){
         tvTitletextTitle.setText("我的购物车");
         tvRigthtextTitle.setText("编辑");
 
@@ -146,6 +142,8 @@ public class CartActivity extends BaseActivity {
 
                 break;
             case R.id.ll_lijigoumai_cart:
+                startActivity(new Intent(CartActivity.this,CartConfirmActivity.class));
+
                 break;
         }
     }
