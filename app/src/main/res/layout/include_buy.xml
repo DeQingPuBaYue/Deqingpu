@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="99px"
+        android:orientation="horizontal">
+        <LinearLayout android:id="@+id/ll_quanxuan_cart"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <ImageView android:id="@+id/iv_quanxuan_cart"
+                android:layout_width="37px"
+                android:layout_height="37px"
+                android:src="@drawable/icon_38"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全选"
+                android:textSize="28px"
+                android:textColor="@color/black"
+                android:layout_marginLeft="29px"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="总计：￥"
+                android:textColor="@color/black"
+                android:textSize="26px"/>
+            <TextView android:id="@+id/tv_zongjine_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="318.00"
+                android:textColor="@color/black"
+                android:textSize="26px"/>
+
+        </LinearLayout>
+        <LinearLayout android:id="@+id/ll_lijigoumai_cart"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@color/titlecolor">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="立即购买"
+                android:textColor="@color/white"
+                android:textSize="36px"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

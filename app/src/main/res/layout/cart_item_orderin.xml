@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/zilanmu_textcolor"
+        />
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20px"
+            android:layout_marginTop="20px"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="130px"
+                android:layout_height="130px"
+                android:scaleType="fitXY"
+                android:src="@drawable/picture_1" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="26px"
+                android:src="@drawable/icon_12"
+                android:scaleType="fitXY"
+                android:layout_marginTop="10px"/>
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <com.zhy.autolayout.AutoFrameLayout
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="18px"
+            android:layout_weight="1">
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/ll_xx_item_cart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="20px"
+                android:layout_marginTop="20px"
+                android:layout_marginRight="24px"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="47px"
+                    android:gravity="start"
+                    android:text="全部宝贝全部宝贝全部宝贝全部宝贝全部宝贝全部宝贝全部宝贝全部宝贝"
+                    android:textColor="@color/black"
+                    android:textSize="20px" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10px"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:layout_marginTop="10px"
+                        android:text="规格：11111"
+                        android:textSize="20px"
+                        android:textColor="@color/zilanmu_textcolor"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="24px"
+                        android:textColor="@color/black"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10px">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="￥66.00"
+                        android:textColor="@color/black"
+                        android:textSize="28px"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="×1"
+                        android:textSize="24px"
+                        android:textColor="@color/black"
+                        android:layout_alignParentRight="true"/>
+                </RelativeLayout>
+            </com.zhy.autolayout.AutoLinearLayout>
+
+        </com.zhy.autolayout.AutoFrameLayout>
+    </com.zhy.autolayout.AutoLinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/zilanmu_textcolor"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15px"
+        android:paddingBottom="15px">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="购买数量"
+            android:textSize="26px"
+            android:textColor="@color/black"
+            android:layout_centerVertical="true"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+            <include layout="@layout/include_number"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</com.zhy.autolayout.AutoLinearLayout>

@@ -19,10 +19,10 @@ import java.util.ArrayList;
 
 public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyHolder> {
 
-    ArrayList<CartOutBean> outList=new ArrayList<>();
+    ArrayList<CartOutBean.DataBean> list=new ArrayList<>();
 
-    public recyclerAdapter(ArrayList<CartOutBean> outList) {
-        this.outList = outList;
+    public recyclerAdapter(ArrayList<CartOutBean.DataBean> list) {
+        this.list = list;
     }
 
     public class MyHolder extends RecyclerView.ViewHolder{
@@ -63,7 +63,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyHold
     @Override
     public void onBindViewHolder(recyclerAdapter.MyHolder holder, final int position) {
 
-        holder.adapter = new recyclerAdapter1();
+        holder.adapter = new recyclerAdapter1(list.get(position).getGoods_info());
         holder.rlv_in.setAdapter(holder.adapter);
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,13 +83,13 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyHold
                 }
             }
         });
-        if(!outList.get(position).isSelected()){
+        if(list.get(position).isSelected()){
             holder.img.setImageResource(R.drawable.icon_38);
 
         }else {
             holder.img.setImageResource(R.drawable.icon_39);
         }
-        if(!outList.get(position).isEditor()){
+        if(!list.get(position).isEditor()){
             holder.bianji.setText("编辑");
         }else {
             holder.bianji.setText("完成");
@@ -99,7 +99,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyHold
 
     @Override
     public int getItemCount(){
-        return outList!=null?outList.size():0;
+        return list!=null?list.size():0;
     }
 
     private AllSelected allSelected;
