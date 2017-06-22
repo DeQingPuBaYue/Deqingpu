@@ -107,6 +107,10 @@
         <activity android:name=".ui.merchant.pay.EvaluationActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <!--购物车-->
+        <activity android:name=".ui.geren.CartActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
 
 
     </application>

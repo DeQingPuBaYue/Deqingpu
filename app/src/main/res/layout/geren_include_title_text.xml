@@ -14,7 +14,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="100px"
-            android:layout_marginTop="28px">
+            android:layout_marginTop="28px"
+            android:paddingBottom="14px">
 
             <LinearLayout
                 android:id="@+id/ll_back_title"
@@ -24,7 +25,6 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:layout_marginBottom="18px"
                 android:gravity="bottom">
 
                 <ImageView
@@ -39,7 +39,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="18px"
                 android:text="圈 子"
                 android:textColor="@color/white"
                 android:textSize="35px" />
@@ -48,14 +47,13 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:gravity="bottom|right"
-                android:layout_marginBottom="18px">
+                android:gravity="bottom|right">
 
                 <TextView
                     android:id="@+id/tv_rigthtext_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:layout_marginLeft="20px"
                     android:text="关闭"
                     android:textColor="@color/white"
                     android:textSize="30px" />

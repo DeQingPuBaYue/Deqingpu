@@ -14,6 +14,7 @@ import com.bayue.live.deqingpu.preferences.Preferences;
 import com.bayue.live.deqingpu.ui.AddressActivity;
 import com.bayue.live.deqingpu.ui.certification.CertificationActivity;
 import com.bayue.live.deqingpu.ui.denglu.DengLu;
+import com.bayue.live.deqingpu.ui.geren.CartActivity;
 import com.bayue.live.deqingpu.ui.geren.QuanziActivity;
 import com.bayue.live.deqingpu.utils.Tracer;
 import com.bayue.live.deqingpu.view.TopActionBar;
@@ -111,6 +112,8 @@ public class MainGerenFragment extends BaseFragment {
             case R.id.rl_dingdan_geren:
                 break;
             case R.id.rl_gouwuche_geren:
+                startActivity(new Intent(baseActivity, CartActivity.class));
+
                 break;
             case R.id.rl_renzheng_geren:
                 startActivity(new Intent(baseActivity, CertificationActivity.class));

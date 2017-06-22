@@ -12,7 +12,7 @@ public class StoreDetail {
 
     /**
      * code : 200
-     * data : {"name":"李先生","note":"店铺公告哦！！","number":0,"phone":"13524565152","sales":550,"store_address":"上海市嘉定区天祝路818号","store_avatar":"https://www.juhe.cn/themes/images/data/new/a15.png","store_banner":"","store_name":"联盟商家店铺2"}
+     * data : {"name":"李先生","note":"店铺公告哦！！","include_number":0,"phone":"13524565152","sales":550,"store_address":"上海市嘉定区天祝路818号","store_avatar":"https://www.juhe.cn/themes/images/data/new/a15.png","store_banner":"","store_name":"联盟商家店铺2"}
      */
 
     private int code;
@@ -38,7 +38,7 @@ public class StoreDetail {
         /**
          * name : 李先生
          * note : 店铺公告哦！！
-         * number : 0
+         * include_number : 0
          * phone : 13524565152
          * sales : 550
          * store_address : 上海市嘉定区天祝路818号
