@@ -71,6 +71,19 @@ public class API {
     public static final String QUANZI_GUANZHU="api/society/attention";
 
 
+    /*
+    购物车
+     */
+    public static class Cart{
+
+        public static final String ADD_TO_CART = "api/cart/add_to_cart";
+        public static final String CART_LIST = "api/cart/cart_list";
+        public static final String CHECKOUT = "api/cart/checkout";
+        public static final String CART_PRICE = "api/cart/cart_price";
+
+
+    }
+
 
 
 }
