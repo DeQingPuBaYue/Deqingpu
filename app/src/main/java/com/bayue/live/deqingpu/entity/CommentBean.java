@@ -21,7 +21,7 @@ public class CommentBean {
 
     private int code;
     private int count;
-    private int favorable;
+    private String favorable;
     private int count_page;
     private String page;
     private List<DataBean> data;
@@ -42,11 +42,11 @@ public class CommentBean {
         this.count = count;
     }
 
-    public int getFavorable() {
+    public String getFavorable() {
         return favorable;
     }
 
-    public void setFavorable(int favorable) {
+    public void setFavorable(String favorable) {
         this.favorable = favorable;
     }
 

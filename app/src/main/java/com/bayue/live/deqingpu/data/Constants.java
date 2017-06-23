@@ -1,6 +1,7 @@
 package com.bayue.live.deqingpu.data;
 
 import com.bayue.live.deqingpu.preferences.Preferences;
+import com.bayue.live.deqingpu.utils.Tracer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,13 +16,23 @@ import static com.bayue.live.deqingpu.utils.Utils.getContext;
 
 public class Constants {
     public static final String ARGS = "args";
-    private static Map<String, Object> map = new HashMap<>();
+//    private static Map<String, Object> map = new HashMap<>();
     public static final int CODE_OK = 200;
     public static final int CODE_ERROR = -300;
     public static Map<String, Object> getMap(){
+        Map<String, Object> map = new HashMap<>();
         map.put("safecode","BaYue.deqingpu");
         map.put("apiversion","v.1.0");
-        map.put("token", Preferences.getString(getContext(), Preferences.TOKEN));
+        String token = Preferences.getString(getContext(), Preferences.TOKEN);
+        if (token.equals("-1")){
+            token = "";
+        }
+        map.put("token", token);
         return map;
+    }
+    public static void LogMap(Map<String, Object> map){
+        for (Map.Entry<String, Object> entry : map.entrySet()){
+            Tracer.e("Constants_MapValue", entry.getKey() +":"+String.valueOf(entry.getValue()));
+        }
     }
 }

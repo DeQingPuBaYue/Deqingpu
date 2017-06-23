@@ -50,6 +50,9 @@ public class API {
         public static final String COMMENT_ADD = "api/goods/add_comment";
         public static final String GOODS_LIST = "api/goods/goods_list";
         public static final String GOODS_DETAIL = "api/goods/goods_detail";
+        public static final String GOODS_PRICE = "api/goods/goods_price";
+        public static final String GOODS_AFFILIATE = "api/goods/goods_affiliate";
+        public static final String GOODS_ORDER = "api/goods/goods_order";
     }
 
     //登录

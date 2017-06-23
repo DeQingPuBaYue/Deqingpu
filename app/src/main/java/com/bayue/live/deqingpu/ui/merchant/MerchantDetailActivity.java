@@ -192,13 +192,12 @@ public class MerchantDetailActivity extends BaseActivity {
                     return;
                 }
                 CommentBean commentBean = (CommentBean) GsonHelper.getInstanceByJson(CommentBean.class, jstr);
-                int count = 0, favorable = 100;
+                int count = 0 ;
                 if (commentBean.getCount() > 0) {
                     count = commentBean.getCount();
                 }
-                favorable = commentBean.getFavorable();
                 txtShowCommentSlide.setText("评论晒图（" + count + "）");
-                txtFavorableRate.setText("好评率：" + favorable + "%");
+                txtFavorableRate.setText("好评率：" + commentBean.getFavorable());
                 List<CommentBean.DataBean> dataBeans = new ArrayList<>();
                 if (!Guard.isNull(commentBean.getData())) {
                     if (commentBean.getData().size() > 0) {

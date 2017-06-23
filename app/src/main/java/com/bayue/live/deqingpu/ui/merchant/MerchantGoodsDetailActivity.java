@@ -29,8 +29,12 @@ import com.bayue.live.deqingpu.base.LazyLoadFragment;
 import com.bayue.live.deqingpu.data.Constants;
 import com.bayue.live.deqingpu.entity.CommentBean;
 import com.bayue.live.deqingpu.entity.GoodsDetail;
+import com.bayue.live.deqingpu.entity.Return;
 import com.bayue.live.deqingpu.http.API;
+import com.bayue.live.deqingpu.ui.merchant.detail.FragGoodRecod;
+import com.bayue.live.deqingpu.ui.merchant.detail.FragGoodRecom;
 import com.bayue.live.deqingpu.ui.merchant.detail.FragGoodsShow;
+import com.bayue.live.deqingpu.ui.merchant.detail.FragGoodsSpec;
 import com.bayue.live.deqingpu.utils.GsonHelper;
 import com.bayue.live.deqingpu.utils.Guard;
 import com.bayue.live.deqingpu.utils.ToastUtils;
@@ -177,7 +181,7 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
         screenWidth = Utils.getScreenSize(baseActivity)[0];
         screenHeight = Utils.getScreenSize(baseActivity)[1];
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) vpMerchant.getLayoutParams();
-        params.height = 300;
+        params.height = screenHeight * 3 / 5 ;
         vpMerchant.setLayoutParams(params);
         goods_id = getIntent().getIntExtra("goods_id", -1);
         if (goods_id < 0) {
@@ -238,7 +242,7 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
 ////                }
 //            }
 //        }.start();
-        initViews();
+        initViews(goodsDetail);
     }
 
 //    private int number = 0;
@@ -263,7 +267,7 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
 //        }
 //    }
 
-    private void initViews() {
+    private void initViews(GoodsDetail goodsDetail) {
         txtMerchantFood.setText(R.string.txt_goods_graphic_details);
         txtMerchantHotel.setText(R.string.txt_goods_spec_params);
         txtMerchantPlay.setText(R.string.txt_goods_recom_pro);
@@ -271,11 +275,12 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
         imgGoodsSortTipValume.setVisibility(View.GONE);
         imgGoodsSortTipPrice.setVisibility(View.GONE);
         imgGoodsSortTipAct.setVisibility(View.GONE);
-        Tracer.e(TAG, "html:"+ htmlStr);
         FragGoodsShow goodsShow = FragGoodsShow.newInstance(htmlStr);
-        FragGoodsShow goodsSpec = FragGoodsShow.newInstance(goods_desc);
-        FragGoodsShow goodsRecom = FragGoodsShow.newInstance(goods_desc);
-        FragGoodsShow goodsRecod = FragGoodsShow.newInstance(goods_desc);
+        String proValue = GsonHelper.ObjectToString(goodsDetail.getData().getPro());
+        Tracer.e(TAG, "proValue:"+ proValue);
+        FragGoodsSpec goodsSpec = FragGoodsSpec.newInstance(proValue);
+        FragGoodRecom goodsRecom = FragGoodRecom.newInstance(goods_id);
+        FragGoodRecod goodsRecod = FragGoodRecod.newInstance(goods_id);
         fragments.add(goodsShow);
         fragments.add(goodsSpec);
         fragments.add(goodsRecom);
@@ -415,7 +420,7 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Tracer.e(TAG, jstr);
+                Tracer.e(TAG + type, jstr);
                 if (!jstr.contains("code")) {
                     ToastUtils.showLongToast(getString(R.string.net_user_error));
                     return;
@@ -446,15 +451,14 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
                     setSpeValue(goodsDetail);
                     htmlStr = goodsDetail.getData().getGoods_desc();
                     initData(goodsDetail);
-                } else {
+                } else if (type ==2){
                     CommentBean commentBean = (CommentBean) GsonHelper.getInstanceByJson(CommentBean.class, jstr);
-                    int count = 0, favorable = 100;
+                    int count = 0;
                     if (commentBean.getCount() > 0) {
                         count = commentBean.getCount();
                     }
-                    favorable = commentBean.getFavorable();
                     txtShowCommentSlide.setText("评论晒图（" + count + "）");
-                    txtFavorableRate.setText("好评率：" + favorable + "%");
+                    txtFavorableRate.setText("好评率：" + commentBean.getFavorable());
                     List<CommentBean.DataBean> dataBeans = new ArrayList<>();
                     if (!Guard.isNull(commentBean.getData())) {
                         if (commentBean.getData().size() > 0) {
@@ -469,18 +473,27 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
                     Tracer.e(TAG, dataBeans.size() + " dataBeans");
                     commentAdapter = new CommentAdapter(baseContext, dataBeans);
                     listViewOneComment.setAdapter(commentAdapter);
+                    if (commentBean.getData().size()<1){
+                        txtCommentAll.setText("暂无评论");
+                        txtCommentAll.setClickable(false);
+                    }
+                }else if (type == 3){
+                    Tracer.e(TAG, jstr);
+                    Return r = (Return) GsonHelper.getInstanceByJson(Return.class, jstr);
+                    price = Double.parseDouble(r.getData());
+                    txtSpecSelectPrice.setText("￥"+r.getData());
                 }
             }
         });
     }
     TextView txtSpecSelectValue, txtSpecSelectPrice, txtSpecSelectAdd, txtSpecSelectBuy;
-    ImageView imgSpecSelectCancel, ivSpecHeadPic, ivSelectReduce, ivSelectAdd;
+    ImageView imgSpecSelectCancel, ivSpecHeadPic;
     RecyclerView rvSpecSelect;
-    EditText edtSelectNumber;
     AmountView amountView;
     CommonAdapter<GoodsDetail.DataBean.SpeBean> popAdapter;
     StringBuilder stringBuilder = new StringBuilder("");
-    int tempSelectId, tempTagId, addNumber;
+    int tempSelectId, tempTagId, addNumber = 1;
+    double price, tempSelectPrice;
     private void showPopwindow() {
         final GoodsDetail detail = getSpeValue();
         if (Guard.isNull(detail)){
@@ -500,17 +513,20 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
         rvSpecSelect = (RecyclerView) contentView.findViewById(R.id.rvSpecSelect);
         rvSpecSelect.setLayoutManager(new LinearLayoutManager(baseActivity));
         txtSpecSelectValue.setText(detail.getData().getGoods_name());
-        txtSpecSelectPrice.setText("￥"+detail.getData().getMerchant_price());
+        if (!Guard.isNull(detail.getData().getMerchant_price())) {
+            price = Double.parseDouble(detail.getData().getMerchant_price());
+            txtSpecSelectPrice.setText("￥"+detail.getData().getMerchant_price());
+        }
         Glide.with(baseContext).load(detail.getData().getGoods_thumb())
                 .placeholder(R.mipmap.ic_launcher_round).error(R.mipmap.ic_launcher_round)
                 .into(ivSpecHeadPic);
         amountView.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
             @Override
             public void onAmountChange(View view, int amount) {
-                addNumber = amount;
-                if (addNumber>=0) {
-                    double price = Double.parseDouble(detail.getData().getMerchant_price());
-                    txtSpecSelectPrice.setText("￥"+ amount * price);
+                    addNumber = amount;
+                if (amount>0) {
+//                    txtSpecSelectPrice.setText("￥"+ amount * price);
+                    getPrice();
                 }
             }
         });
@@ -549,23 +565,25 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
                         public void onSelected(Set<Integer> selectPosSet)
                         {
                             StringBuilder tempBuilder = new StringBuilder();
+//                            double tempPrice = 0;
                             Iterator iterator=selectPosSet.iterator();
                             while (iterator.hasNext()){
                                 String spe =  iterator.next().toString();
                                 tempSelectId = valuesList.get(Integer.parseInt(spe)).getId();
+//                                tempPrice += Double.parseDouble(valuesList.get(Integer.parseInt(spe)).getPrice());
                                 tempBuilder.append(tempSelectId+",");
                             }
                             stringBuilder = tempBuilder;
                             tempTagId = 0;
-//                            mFlowLayout.getAdapter().notifyDataChanged();
-                            Tracer.e(TAG, "select:"+stringBuilder.toString()+" temp:"+tempBuilder);
+                            getPrice();
                         }
                     });
                 }else {
                     mFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
                         @Override
                         public boolean onTagClick(View view, int position, FlowLayout parent) {
-                            txtSpecSelectPrice.setText("￥" + valuesList.get(position).getFormat_price());
+//                            txtSpecSelectPrice.setText("￥" + price);
+                            amountView.setDefault(1);
                             if (stringBuilder.length()>0) {
                                 if (tempTagId > 0) {
                                     String tempStr = tempTagId + "";
@@ -574,10 +592,11 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
                                 }
                                 tempTagId = valuesList.get(position).getId();
                                 stringBuilder.append(tempTagId);
+                                getPrice();
                             }else {
                                 ToastUtils.showLongToast("请选择至少一种"+bean.getName());
                             }
-                            Tracer.e(TAG, stringBuilder.toString());
+                            Tracer.e(TAG, price +" price");
                             return true;
                         }
                     });
@@ -634,6 +653,19 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
             }
         });
 
+    }
+
+    private void getPrice(){
+        String attrId = stringBuilder.toString();
+        if (attrId.endsWith(",")){
+            attrId = attrId.substring(0,attrId.length()-1);
+        }
+        Map<String, Object> mapPrice = Constants.getMap();
+        mapPrice.put("goods_id", goods_id);
+        mapPrice.put("goods_attr_id", attrId);
+        mapPrice.put("number", addNumber);
+//        Constants.LogMap(mapPrice);
+        beginGet(API.Merchant.GOODS_PRICE, mapPrice, 3);
     }
 
     @OnClick({R.id.linSelectSpecModel})
