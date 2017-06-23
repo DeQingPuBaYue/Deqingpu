@@ -40,7 +40,7 @@
                 android:textColor="@color/black"
                 android:layout_marginLeft="29px"/>
         </LinearLayout>
-        <LinearLayout
+        <LinearLayout android:id="@+id/ll_jine_cart"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -54,7 +54,7 @@
             <TextView android:id="@+id/tv_zongjine_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="318.00"
+                android:text="0"
                 android:textColor="@color/black"
                 android:textSize="26px"/>
 
@@ -65,7 +65,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:background="@color/titlecolor">
-            <TextView
+            <TextView android:id="@+id/tv_lijigoumai_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="立即购买"
