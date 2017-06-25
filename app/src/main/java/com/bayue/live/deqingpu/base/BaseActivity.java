@@ -68,5 +68,7 @@ public abstract class BaseActivity extends AutoLayoutActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        //
+        //
     }
 }
