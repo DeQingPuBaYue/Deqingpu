@@ -162,7 +162,7 @@ public class recyclerAdapter1 extends RecyclerView.Adapter<recyclerAdapter1.MyHo
         holder.rlAttrItemCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((CartActivity)context).showPop(Integer.parseInt(goodsInfoBean.getGoods_id()), position);
+                Selected.setAttr(position,goodsInfoBean.getGoods_id());
 
             }
         });
@@ -185,7 +185,7 @@ public class recyclerAdapter1 extends RecyclerView.Adapter<recyclerAdapter1.MyHo
         void deitor(int subposition);
         void setAmountView(int amount,int subPosition);
         void delItem();
-        void setAttr();
+        void setAttr(int subposition,String goodsId);
 
     }
 

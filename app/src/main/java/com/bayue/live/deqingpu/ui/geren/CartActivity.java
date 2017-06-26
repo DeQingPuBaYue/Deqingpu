@@ -478,14 +478,25 @@ public class CartActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 hidePop();
-//                speBeanList
+                stringBuilder.toString();//id array
+
+                List<CartOutBean.DataBean.GoodsInfoBean.GoodsAttrBean> goodsAttrBeans;
+
+                outList.get(postion).getGoods_info().get(subpostion).getGoods_attr().clear();
+//                outList.get(postion).getGoods_info().get(subpostion).getGoods_attr()
+
+
                 adapter.notifyItemChanged(rvPosition);
             }
         });
     }
+    int postion;
+    int subpostion;
 
-    public void showPop(int goods_id, int postion){
-        rvPosition = postion;
+    public void showPop(int goods_id,int postion, int subpostion){
+        this.postion=postion;
+        this.subpostion=subpostion;
+
         speBeanList.clear();
         Map<String, Object> map = Constants.getMap();
         map.put("goods_id", goods_id);

@@ -135,7 +135,8 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyHold
             }
 
             @Override
-            public void setAttr() {
+            public void setAttr(int subposition,String goodsId) {
+                context.showPop(Integer.parseInt(goodsId),position,subposition);
 
             }
         });
