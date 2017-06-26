@@ -1,6 +1,7 @@
 package com.bayue.live.deqingpu.ui.merchant;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,6 +36,7 @@ import com.bayue.live.deqingpu.ui.merchant.detail.FragGoodRecod;
 import com.bayue.live.deqingpu.ui.merchant.detail.FragGoodRecom;
 import com.bayue.live.deqingpu.ui.merchant.detail.FragGoodsShow;
 import com.bayue.live.deqingpu.ui.merchant.detail.FragGoodsSpec;
+import com.bayue.live.deqingpu.ui.merchant.pay.PayActivity;
 import com.bayue.live.deqingpu.utils.GsonHelper;
 import com.bayue.live.deqingpu.utils.Guard;
 import com.bayue.live.deqingpu.utils.ToastUtils;
@@ -213,9 +215,9 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
         String commentUrl = API.Merchant.COMMENT_LIST;
         //评论
         Map<String, Object> commentmap = Constants.getMap();
-        map.put("comment_type", "1");
-        map.put("id_value", goods_id);
-        map.put("page", "1");
+        commentmap.put("comment_type", "1");
+        commentmap.put("id_value", goods_id);
+        commentmap.put("page", "1");
         beginGet(commentUrl, commentmap, 2);
     }
     String htmlStr = "";
@@ -366,6 +368,30 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
         vpMerchant.setOffscreenPageLimit(1);
     }
 
+    @OnClick({R.id.linGoodsDefault, R.id.linGoodsValume, R.id.linGoodsPrice, R.id.linGoodsAct})
+    void setOnViewPagerClick(View view){
+        switch (view.getId()){
+            case R.id.linGoodsDefault:
+                vpMerchant.setCurrentItem(0);
+                break;
+            case R.id.linGoodsValume:
+//                if (valumeStatus == 1){valumeStatus = 2;}
+//                else{valumeStatus = 1;}
+                vpMerchant.setCurrentItem(1);
+                break;
+            case R.id.linGoodsPrice:
+//                if (priceStatus == 1){priceStatus = 2;}
+//                else{priceStatus = 1;}
+                vpMerchant.setCurrentItem(2);
+                break;
+            case R.id.linGoodsAct:
+//                if (actStatus == 1){actStatus = 2;}
+//                else{actStatus = 1;}
+                vpMerchant.setCurrentItem(3);
+                break;
+        }
+    }
+
     /**
      * 设置滑动条的宽度为屏幕的1/3(根据Tab的个数而定)
      * Utils.getScreenSize(baseContext) 0 :width, 1 : height
@@ -425,7 +451,8 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
                     ToastUtils.showLongToast(getString(R.string.net_user_error));
                     return;
                 }
-                if (type == 1) {
+                switch (type){
+                    case 1:
                     goodsDetail = (GoodsDetail) GsonHelper.getInstanceByJson(GoodsDetail.class, jstr);
                     if (Guard.isNull(goodsDetail)) {
                         return;
@@ -451,7 +478,8 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
                     setSpeValue(goodsDetail);
                     htmlStr = goodsDetail.getData().getGoods_desc();
                     initData(goodsDetail);
-                } else if (type ==2){
+                    break;
+                    case 2:
                     CommentBean commentBean = (CommentBean) GsonHelper.getInstanceByJson(CommentBean.class, jstr);
                     int count = 0;
                     if (commentBean.getCount() > 0) {
@@ -477,11 +505,19 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
                         txtCommentAll.setText("暂无评论");
                         txtCommentAll.setClickable(false);
                     }
-                }else if (type == 3){
-                    Tracer.e(TAG, jstr);
-                    Return r = (Return) GsonHelper.getInstanceByJson(Return.class, jstr);
-                    price = Double.parseDouble(r.getData());
-                    txtSpecSelectPrice.setText("￥"+r.getData());
+                    break;
+                    case 3:
+                        Return r = (Return) GsonHelper.getInstanceByJson(Return.class, jstr);
+                        price = Double.parseDouble(r.getData());
+                        txtSpecSelectPrice.setText("￥"+r.getData());
+                    break;
+                    case 4:
+                        Return o = (Return) GsonHelper.getInstanceByJson(Return.class, jstr);
+                        if (o.getCode() == Constants.CODE_OK){
+                            ToastUtils.showLongToast(o.getData());
+                            hidePop();
+                        }
+                        break;
                 }
             }
         });
@@ -623,10 +659,8 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-                    if (popupWindows != null && popupWindows.isShowing()) {
-                        popupWindows.dismiss();
-                        return true;
-                    }
+                    hidePop();
+                    return true;
                 }
                 return false;
             }
@@ -634,27 +668,37 @@ public class MerchantGoodsDetailActivity extends FragmentActivityBase {
         imgSpecSelectCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (popupWindows != null && popupWindows.isShowing()) {
-                    popupWindows.dismiss();
-                }
+                hidePop();
                 stringBuilder = new StringBuilder();
             }
         });
         txtSpecSelectAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String attrId = stringBuilder.toString();
+                if (attrId.endsWith(",")){
+                    attrId = attrId.substring(0,attrId.length()-1);
+                }
+                Map<String, Object> mapPrice = Constants.getMap();
+                mapPrice.put("goods_id", goods_id);
+                mapPrice.put("spec", attrId);
+                mapPrice.put("number", addNumber);
+                beginGet(API.Cart.ADD_TO_CART, mapPrice, 4);
             }
         });
         txtSpecSelectBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(baseContext, PayActivity.class));
             }
         });
 
     }
-
+    private void hidePop(){
+        if (popupWindows != null && popupWindows.isShowing()) {
+            popupWindows.dismiss();
+        }
+    }
     private void getPrice(){
         String attrId = stringBuilder.toString();
         if (attrId.endsWith(",")){

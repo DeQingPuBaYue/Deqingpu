@@ -1,5 +1,7 @@
 package com.bayue.live.deqingpu.entity;
 
+import java.util.List;
+
 /**
  * Created by BaYue on 2017/6/23 0023.
  * email : 2651742485@qq.com
@@ -7,26 +9,17 @@ package com.bayue.live.deqingpu.entity;
 
 public class RecordBean {
 
-
     /**
-     * data : {"nik_name":"","add_time":"","phone":"","goods_number":0}
+     * data : [{"nik_name":"老王","add_time":"2017-06-22 19:00:00","phone":"15142421313","goods_number":15}]
      * code : 200
-     * goods_number : 0
+     * goods_num : 0
      * count : 0
      */
 
-    private DataBean data;
     private int code;
-    private int goods_number;
+    private int goods_num;
     private int count;
-
-    public DataBean getData() {
-        return data;
-    }
-
-    public void setData(DataBean data) {
-        this.data = data;
-    }
+    private List<DataBean> data;
 
     public int getCode() {
         return code;
@@ -36,12 +29,12 @@ public class RecordBean {
         this.code = code;
     }
 
-    public int getGoods_number() {
-        return goods_number;
+    public int getGoods_num() {
+        return goods_num;
     }
 
-    public void setGoods_number(int goods_number) {
-        this.goods_number = goods_number;
+    public void setGoods_num(int goods_num) {
+        this.goods_num = goods_num;
     }
 
     public int getCount() {
@@ -52,12 +45,20 @@ public class RecordBean {
         this.count = count;
     }
 
+    public List<DataBean> getData() {
+        return data;
+    }
+
+    public void setData(List<DataBean> data) {
+        this.data = data;
+    }
+
     public static class DataBean {
         /**
-         * nik_name :
-         * add_time :
-         * phone :
-         * goods_number : 0
+         * nik_name : 老王
+         * add_time : 2017-06-22 19:00:00
+         * phone : 15142421313
+         * goods_number : 15
          */
 
         private String nik_name;

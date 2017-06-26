@@ -7,26 +7,58 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.bayue.live.deqingpu.R;
+import com.bayue.live.deqingpu.adapter.CommentAdapter;
 import com.bayue.live.deqingpu.adapter.cart.recyclerAdapter;
+import com.bayue.live.deqingpu.adapter.common.CommonAdapter;
+import com.bayue.live.deqingpu.adapter.common.base.ViewHolder;
 import com.bayue.live.deqingpu.base.BaseActivity;
 import com.bayue.live.deqingpu.base.HTTPUtils;
+import com.bayue.live.deqingpu.data.Constants;
+import com.bayue.live.deqingpu.entity.CommentBean;
+import com.bayue.live.deqingpu.entity.GoodsDetail;
+import com.bayue.live.deqingpu.entity.Return;
 import com.bayue.live.deqingpu.entity.cart.CartOutBean;
 import com.bayue.live.deqingpu.http.API;
+import com.bayue.live.deqingpu.preferences.Preferences;
+import com.bayue.live.deqingpu.ui.denglu.DengLu;
+import com.bayue.live.deqingpu.ui.merchant.MerchantGoodsDetailActivity;
+import com.bayue.live.deqingpu.ui.merchant.pay.PayActivity;
+import com.bayue.live.deqingpu.utils.GsonHelper;
+import com.bayue.live.deqingpu.utils.Guard;
+import com.bayue.live.deqingpu.utils.ToastUtils;
 import com.bayue.live.deqingpu.utils.ToolKit;
+import com.bayue.live.deqingpu.utils.Tracer;
+import com.bayue.live.deqingpu.utils.Utils;
+import com.bayue.live.deqingpu.view.AmountView;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.tamic.novate.BaseSubscriber;
+import com.tamic.novate.Novate;
+import com.tamic.novate.Throwable;
+import com.zhouwei.mzbanner.holder.MZHolderCreator;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagAdapter;
+import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +66,9 @@ import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
+
+import static com.bayue.live.deqingpu.utils.Utils.getContext;
 
 /**
  * Created by Administrator on 2017/6/20.
@@ -41,7 +76,7 @@ import okhttp3.Response;
 
 public class CartActivity extends BaseActivity {
 
-
+    String TAG = "CartActivity";
     @BindView(R.id.ll_back_title)
     LinearLayout llBackTitle;
     @BindView(R.id.tv_titletext_title)
@@ -64,28 +99,13 @@ public class CartActivity extends BaseActivity {
     LinearLayout llJineCart;
     @BindView(R.id.tv_lijigoumai_cart)
     TextView tvLijigoumaiCart;
-
+    private Novate novate;
 
     private recyclerAdapter adapter;
     private RecyclerView.LayoutManager manager;
 
     ArrayList<CartOutBean.DataBean> outList = new ArrayList<>();
 
-    private void addOutList() {
-        for (int i = 0; i < 5; i++) {
-            CartOutBean.DataBean data = new CartOutBean.DataBean();
-            data.setSelected(true);
-            data.setEditor(false);
-            data.setGoods_info(new ArrayList<CartOutBean.DataBean.GoodsInfoBean>());
-            for (int j = 0; j < 3; j++) {
-                CartOutBean.DataBean.GoodsInfoBean bean = new CartOutBean.DataBean.GoodsInfoBean();
-                bean.setSubselected(true);
-                bean.setSubeditor(false);
-                data.getGoods_info().add(bean);
-            }
-            outList.add(data);
-        }
-    }
     private void setOutList(ArrayList<CartOutBean.DataBean> outList) {
         for (int i = 0; i < outList.size(); i++) {
 
@@ -101,36 +121,20 @@ public class CartActivity extends BaseActivity {
 
     private void reverseQuanxue(boolean b) {
         for (int i = 0; i < outList.size(); i++) {
-//            CartOutBean.DataBean data=new CartOutBean.DataBean();
             outList.get(i).setSelected(b);
-//            data.setEditor(false);
-//            outList.get(i).setGoods_info(new ArrayList<CartOutBean.DataBean.GoodsInfoBean>());
             for (int j = 0; j < outList.get(i).getGoods_info().size(); j++) {
-//                CartOutBean.DataBean.GoodsInfoBean bean=new CartOutBean.DataBean.GoodsInfoBean();
                 outList.get(i).getGoods_info().get(j).setSubselected(b);
-//                bean.setSubeditor(false);
-//                data.getGoods_info().add(bean);
             }
-//            outList.add(data);
-
         }
         UpdateRecyclerView();
     }
 
     private void reverseBanji(boolean b) {
         for (int i = 0; i < outList.size(); i++) {
-//            CartOutBean.DataBean data=new CartOutBean.DataBean();
             outList.get(i).setEditor(b);
-//            data.setEditor(false);
-//            outList.get(i).setGoods_info(new ArrayList<CartOutBean.DataBean.GoodsInfoBean>());
             for (int j = 0; j < outList.get(i).getGoods_info().size(); j++) {
-//                CartOutBean.DataBean.GoodsInfoBean bean=new CartOutBean.DataBean.GoodsInfoBean();
                 outList.get(i).getGoods_info().get(j).setSubeditor(b);
-//                bean.setSubeditor(false);
-//                data.getGoods_info().add(bean);
             }
-//            outList.add(data);
-
         }
         UpdateRecyclerView();
     }
@@ -146,10 +150,21 @@ public class CartActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        getList();
         tvTitletextTitle.setText("我的购物车");
         tvRigthtextTitle.setText("编辑");
-
+        novate = new Novate.Builder(baseActivity)
+                //.addParameters(parameters)//公共参数
+                .connectTimeout(5)
+                .writeTimeout(10)
+                .baseUrl(API.baseUrl)
+//                .addHeader(headers)//添加公共请求头//.addApiManager(ApiManager.class)
+                .addLog(true)
+                .build();
+        Map<String,Object> map=Constants.getMap(baseContext);
+//        map.put("token", token);
+        map.put("token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMCwibmlrX25hbWUiOm51bGx9.2QDDeG63O4SDRJ6_jqu2iGIB9D9VWZOrq18bhajUIrA");
+        beginGet(API.Cart.CART_LIST, map, 1);
+        InitializationPopWindow();
         manager = new LinearLayoutManager(this);
         rlvOutCart.setLayoutManager(manager);
         //优化性能
@@ -282,61 +297,6 @@ public class CartActivity extends BaseActivity {
 
         }
     }
-    private void getList(){
-        Map<String,Object> map=new HashMap();
-        map.put("token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMCwibmlrX25hbWUiOm51bGx9.2QDDeG63O4SDRJ6_jqu2iGIB9D9VWZOrq18bhajUIrA");
-        HTTPUtils.getNetDATA(API.baseUrl + API.Cart.CART_LIST, map, new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String msg=response.body().string();
-                    if(response.code()==200){
-
-                        Gson gson=new Gson();
-                        final CartOutBean bean=gson.fromJson(msg,CartOutBean.class);
-                        ToolKit.runOnMainThreadSync(new Runnable() {
-                            @Override
-                            public void run() {
-                                if(bean.getCode()==200){
-                                    outList.addAll(bean.getData());
-//                                    outList= (ArrayList<CartOutBean.DataBean>) bean.getData();
-                                    setOutList(outList);
-                                    /*DecimalFormat format = new DecimalFormat("#.##");
-                                    tvZongjineCart.setText(format.format(getMoney()));
-                                    adapter.notifyDataSetChanged();*/
-                                    CartActivity.this.UpdateRecyclerView();
-
-                                }else {
-
-
-
-
-
-                                }
-
-                            }
-                        });
-
-
-
-
-
-
-
-                    }
-
-            }
-        });
-
-
-
-
-
-    }
     double tatolMoney=0.0;
     //总金额
     public double getMoney(){
@@ -358,5 +318,258 @@ public class CartActivity extends BaseActivity {
         return tatolMoney;
 
     }
+    private void setPopData(int goods_id) {
 
+
+    }
+    private static GoodsDetail speValue;
+    public void setSpeValue(GoodsDetail value){
+        speValue = value;
+    }
+    public GoodsDetail getSpeValue(){
+        return speValue;
+    }
+
+    private void getPrice(){
+        String attrId = stringBuilder.toString();
+        if (attrId.endsWith(",")){
+            attrId = attrId.substring(0,attrId.length()-1);
+        }
+        Map<String, Object> mapPrice = Constants.getMap();
+        mapPrice.put("rec_id", attrId);
+        beginGet(API.Cart.CART_PRICE, mapPrice, 3);
+    }
+    private PopupWindow popupWindows;
+    private View contentView;
+    LinearLayout linSpecBtn;
+    TextView txtSpecSelectValue, txtSpecSelectPrice, txtSpecSelectAdd, txtSpecSelectBuy, txtSpecSelectConfirm;
+    ImageView imgSpecSelectCancel, ivSpecHeadPic;
+    RecyclerView rvSpecSelect;
+    AmountView amountView;
+    CommonAdapter<GoodsDetail.DataBean.SpeBean> popAdapter;
+    StringBuilder stringBuilder = new StringBuilder("");
+    List<GoodsDetail.DataBean.SpeBean> speBeanList = new ArrayList<>();
+    int tempSelectId, tempTagId, addNumber = 1 ,rvPosition;
+    double price, tempSelectPrice;
+    void InitializationPopWindow(){
+        //加载弹出框的布局
+        contentView = LayoutInflater.from(baseActivity).inflate(
+                R.layout.pop_spec_select, null);
+        //绑定控件
+        linSpecBtn = (LinearLayout) contentView.findViewById(R.id.linSpecBtn);
+        txtSpecSelectValue = (TextView) contentView.findViewById(R.id.txtSpecSelectValue);
+        txtSpecSelectPrice = (TextView) contentView.findViewById(R.id.txtSpecSelectPrice);
+        amountView = (AmountView) contentView.findViewById(R.id.amount_view);
+        txtSpecSelectAdd = (TextView) contentView.findViewById(R.id.txtSpecSelectAdd);
+        txtSpecSelectBuy = (TextView) contentView.findViewById(R.id.txtSpecSelectBuy);
+        txtSpecSelectConfirm = (TextView) contentView.findViewById(R.id.txtSpecSelectConfirm);
+        imgSpecSelectCancel = (ImageView) contentView.findViewById(R.id.imgSpecSelectCancel);
+        ivSpecHeadPic = (ImageView) contentView.findViewById(R.id.ivSpecHeadPic);
+        rvSpecSelect = (RecyclerView) contentView.findViewById(R.id.rvSpecSelect);
+        rvSpecSelect.setLayoutManager(new LinearLayoutManager(baseActivity));
+        txtSpecSelectConfirm.setVisibility(View.VISIBLE);
+        linSpecBtn.setVisibility(View.INVISIBLE);
+        popAdapter = new CommonAdapter<GoodsDetail.DataBean.SpeBean>(baseContext, R.layout.pop_spec_item_rv_spec, speBeanList) {
+            @Override
+            protected void convert(ViewHolder holder, final GoodsDetail.DataBean.SpeBean bean, int position) {
+                holder.setText(R.id.txtSpecProName,bean.getName());
+                final TagFlowLayout mFlowLayout = holder.getView(R.id.flowlayout);
+                int count; boolean isMulti = false;
+                if (bean.getAttr_type()==1){
+                    count = 1;
+                    isMulti = false;
+                }else {
+                    count = -1;
+                    isMulti = true;
+                }
+                mFlowLayout.setMaxSelectCount(count);
+                final List<GoodsDetail.DataBean.SpeBean.ValuesBean> valuesList = bean.getValues();
+                mFlowLayout.setAdapter(new TagAdapter<GoodsDetail.DataBean.SpeBean.ValuesBean>(valuesList)
+                {
+                    @Override
+                    public View getView(FlowLayout parent, int position, GoodsDetail.DataBean.SpeBean.ValuesBean valuesBean)
+                    {
+                        TextView tv = (TextView) mInflater.inflate(R.layout.tv,
+                                mFlowLayout, false);
+                        tv.setText(valuesBean.getLabel());
+                        return tv;
+                    }
+                });
+                final boolean finalIsMulti = isMulti;
+                if (finalIsMulti){
+                    mFlowLayout.setOnSelectListener(new TagFlowLayout.OnSelectListener()
+                    {
+                        @Override
+                        public void onSelected(Set<Integer> selectPosSet)
+                        {
+                            StringBuilder tempBuilder = new StringBuilder();
+//                            double tempPrice = 0;
+                            Iterator iterator=selectPosSet.iterator();
+                            while (iterator.hasNext()){
+                                String spe =  iterator.next().toString();
+                                tempSelectId = valuesList.get(Integer.parseInt(spe)).getId();
+//                                tempPrice += Double.parseDouble(valuesList.get(Integer.parseInt(spe)).getPrice());
+                                tempBuilder.append(tempSelectId+",");
+                            }
+                            stringBuilder = tempBuilder;
+                            tempTagId = 0;
+                            getPrice();
+                        }
+                    });
+                }else {
+                    mFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+                        @Override
+                        public boolean onTagClick(View view, int position, FlowLayout parent) {
+//                            txtSpecSelectPrice.setText("￥" + price);
+                            amountView.setDefault(1);
+                            if (stringBuilder.length()>0) {
+                                if (tempTagId > 0) {
+                                    String tempStr = tempTagId + "";
+                                    Tracer.e(TAG, "length:" + stringBuilder.length() + " delete:" + (stringBuilder.length() - tempStr.length()) + " -> " + (stringBuilder.length() - 1));
+                                    stringBuilder.delete((stringBuilder.length() - tempStr.length()), stringBuilder.length());
+                                }
+                                tempTagId = valuesList.get(position).getId();
+                                stringBuilder.append(tempTagId);
+                                getPrice();
+                            }else {
+                                ToastUtils.showLongToast("请选择至少一种"+bean.getName());
+                            }
+                            Tracer.e(TAG, price +" price");
+                            return true;
+                        }
+                    });
+                }
+            }
+        };
+        rvSpecSelect.setAdapter(popAdapter);
+        //设置弹出框的宽度和高度
+        popupWindows = new PopupWindow(contentView,
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        popupWindows.setFocusable(true);// 取得焦点
+//        //注意  要是点击外部空白处弹框消息  那么必须给弹框设置一个背景色  不然是不起作用的
+//        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+//        //点击外部消失
+//        popupWindow.setOutsideTouchable(true);
+        //设置可以点击
+        popupWindows.setTouchable(true);
+        //进入退出的动画
+        popupWindows.setAnimationStyle(R.style.PopupWindowAnimation);
+        // 按下android回退物理键 PopipWindow消失解决
+        ivSpecHeadPic.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+                    hidePop();
+                    return true;
+                }
+                return false;
+            }
+        });
+        imgSpecSelectCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hidePop();
+                stringBuilder = new StringBuilder();
+            }
+        });
+
+        txtSpecSelectConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hidePop();
+//                speBeanList
+                adapter.notifyItemChanged(rvPosition);
+            }
+        });
+    }
+
+    public void showPop(int goods_id, int postion){
+        rvPosition = postion;
+        speBeanList.clear();
+        Map<String, Object> map = Constants.getMap();
+        map.put("goods_id", goods_id);
+        beginGet(API.Cart.CART_ATTR, map, 2);
+        popupWindows.showAtLocation(rlvOutCart, Gravity.BOTTOM, 0, 0);
+    }
+
+    private void hidePop(){
+        if (popupWindows != null && popupWindows.isShowing()) {
+            popupWindows.dismiss();
+        }
+    }
+    private void beginGet(final String url, final Map<String, Object> map, final int type) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getDataFromNet(url, map, type);
+            }
+        }, 300);
+
+    }
+
+    private void getDataFromNet(String url, Map<String, Object> hashMap, final int type) {
+        novate.post(url, hashMap, new BaseSubscriber<ResponseBody>(baseActivity) {
+            @Override
+            public void onError(Throwable e) {
+                if (e.getMessage() != null) {
+                    Tracer.e("OkHttp", e.getMessage());
+                }
+            }
+            @Override
+            public void onNext(ResponseBody responseBody) {
+                String jstr = null;
+                try {
+                    jstr = new String(responseBody.bytes());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Tracer.e(TAG + type, jstr);
+                if (!jstr.contains("code")) {
+                    ToastUtils.showLongToast(getString(R.string.net_user_error));
+                    return;
+                }
+                switch (type){
+                    case 1:
+                        CartOutBean bean= (CartOutBean) GsonHelper.getInstanceByJson(CartOutBean.class, jstr);
+                        outList.addAll(bean.getData());
+                        setOutList(outList);
+                        CartActivity.this.UpdateRecyclerView();
+                        break;
+                    case 2:
+                        String json = GsonHelper.getStrFromJson(jstr, "data");
+                        speBeanList.addAll(GsonHelper.jsonToArrayList(json, GoodsDetail.DataBean.SpeBean.class));
+                        popAdapter.notifyDataSetChanged();
+                        final GoodsDetail detail = getSpeValue();
+                        if (Guard.isNull(detail)){
+                            return;
+                        }
+                        txtSpecSelectValue.setText(detail.getData().getGoods_name());
+                        if (!Guard.isNull(detail.getData().getMerchant_price())) {
+                            price = Double.parseDouble(detail.getData().getMerchant_price());
+                            txtSpecSelectPrice.setText("￥"+detail.getData().getMerchant_price());
+                        }
+                        Glide.with(baseContext).load(detail.getData().getGoods_thumb())
+                                .placeholder(R.mipmap.ic_launcher_round).error(R.mipmap.ic_launcher_round)
+                                .into(ivSpecHeadPic);
+                        amountView.setOnAmountChangeListener(new AmountView.OnAmountChangeListener() {
+                            @Override
+                            public void onAmountChange(View view, int amount) {
+                                addNumber = amount;
+                                if (amount>0) {
+//                    txtSpecSelectPrice.setText("￥"+ amount * price);
+//                    getPrice();
+                                }
+                            }
+                        });
+//                        Return o = (Return) GsonHelper.getInstanceByJson(Return.class, jstr);
+//                        if (o.getCode() == Constants.CODE_OK){
+//                            ToastUtils.showLongToast(o.getData());
+//                            hidePop();
+//                        }
+                        break;
+                }
+            }
+        });
+    }
 }

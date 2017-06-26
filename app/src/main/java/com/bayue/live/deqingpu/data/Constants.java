@@ -1,6 +1,10 @@
 package com.bayue.live.deqingpu.data;
 
+import android.content.Context;
+import android.content.Intent;
+
 import com.bayue.live.deqingpu.preferences.Preferences;
+import com.bayue.live.deqingpu.ui.denglu.DengLu;
 import com.bayue.live.deqingpu.utils.Tracer;
 
 import java.util.HashMap;
@@ -25,6 +29,19 @@ public class Constants {
         map.put("apiversion","v.1.0");
         String token = Preferences.getString(getContext(), Preferences.TOKEN);
         if (token.equals("-1")){
+            token = "";
+        }
+        map.put("token", token);
+        return map;
+    }
+    public static Map<String, Object> getMap(Context context){
+        Map<String, Object> map = new HashMap<>();
+        map.put("safecode","BaYue.deqingpu");
+        map.put("apiversion","v.1.0");
+        String token = Preferences.getString(getContext(), Preferences.TOKEN);
+        if (token.equals("-1")){
+            context.startActivity(new Intent(context, DengLu.class));
+//            finish();
             token = "";
         }
         map.put("token", token);

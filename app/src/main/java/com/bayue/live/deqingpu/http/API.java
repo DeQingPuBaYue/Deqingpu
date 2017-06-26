@@ -83,6 +83,7 @@ public class API {
         public static final String CART_LIST = "api/cart/cart_list";
         public static final String CHECKOUT = "api/cart/checkout";
         public static final String CART_PRICE = "api/cart/cart_price";
+        public static final String CART_ATTR = "api/cart/goods_attr";
 
 
     }

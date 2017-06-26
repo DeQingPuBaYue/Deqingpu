@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.entity.cart.CartOutBean;
 import com.bayue.live.deqingpu.ui.geren.CartActivity;
+import com.bayue.live.deqingpu.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,17 +61,12 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyHold
     @Override
     public recyclerAdapter.MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_item_out,null);
-
         MyHolder holder=new MyHolder(v);
-
-
-
-
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(recyclerAdapter.MyHolder holder, final int position) {
+    public void onBindViewHolder(final recyclerAdapter.MyHolder holder, final int position) {
         final CartOutBean.DataBean databean=list.get(position);
 
         final List<CartOutBean.DataBean.GoodsInfoBean> subList= databean.getGoods_info();
@@ -141,8 +137,6 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyHold
             @Override
             public void setAttr() {
 
-
-
             }
         });
 
@@ -182,7 +176,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyHold
 
     @Override
     public int getItemCount(){
-        return list!=null?list.size():4;
+        return list!=null?list.size():0;
     }
 
     private AllSelected allSelected;
@@ -190,6 +184,18 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyHold
         this.allSelected=allSelected;
 
     }
+
+    public void addData(int position) {
+//        list.add(position, "Insert One");
+        notifyItemInserted(position);  //插入
+
+    }
+
+    public void removeData(int position) {
+        list.remove(position);
+        notifyItemRemoved(position);  //删除
+    }
+
     public interface AllSelected{
 
         void allSelected(int position);
@@ -197,5 +203,6 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyHold
         void deitor(int position);
 
     }
+
 
 }

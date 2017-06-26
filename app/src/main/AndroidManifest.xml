@@ -114,7 +114,7 @@
         <!--确认购物车-->
         <activity android:name=".ui.geren.CartConfirmActivity"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:windowSoftInputMode="stateHidden|stateUnchanged"/>
 
 
     </application>

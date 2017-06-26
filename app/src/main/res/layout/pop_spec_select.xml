@@ -79,5 +79,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+        <TextView
+            android:id="@+id/txtSpecSelectConfirm"
+            android:layout_below="@+id/linSelectOprea"
+            android:text="@string/btn_confirm"
+            android:visibility="invisible"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            android:gravity="center"
+            android:padding="@dimen/dp_15"
+            android:background="@drawable/boder_black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 </LinearLayout>

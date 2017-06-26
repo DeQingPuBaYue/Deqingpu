@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.entity.cart.CartOutBean;
+import com.bayue.live.deqingpu.ui.geren.CartActivity;
+import com.bayue.live.deqingpu.utils.ToastUtils;
 import com.bayue.live.deqingpu.utils.glide.GlideCircleTransform;
 import com.bayue.live.deqingpu.utils.glide.GlideRoundTransform;
 import com.bayue.live.deqingpu.view.AmountView;
@@ -93,8 +95,8 @@ public class recyclerAdapter1 extends RecyclerView.Adapter<recyclerAdapter1.MyHo
     }
 
     @Override
-    public void onBindViewHolder(MyHolder holder, final int position) {
-        CartOutBean.DataBean.GoodsInfoBean  goodsInfoBean=list.get(position);
+    public void onBindViewHolder(final MyHolder holder, final int position) {
+        final CartOutBean.DataBean.GoodsInfoBean  goodsInfoBean=list.get(position);
 
             //是否选中
             if(goodsInfoBean.isSubselected()){
@@ -156,7 +158,14 @@ public class recyclerAdapter1 extends RecyclerView.Adapter<recyclerAdapter1.MyHo
         //商品数量
         holder.tvGoodsnumberItemCartin.setText("×"+goodsInfoBean.getGoods_number());
         holder.amountView.setDefault(goodsInfoBean.getGoods_number());
+        //弹出规格
+        holder.rlAttrItemCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((CartActivity)context).showPop(Integer.parseInt(goodsInfoBean.getGoods_id()), position);
 
+            }
+        });
     }
 
     @Override
