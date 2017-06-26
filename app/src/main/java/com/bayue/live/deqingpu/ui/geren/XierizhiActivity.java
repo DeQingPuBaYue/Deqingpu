@@ -5,7 +5,10 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
@@ -32,6 +35,9 @@ import com.bayue.live.deqingpu.utils.ToolKit;
 import com.google.gson.Gson;
 import com.tangxiaolv.telegramgallery.GalleryActivity;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -71,6 +77,7 @@ public class XierizhiActivity extends BaseActivity {
     RelativeLayout rlGongkaiXie;
     @BindView(R.id.rl_bukejian_xie)
     RelativeLayout rlBukejianXie;
+    private String picPath = "";//照片保存路径
     @BindView(R.id.ll_rigthimage_title)
     LinearLayout llRigthimageTitle;
 
@@ -154,8 +161,8 @@ public class XierizhiActivity extends BaseActivity {
                 break;
             case R.id.rl_sheikejian_xie:
                 empty();
-                ivGongkaiXie.setImageResource(R.drawable.icon_38);
-                ivBukejianXie.setImageResource(R.drawable.icon_38);
+                ivGongkaiXie.setImageResource(R.drawable.icon_39);
+                ivBukejianXie.setImageResource(R.drawable.icon_39);
                 startActivity(new Intent(this,KejianActivity.class));
                 break;
         }
@@ -199,6 +206,7 @@ public class XierizhiActivity extends BaseActivity {
 
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
