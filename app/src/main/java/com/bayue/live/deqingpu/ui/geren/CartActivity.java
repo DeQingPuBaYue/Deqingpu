@@ -349,6 +349,8 @@ public class CartActivity extends BaseActivity {
     CommonAdapter<GoodsDetail.DataBean.SpeBean> popAdapter;
     StringBuilder stringBuilder = new StringBuilder("");
     List<GoodsDetail.DataBean.SpeBean> speBeanList = new ArrayList<>();
+    List<GoodsDetail.DataBean.SpeBean> multiList = new ArrayList<>();
+    List<GoodsDetail.DataBean.SpeBean> radioList = new ArrayList<>();
     int tempSelectId, tempTagId, addNumber = 1 ,rvPosition;
     double price, tempSelectPrice;
     void InitializationPopWindow(){
@@ -402,14 +404,22 @@ public class CartActivity extends BaseActivity {
                         @Override
                         public void onSelected(Set<Integer> selectPosSet)
                         {
+                            multiList.clear();
                             StringBuilder tempBuilder = new StringBuilder();
-//                            double tempPrice = 0;
                             Iterator iterator=selectPosSet.iterator();
                             while (iterator.hasNext()){
                                 String spe =  iterator.next().toString();
-                                tempSelectId = valuesList.get(Integer.parseInt(spe)).getId();
+                                int pos = Integer.parseInt(spe);
+                                tempSelectId = valuesList.get(pos).getId();
 //                                tempPrice += Double.parseDouble(valuesList.get(Integer.parseInt(spe)).getPrice());
                                 tempBuilder.append(tempSelectId+",");
+                                GoodsDetail.DataBean.SpeBean speBean = new GoodsDetail.DataBean.SpeBean();
+                                speBean.setAttr_type(bean.getAttr_type());
+                                speBean.setName(bean.getName());
+                                List<GoodsDetail.DataBean.SpeBean.ValuesBean> valuesBeanList = new ArrayList<>();
+                                valuesBeanList.add(bean.getValues().get(pos));
+                                speBean.setValues(valuesBeanList);
+                                multiList.add(speBean);
                             }
                             stringBuilder = tempBuilder;
                             tempTagId = 0;
@@ -422,14 +432,23 @@ public class CartActivity extends BaseActivity {
                         public boolean onTagClick(View view, int position, FlowLayout parent) {
 //                            txtSpecSelectPrice.setText("￥" + price);
                             amountView.setDefault(1);
+                            radioList.clear();
                             if (stringBuilder.length()>0) {
                                 if (tempTagId > 0) {
                                     String tempStr = tempTagId + "";
                                     Tracer.e(TAG, "length:" + stringBuilder.length() + " delete:" + (stringBuilder.length() - tempStr.length()) + " -> " + (stringBuilder.length() - 1));
                                     stringBuilder.delete((stringBuilder.length() - tempStr.length()), stringBuilder.length());
                                 }
+
                                 tempTagId = valuesList.get(position).getId();
                                 stringBuilder.append(tempTagId);
+                                GoodsDetail.DataBean.SpeBean speBean = new GoodsDetail.DataBean.SpeBean();
+                                speBean.setAttr_type(bean.getAttr_type());
+                                speBean.setName(bean.getName());
+                                List<GoodsDetail.DataBean.SpeBean.ValuesBean> valuesBeanList = new ArrayList<>();
+                                valuesBeanList.add(bean.getValues().get(position));
+                                speBean.setValues(valuesBeanList);
+                                radioList.add(speBean);
                                 getPrice();
                             }else {
                                 ToastUtils.showLongToast("请选择至少一种"+bean.getName());
