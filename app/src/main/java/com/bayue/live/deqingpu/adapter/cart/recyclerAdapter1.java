@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.entity.cart.CartOutBean;
 import com.bayue.live.deqingpu.ui.geren.CartActivity;
+import com.bayue.live.deqingpu.utils.Guard;
 import com.bayue.live.deqingpu.utils.ToastUtils;
 import com.bayue.live.deqingpu.utils.glide.GlideCircleTransform;
 import com.bayue.live.deqingpu.utils.glide.GlideRoundTransform;
@@ -162,6 +163,9 @@ public class recyclerAdapter1 extends RecyclerView.Adapter<recyclerAdapter1.MyHo
         holder.rlAttrItemCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(Guard.isNull(goodsInfoBean.getGoods_id())){
+                    return;
+                }
                 Selected.setAttr(position,goodsInfoBean.getGoods_id());
 
             }

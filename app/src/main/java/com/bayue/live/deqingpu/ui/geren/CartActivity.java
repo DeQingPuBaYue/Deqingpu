@@ -497,13 +497,28 @@ public class CartActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 hidePop();
-                stringBuilder.toString();//id array
+                List<CartOutBean.DataBean.GoodsInfoBean.GoodsAttrBean> goodsAttrBeans=new ArrayList<CartOutBean.DataBean.GoodsInfoBean.GoodsAttrBean>();
 
-                List<CartOutBean.DataBean.GoodsInfoBean.GoodsAttrBean> goodsAttrBeans;
+                List<GoodsDetail.DataBean.SpeBean> speBeanList = new ArrayList<>();
+                speBeanList.addAll(multiList);
+                speBeanList.addAll(radioList);
+                for (int i = 0; i < speBeanList.size(); i++) {
+//                    if(i==0){
+                        speBeanList.get(i).getName();
+                        for (int j = 0; j <speBeanList.get(i).getValues().size() ; j++) {
+                            String attrname=speBeanList.get(i).getValues().get(j).getLabel();
+                            CartOutBean.DataBean.GoodsInfoBean.GoodsAttrBean goodsAttrBean=new CartOutBean.DataBean.GoodsInfoBean.GoodsAttrBean();
+
+                            int attrId=speBeanList.get(i).getValues().get(j).getId();
+                            goodsAttrBean.setGoods_attr_id(attrId);
+                            goodsAttrBean.setAttr(attrname);
+                            goodsAttrBeans.add(goodsAttrBean);
+                        }
+//                    }
+                }
 
                 outList.get(postion).getGoods_info().get(subpostion).getGoods_attr().clear();
-//                outList.get(postion).getGoods_info().get(subpostion).getGoods_attr()
-
+                outList.get(postion).getGoods_info().get(subpostion).getGoods_attr().addAll(goodsAttrBeans);
 
                 adapter.notifyItemChanged(rvPosition);
             }
