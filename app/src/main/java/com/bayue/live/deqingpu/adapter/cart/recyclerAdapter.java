@@ -16,6 +16,7 @@ import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.entity.cart.CartOutBean;
 import com.bayue.live.deqingpu.ui.geren.CartActivity;
 import com.bayue.live.deqingpu.utils.ToastUtils;
+import com.bayue.live.deqingpu.utils.Tracer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,7 +120,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyHold
 
             @Override
             public void deitor(int position) {
-
+                Tracer.e("recyclerA", position +" position");
             }
 
             @Override
@@ -130,13 +131,22 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyHold
             }
 
             @Override
-            public void delItem() {
-
+            public void delItem(int itemPosition, String recId) {
+                Tracer.e("CartAdapter", "A:"+itemPosition + " size:"+ subList.size());
+                subList.remove(itemPosition);
+                holder.adapter.notifyItemRemoved(itemPosition);
+                //必须调用这行代码 否则下标越界
+//                notifyItemRangeChanged(itemPosition, subList.size());
+                if(position != subList.size()){ // 如果移除的是最后一个，忽略
+                    notifyItemRangeChanged(position, subList.size() - position);
+                }
+                context.delCartById(itemPosition, recId, true);
             }
 
             @Override
             public void setAttr(int subposition,String goodsId) {
-                context.showPop(Integer.parseInt(goodsId),position,subposition);
+                Tracer.e("recyclerA", goodsId +" goodsId");
+                context.showPop(Integer.parseInt(goodsId.trim()),position,subposition);
 
             }
         });

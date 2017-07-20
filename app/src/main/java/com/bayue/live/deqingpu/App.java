@@ -4,14 +4,12 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
+import com.bayue.live.deqingpu.wxapi.WeChatInfo;
 import com.bayue.live.deqingpu.utils.Tracer;
 import com.bayue.live.deqingpu.utils.Utils;
 
-import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -70,6 +68,8 @@ public class App extends Application {
 
 //        bdmapInit();
         Utils.init(this);
+        //regist wechat
+        WeChatInfo.init(this);
     }
 
     public boolean isMainProcess() {

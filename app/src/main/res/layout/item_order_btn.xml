@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:background="@color/white" android:gravity="center_vertical"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tvCustomer"
+        style="@style/normalSizeBlackStyle"
+        android:text="@string/tv_customer"
+        android:padding="@dimen/dp_10"
+        android:gravity="right"
+        android:drawablePadding="@dimen/dp_8"
+        android:drawableLeft="@mipmap/icon_customer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btnStart"
+            android:text="@string/tv_logistics"
+            android:background="@drawable/boder_black_line"
+            android:textColor="@color/black"
+            android:focusable="false"
+            android:layout_margin="@dimen/dp_8"
+            android:layout_width="@dimen/dp_72"
+            android:layout_height="@dimen/dp_25" />
+        <Button
+            android:id="@+id/btnMid"
+            android:text="@string/tv_refund"
+            android:background="@drawable/boder_black_line"
+            android:textColor="@color/black"
+            android:focusable="false"
+            android:layout_margin="@dimen/dp_8"
+            android:layout_width="@dimen/dp_72"
+            android:layout_height="@dimen/dp_25" />
+        <Button
+            android:id="@+id/btnEnd"
+            android:text="@string/tv_receipt"
+            android:background="@drawable/boder_black_line"
+            android:textColor="@color/black"
+            android:focusable="false"
+            android:layout_margin="@dimen/dp_8"
+            android:layout_width="@dimen/dp_72"
+            android:layout_height="@dimen/dp_25" />
+    </LinearLayout>
+</LinearLayout>

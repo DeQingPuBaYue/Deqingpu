@@ -68,13 +68,13 @@ public class FragGoodRecom extends LazyLoadFragment implements SwipeRefreshLayou
     private Novate novate;
     String sort = "ASC";
     String order = "goods_id";
-    int goods_id;
+    int goods_id, actionType;
     boolean firstLoad = true;
 
-    public static FragGoodRecom newInstance(int s) {
+    public static FragGoodRecom newInstance(Bundle bundle) {
         FragGoodRecom viewPagerFragment = new FragGoodRecom();
-        Bundle bundle = new Bundle();
-        bundle.putInt(Constants.ARGS, s);
+//        Bundle bundle = new Bundle();
+//        bundle.putInt(Constants.ARGS, s);
         viewPagerFragment.setArguments(bundle);
         return viewPagerFragment;
     }
@@ -94,6 +94,7 @@ public class FragGoodRecom extends LazyLoadFragment implements SwipeRefreshLayou
         glideRequest = Glide.with(baseActivity);
 //        typeDefalut = getArguments().getInt(Constants.ARGS);
         goods_id = getArguments().getInt(Constants.ARGS);
+        actionType = getArguments().getInt("actionType");
 //        Tracer.e(TAG, typeDefalut+" typeDefaut");
 //        rvMerchant.setLayoutManager(new LinearLayoutManager(baseActivity));
         swipeLayoutMerchant.setOnRefreshListener(this);

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/color_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.bayue.live.deqingpu.view.TopActionBar
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:canClose="true"
+        />
+    <com.bayue.live.deqingpu.view.MyScrollview
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvOrderShippingStatus"
+                    android:text="@string/tv_order_shipped"
+                    style="@style/BaseFont"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_16"
+                    />
+                <TextView
+                    android:id="@+id/tvOrderRemainingTime"
+                    android:text="@string/app_name"
+                    style="@style/BaseFont"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:textSize="@dimen/sp_12"
+                    />
+            </LinearLayout>
+        <LinearLayout
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@mipmap/icon_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/tvOrderRecieptName"
+                        android:text="@string/app_name"
+                        style="@style/smallSizeGreyStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tvOrderPhone"
+                        android:text="@string/app_name"
+                        android:gravity="right"
+                        style="@style/smallSizeGreyStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/tvOrderAddress"
+                    android:text="@string/app_name"
+                    style="@style/smallSizeGreyStyle"
+                    android:gravity="left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+            <include layout="@layout/list_item_order" />
+            <LinearLayout
+                android:layout_marginTop="@dimen/dp_10"
+                android:orientation="vertical"
+
+                android:padding="@dimen/dp_10"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvOrderID"
+                    android:text="@string/tv_order_id_tip"
+                    style="@style/normalSizeBlackStyle"
+                    android:gravity="left"
+                    android:padding="@dimen/dp_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tvOrderAddTime"
+                    android:text="@string/tv_order_addtime_tip"
+                    style="@style/normalSizeBlackStyle"
+                    android:gravity="left"
+                    android:padding="@dimen/dp_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tvOrderPayTime"
+                    android:text="@string/tv_order_paytime_tip"
+                    style="@style/normalSizeBlackStyle"
+                    android:gravity="left"
+                    android:padding="@dimen/dp_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tvOrderDeliverTime"
+                    android:text="@string/tv_order_deliver_tip"
+                    style="@style/normalSizeBlackStyle"
+                    android:gravity="left"
+                    android:padding="@dimen/dp_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.bayue.live.deqingpu.view.MyScrollview>
+</LinearLayout>

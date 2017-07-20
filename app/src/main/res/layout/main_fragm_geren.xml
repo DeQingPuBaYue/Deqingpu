@@ -44,6 +44,7 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/iv_gr_touxiang">
             <TextView
+                android:id="@+id/txtPersonUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="德卿铺"
@@ -51,6 +52,7 @@
                 android:textSize="28px"
                 android:layout_alignParentTop="true"/>
             <TextView
+                android:id="@+id/txtPersonUserID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="客观号：110"
@@ -252,7 +254,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="我的订单"
+                    android:text="@string/title_order"
                     android:layout_centerVertical="true"
                     android:textColor="@color/zilanmu_textcolor"
                     android:textSize="28px"
@@ -490,6 +492,7 @@
         android:layout_width="match_parent"
         android:layout_height="89px"
         android:background="@color/white"
+        android:layout_marginBottom="@dimen/dp_20"
         android:paddingLeft="32px"
         android:paddingRight="32px">
         <ImageView android:id="@+id/iv_gr_shezhi"

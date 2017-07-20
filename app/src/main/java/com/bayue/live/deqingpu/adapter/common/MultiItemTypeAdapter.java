@@ -20,7 +20,7 @@ public class MultiItemTypeAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
 
     protected ItemViewDelegateManager mItemViewDelegateManager;
     protected OnItemClickListener mOnItemClickListener;
-
+    protected int listCount;
 
     public MultiItemTypeAdapter(Context context, List<T> datas) {
         mContext = context;
@@ -89,7 +89,13 @@ public class MultiItemTypeAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public int getItemCount() {
-        int itemCount = mDatas.size();
+        int itemCount;
+        if (listCount>0){
+            itemCount = listCount;
+        }else {
+            itemCount  = mDatas.size();
+        }
+
         return itemCount;
     }
 
@@ -120,5 +126,8 @@ public class MultiItemTypeAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
+    }
+    public void setListCount(int count){
+        this.listCount = count;
     }
 }

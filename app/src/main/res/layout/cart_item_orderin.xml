@@ -49,6 +49,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_goodsname_item_cartin"
                     android:layout_width="match_parent"
                     android:layout_height="47px"
                     android:gravity="start"
@@ -63,6 +64,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical">
                     <TextView
+                        android:id="@+id/tv_attr_item_cart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
@@ -71,6 +73,7 @@
                         android:textSize="20px"
                         android:textColor="@color/zilanmu_textcolor"/>
                     <TextView
+                        android:id="@+id/tv_ismail_item_cartin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
@@ -84,12 +87,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10px">
                     <TextView
+                        android:id="@+id/tv_goodsprice_item_cartin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="￥66.00"
                         android:textColor="@color/black"
                         android:textSize="28px"/>
                     <TextView
+                        android:id="@+id/txtCartGoodsNumb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="×1"
@@ -107,6 +112,7 @@
         android:background="@color/zilanmu_textcolor"
         />
     <RelativeLayout
+        android:id="@+id/relBuyNumb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="15px"

@@ -3,7 +3,7 @@
               android:layout_width="match_parent"
               android:layout_height="50dp"
               android:layout_marginBottom="1dp"
-              android:background="@color/blue"
+              android:background="@color/white"
               android:gravity="center"
               android:orientation="vertical">
 
@@ -17,6 +17,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Footer"
-        android:textColor="@android:color/white"
+        android:textColor="@color/grey"
         android:textSize="18sp"/>
 </LinearLayout>

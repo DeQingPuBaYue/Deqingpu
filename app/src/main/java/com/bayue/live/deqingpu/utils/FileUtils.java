@@ -100,7 +100,7 @@ public class FileUtils {
 		}
 		return true;
 	}
-	/**
+	/**  需要加上data:image/jpeg;base64, 不然不能正常显示 原因待查
 	 * 文件转base64字符串
 	 * @param file
 	 * @return
@@ -129,7 +129,7 @@ public class FileUtils {
 				e.printStackTrace();
 			}
 		}
-		return base64;
+		return "data:image/jpeg;base64,"+base64;
 	}
 
 	/**

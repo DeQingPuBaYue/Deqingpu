@@ -29,6 +29,14 @@ public class API {
     //删除地址（address_id，token ）
     public static final String DELECT= "api/address/delete";
 
+    public static class Address{
+        //key type(1：省 ，  2：市区，3： 县 #.默认为1) 、id(地址id  默认为1 * 获取省的时候可以选穿*)
+        public static final String GETADDRESS= "api/address/get_city";
+        public static final String GETALL= "api/address/getall";
+    }
+
+    //首页
+    public static final String MENU = "api/app/init";
     /**
      * 认证
      * */
@@ -53,8 +61,43 @@ public class API {
         public static final String GOODS_PRICE = "api/goods/goods_price";
         public static final String GOODS_AFFILIATE = "api/goods/goods_affiliate";
         public static final String GOODS_ORDER = "api/goods/goods_order";
+        public static final String GOODS_BUY = "api/cart/goods_done";
+        public static final String GOODS_CHECK = "api/cart/goods_checkout";
     }
 
+    /**
+     * 我的荷包
+     * */
+    public static class User {
+        public static final String POUCH_INFO = "api/user/pouch";
+        public static final String POUCH_WITHDRAW = "api/user/apply";
+        public static final String POUCH_DRAWLIST = "api/user/account";
+        public static final String POUCH_BIND = "api/user/bind";
+        public static final String INIT = "api/user/init";
+        public static final String BUY_SERVICE = "api/user/buyservice";
+        public static final String DEL_Photo = "api/user/uphoto_del";
+        public static final String ADD_Photo = "api/user/add_photo";
+        public static final String User_Photo = "api/user/user_photo";
+        public static final String Update = "api/user/update";
+        public static final String Merchant = "api/user/merchant";
+
+    }
+    /**
+     * 我的订单
+     * */
+    public static class Order{
+        public static final String Order_List = "api/order/list";
+        public static final String Order_Cancel = "api/order/cancel";
+        public static final String Order_Confirm = "api/order/receipt";
+        public static final String Order_Detail = "api/order/order_detail";
+        public static final String Order_Logistics = "api/order/logistics";
+    }
+    /**
+     * 支付
+     * */
+    public static class PayMent{
+        public static final String WeChat = "api/payment/wechat";
+    }
     //登录
     public static final String DENGLU="api/login/signin";
     //注册
@@ -84,6 +127,9 @@ public class API {
         public static final String CHECKOUT = "api/cart/checkout";
         public static final String CART_PRICE = "api/cart/cart_price";
         public static final String CART_ATTR = "api/cart/goods_attr";
+        public static final String CART_BUY = "api/cart/done";
+        public static final String CART_DEL = "api/cart/delete";
+        public static final String CART_UPDATE = "api/cart/update";
 
 
     }

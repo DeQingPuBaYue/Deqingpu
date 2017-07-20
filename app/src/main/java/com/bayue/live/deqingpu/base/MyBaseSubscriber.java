@@ -70,4 +70,12 @@ public abstract class MyBaseSubscriber<T>  extends BaseSubscriber<T> {
         }
     }
 
+    public void hide(){
+        if (progress != null){
+//            if (progress.isShowing()) {
+                progress.dismiss();
+//            }
+        }
+    }
+
 }

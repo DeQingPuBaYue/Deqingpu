@@ -27,7 +27,7 @@
         <RatingBar
             android:id="@+id/rateComment"
             style="@style/roomRatingBar"
-            android:isIndicator="false"
+            android:isIndicator="true"
             android:padding="0.3dp"
             android:layout_margin="@dimen/dp_4"
             android:layout_alignParentRight="true"

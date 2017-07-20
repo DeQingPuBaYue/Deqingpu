@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
@@ -23,17 +24,23 @@ import android.widget.Toast;
 
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.base.BaseActivity;
+import com.bayue.live.deqingpu.base.BaseSubscriber;
 import com.bayue.live.deqingpu.base.HTTPUtils;
+import com.bayue.live.deqingpu.data.Constants;
+import com.bayue.live.deqingpu.entity.Return;
 import com.bayue.live.deqingpu.entity.geren.AddEvaluationBean;
 import com.bayue.live.deqingpu.http.API;
 import com.bayue.live.deqingpu.preferences.Preferences;
 import com.bayue.live.deqingpu.ui.geren.XierizhiActivity;
 import com.bayue.live.deqingpu.utils.DensityUtil;
+import com.bayue.live.deqingpu.utils.GsonHelper;
 import com.bayue.live.deqingpu.utils.ToastUtils;
 import com.bayue.live.deqingpu.utils.ToolKit;
+import com.bayue.live.deqingpu.utils.Tracer;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.tamic.novate.Throwable;
 import com.tangxiaolv.telegramgallery.GalleryActivity;
 
 import org.json.JSONObject;
@@ -51,6 +58,7 @@ import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 /**
  * Created by Administrator on 2017/6/16.
@@ -83,6 +91,9 @@ public class EvaluationActivity extends BaseActivity {
     ArrayList<String > lists=new ArrayList<>();
 
     String img1="",img2="",img3="";
+    int comment_type, id_value, f;
+    String action, content;
+    private String TAG = "EvaluationActivity";
 
     @Override
     protected int getViewId() {
@@ -93,6 +104,9 @@ public class EvaluationActivity extends BaseActivity {
     protected void initViews(){
         tvTitletextTitle.setText("评价");
         tvRigthtextTitle.setText("下一步");
+        action = getIntent().getStringExtra("action");
+        comment_type = getIntent().getIntExtra("comment_type", -1);
+        id_value = getIntent().getIntExtra("id_value", -1);
     }
 
     @Override
@@ -115,11 +129,26 @@ public class EvaluationActivity extends BaseActivity {
                 break;
             case R.id.tv_titletext_title:
                 break;
-            case R.id.tv_rigthtext_title:
-                tiJiao();
-                break;
             case R.id.ll_rigthtext_title:
-                tiJiao();
+                f= (int) rateComment.getRating();
+                content=edContentEval.getText().toString();
+                if(f<=0){
+                    ToastUtils.showShortToast("请给予星级评价");
+                    return;
+                }
+                if(content.isEmpty()||content.equals(null)){
+                    ToastUtils.showShortToast("说点什么吧！！");
+                    return;
+                }
+                    Map<String ,Object> map = Constants.getMap(baseContext);
+                    map.put("comment_type",comment_type);
+                    map.put("content",content);
+                    map.put("comment_rank",f+"");
+                    map.put("id_value",id_value+"");
+                    map.put("comment_img1",img1);
+                    map.put("comment_img2",img2);
+                    map.put("comment_img3",img3);
+                    beginGet(API.Merchant.COMMENT_ADD, map, 0);
                 break;
             case R.id.iv_photo_eval:
                 setGong();
@@ -271,69 +300,58 @@ public class EvaluationActivity extends BaseActivity {
         }
 
 
+    }
 
+    private void beginGet(final String url, final Map<String, Object> map, final int status) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
 
-//        Log.e(">>>>>>data>>>>>",data+"");
+                getDataFromNet(url, map, status);
+            }
+        }, 300);
 
     }
 
-    private void tiJiao(){
-       int f= (int) rateComment.getRating();
-        String  content=edContentEval.getText().toString();
-        if(f<=0){
-            Toast.makeText(this,"请给予星级评价",Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(content.isEmpty()||content.equals(null)){
-            Toast.makeText(this,"说点什么吧！！",Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Map<String ,Object> map=new HashMap<>();
-        map.put("token", Preferences.getString(this,Preferences.TOKEN));
-        map.put("comment_type","2");
-        map.put("content",content);
-        map.put("comment_rank",f+"");
-        map.put("id_value",1+"");
-        map.put("comment_img1",img1);
-        map.put("comment_img1",img2);
-        map.put("comment_img1",img3);
-        HTTPUtils.getNetDATA(API.baseUrl + API.Merchant.COMMENT_ADD, map, new Callback() {
+    private void getDataFromNet(String url, Map<String, Object> hashMap, final int status) {
+        HTTPUtils.getNovate(baseContext).post(url, hashMap, new com.tamic.novate.BaseSubscriber<ResponseBody>(baseActivity) {
+
             @Override
-            public void onFailure(Call call, IOException e) {
-
-
+            public void onError(Throwable e) {
+                if (e.getMessage() != null) {
+                    Tracer.e("OkHttp", e.getMessage());
+                }
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String msg = response.body().string();
-                Log.e("msg====",msg);
-                if (response.code() == 200) {
+            public void onNext(ResponseBody responseBody) {
+                String jstr = null;
+                try {
+                    jstr = new String(responseBody.bytes());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Tracer.e(TAG, jstr);
+                if (!jstr.contains("code")) {
+                    ToastUtils.showLongToast(getString(R.string.net_user_error));
+                    return;
+                }
+                if (status == 0) {
+                    Return r = (Return) GsonHelper.getInstanceByJson(Return.class, jstr);
+                    if (r.getCode() == Constants.CODE_OK){
+                        ToastUtils.showLongToast(r.getData());
+                    }else {
+                        ToastUtils.showLongToast(r.getMsg());
+                    }
 
-                    Gson gson = new Gson();
-                    final AddEvaluationBean addEval=gson.fromJson(msg,AddEvaluationBean.class);
-                    ToolKit.runOnMainThreadSync(new Runnable() {
-                        @Override
-                        public void run() {
-                        if(addEval.getCode()==200){
-                            DensityUtil.showToast(EvaluationActivity.this,addEval.getData());
-                        } else {
-                            DensityUtil.showToast(EvaluationActivity.this,addEval.getMsg());
-                        }
-                        }
-                    });
-
-
-
+                } else if (status == 1) {
 
 
                 }
             }
         });
 
-
-
-
-
     }
+
+
 }

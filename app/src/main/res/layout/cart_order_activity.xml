@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include layout="@layout/geren_include_title_text"/>
-    <include layout="@layout/layout_animation"/>
+    <!--<include layout="@layout/geren_include_title_text"/>-->
+    <com.bayue.live.deqingpu.view.TopActionBar
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:canClose="true"
+        />
+    <include android:id="@+id/linDefaultArea" layout="@layout/layout_animation"/>
+    <include android:id="@+id/linGoodsCart" layout="@layout/list_item_cart_settle" android:visibility="gone"/>
+    <View
+        android:layout_width="match_parent" android:layout_height="1dp"
+        android:background="@color/color_line" android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0px"
@@ -12,8 +25,32 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rlv_out_order"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="76px"
+        android:padding="@dimen/dp_10"
+        android:background="@drawable/boder"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="卖家留言："
+            android:textSize="26px"
+            android:textColor="@color/black"/>
+        <EditText
+            android:id="@+id/txtCartSellerMsg"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:text=""
+            android:gravity="center_vertical"
+            android:textColor="@color/zilanmu_textcolor"
+            android:textSize="26px"
+            android:hint="@string/hint_cart_sellers_msg"/>
     </LinearLayout>
 
     <include layout="@layout/include_buy"/>

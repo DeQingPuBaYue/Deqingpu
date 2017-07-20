@@ -1,14 +1,14 @@
 package com.bayue.live.deqingpu.entity;
 
+import com.bigkoo.pickerview.model.IPickerViewData;
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by Administrator on 2017/6/7.
  */
-import com.bigkoo.pickerview.model.IPickerViewData;
 
 import java.util.List;
-public class JsonBean implements IPickerViewData{
+public class JsonBean implements IPickerViewData {
 
 
     /**

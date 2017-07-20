@@ -83,6 +83,7 @@ public class AddressActivity extends BaseActivity implements SwipeRefreshLayout.
     private boolean isErr;
     private boolean mLoadMoreEndGone = false;
     private Novate novate;
+    String action = "";
 
     @Override
     protected int getViewId() {
@@ -91,6 +92,9 @@ public class AddressActivity extends BaseActivity implements SwipeRefreshLayout.
 
     @Override
     protected void initViews() {
+        if (!Guard.isNullOrEmpty(getIntent().getStringExtra("form"))) {
+            action = getIntent().getStringExtra("form");
+        }
         beanList = new ArrayList<>();
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout.setColorSchemeColors(Color.rgb(47, 223, 189));
@@ -158,7 +162,11 @@ public class AddressActivity extends BaseActivity implements SwipeRefreshLayout.
                         }else {
                             ToastUtils.showLongToast(r.getMsg());
                         }
-                        beginGet();
+                        if (action.equals("cart_confirm")){
+                            finish();
+                        }else {
+                            beginGet();
+                        }
                         break;
                     case 5:
 

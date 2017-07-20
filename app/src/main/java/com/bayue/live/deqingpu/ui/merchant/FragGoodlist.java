@@ -23,6 +23,7 @@ import com.bayue.live.deqingpu.adapter.common.base.ViewHolder;
 import com.bayue.live.deqingpu.adapter.common.wrapper.HeaderAndFooterWrapper;
 import com.bayue.live.deqingpu.adapter.common.wrapper.LoadMoreWrapper;
 import com.bayue.live.deqingpu.base.BaseFragment;
+import com.bayue.live.deqingpu.base.HTTPUtils;
 import com.bayue.live.deqingpu.base.LazyLoadFragment;
 import com.bayue.live.deqingpu.data.Constants;
 import com.bayue.live.deqingpu.entity.CommentBean;
@@ -60,7 +61,7 @@ import okhttp3.ResponseBody;
 public class FragGoodlist extends LazyLoadFragment implements SwipeRefreshLayout.OnRefreshListener{
 
     String TAG = "FragGoodlist";
-    int typeDefalut = 0, storeId = 1, pages = 1, count_page = 1;
+    int typeDefalut = 0, storeId, pages = 1, count_page = 1;
     int LoadMore = 0x002, loadRefresh = 0x001;
     @BindView(R.id.rv_merchant)
     RecyclerView rvMerchant;
@@ -72,15 +73,13 @@ public class FragGoodlist extends LazyLoadFragment implements SwipeRefreshLayout
     List<GoodsBean.DataBean> commenList = new ArrayList<>();
     GoodsBean goodsBean;
     private RequestManager glideRequest;
-    private Novate novate;
-    String sort = "ASC";
-    String order = "goods_id";
+//    private Novate novate;
+    String sort = "ASC";//ASC (正序) 、DESC(倒序)
+    String order = "goods_id";//默认:goods_id 、 销量排序：sales、 价格排序：shop_price
     boolean firstLoad = true;
-
-    public static FragGoodlist newInstance(int s) {
+    int cat_id, actionType;String keyword = "";
+    public static FragGoodlist newInstance(Bundle bundle) {
         FragGoodlist viewPagerFragment = new FragGoodlist();
-        Bundle bundle = new Bundle();
-        bundle.putInt(Constants.ARGS, s);
         viewPagerFragment.setArguments(bundle);
         return viewPagerFragment;
     }
@@ -99,6 +98,12 @@ public class FragGoodlist extends LazyLoadFragment implements SwipeRefreshLayout
     public void init() {
         glideRequest = Glide.with(baseActivity);
         typeDefalut = getArguments().getInt(Constants.ARGS);
+        cat_id = getArguments().getInt("cat_id");
+        storeId = getArguments().getInt("store");
+        actionType = getArguments().getInt("actionType");
+        keyword = getArguments().getString("keyword");
+        sort = getArguments().getString("sort");
+        order = getArguments().getString("order");
         Tracer.e(TAG, typeDefalut+" typeDefaut");
 //        rvMerchant.setLayoutManager(new LinearLayoutManager(baseActivity));
         swipeLayoutMerchant.setOnRefreshListener(this);
@@ -107,14 +112,14 @@ public class FragGoodlist extends LazyLoadFragment implements SwipeRefreshLayout
         RecyclerView.LayoutManager mLayoutManager = new StaggeredGridLayoutManager(
                 2, StaggeredGridLayoutManager.VERTICAL);
         rvMerchant.setLayoutManager(mLayoutManager);
-        novate = new Novate.Builder(baseActivity)
-                //.addParameters(parameters)//公共参数
-                .connectTimeout(5)
-                .writeTimeout(10)
-                .baseUrl(API.baseUrl)
-//                .addHeader(headers)//添加公共请求头//.addApiManager(ApiManager.class)
-                .addLog(true)
-                .build();
+//        novate = new Novate.Builder(baseActivity)
+//                //.addParameters(parameters)//公共参数
+//                .connectTimeout(5)
+//                .writeTimeout(10)
+//                .baseUrl(API.baseUrl)
+////                .addHeader(headers)//添加公共请求头//.addApiManager(ApiManager.class)
+//                .addLog(true)
+//                .build();
         //分割线
 //        rvMerchant.addItemDecoration(new DividerItemDecoration(baseActivity, DividerItemDecoration.VERTICAL));
 
@@ -132,6 +137,11 @@ public class FragGoodlist extends LazyLoadFragment implements SwipeRefreshLayout
                 TextView textView = holder.getView(R.id.txtGoodsMarketPrice);
                 textView.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG); //中划线
                 holder.setText(R.id.txtGoodsSales, "销量："+dataBean.getSales());
+                if (actionType == 1){
+//                    holder.setVisible(R.id.tvManagerRegistState, true);
+                    holder.setVisible(R.id.tvFreeShip, true);
+                    holder.setVisible(R.id.ivSell, true);
+                }
             }
         };
 //        mHeaderAndFooterWrapper = new HeaderAndFooterWrapper(mAdapter);
@@ -159,7 +169,10 @@ public class FragGoodlist extends LazyLoadFragment implements SwipeRefreshLayout
             public void onItemClick(View view, RecyclerView.ViewHolder holder,  int position)
             {
 //                mAdapter.notifyItemRemoved(position);
-                startActivity(new Intent(baseActivity, MerchantGoodsDetailActivity.class).putExtra("goods_id",commenList.get(position).getGoods_id()));
+                startActivity(new Intent(baseActivity, MerchantGoodsDetailActivity.class)
+                        .putExtra("goods_id",commenList.get(position).getGoods_id())
+                        .putExtra("actionType",actionType)
+                );
             }
 
             @Override
@@ -197,8 +210,8 @@ public class FragGoodlist extends LazyLoadFragment implements SwipeRefreshLayout
             public void run() {
                 Map<String, Object> map = Constants.getMap();
                 map.put("store_cat", "0");
-                map.put("cat_id", "0");
-                map.put("keyword", "0");
+                map.put("cat_id", cat_id);
+                map.put("keyword", keyword);
                 map.put("store", storeId);
                 map.put("sort", sort);
                 map.put("order", order);
@@ -209,7 +222,7 @@ public class FragGoodlist extends LazyLoadFragment implements SwipeRefreshLayout
 
     }
     private void getDataFromNet(String url, Map<String, Object> hashMap, final int LoadStatus) {
-        novate.post(url, hashMap, new BaseSubscriber<ResponseBody>(baseActivity) {
+        HTTPUtils.getNovate(baseActivity).post(url, hashMap, new BaseSubscriber<ResponseBody>(baseActivity) {
 
             @Override
             public void onError(Throwable e) {

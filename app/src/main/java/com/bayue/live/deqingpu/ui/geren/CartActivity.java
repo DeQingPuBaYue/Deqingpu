@@ -55,6 +55,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -105,6 +106,7 @@ public class CartActivity extends BaseActivity {
     private RecyclerView.LayoutManager manager;
 
     ArrayList<CartOutBean.DataBean> outList = new ArrayList<>();
+    private String recId;
 
     private void setOutList(ArrayList<CartOutBean.DataBean> outList) {
         for (int i = 0; i < outList.size(); i++) {
@@ -161,9 +163,9 @@ public class CartActivity extends BaseActivity {
                 .addLog(true)
                 .build();
         Map<String,Object> map=Constants.getMap(baseContext);
-//        map.put("token", token);
-        map.put("token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMCwibmlrX25hbWUiOm51bGx9.2QDDeG63O4SDRJ6_jqu2iGIB9D9VWZOrq18bhajUIrA");
-        beginGet(API.Cart.CART_LIST, map, 1);
+//        map.put("token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyMCwibmlrX25hbWUiOm51bGx9.2QDDeG63O4SDRJ6_jqu2iGIB9D9VWZOrq18bhajUIrA");
+        beginGet(API.Cart.CART_LIST, map, 1, true);
+        llLijigoumaiCart.setTag(0x001);
         InitializationPopWindow();
         manager = new LinearLayoutManager(this);
         rlvOutCart.setLayoutManager(manager);
@@ -247,6 +249,7 @@ public class CartActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
+    StringBuilder recIdBuilder = new StringBuilder();
     @OnClick({R.id.ll_back_title, R.id.ll_rigthtext_title, R.id.ll_quanxuan_cart, R.id.ll_lijigoumai_cart})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -261,8 +264,18 @@ public class CartActivity extends BaseActivity {
 
                 break;
             case R.id.ll_lijigoumai_cart:
-                startActivity(new Intent(CartActivity.this, CartConfirmActivity.class));
-
+                if ((int)llLijigoumaiCart.getTag()==0x001) {
+                    if (Guard.isNullOrEmpty(getRecId())){
+                        ToastUtils.showShortToast("没有选中商品");
+                        return;
+                    }
+                    startActivity(new Intent(CartActivity.this, CartConfirmActivity.class)
+                            .putExtra("rec_id", getRecId())
+                            .putExtra("actionType", 2)
+                    );
+                }else if ((int)llLijigoumaiCart.getTag()==0x002){
+                    delCartById(0, "", false);
+                }
                 break;
         }
     }
@@ -287,13 +300,14 @@ public class CartActivity extends BaseActivity {
 //            reverseBanji(editor);
             llJineCart.setVisibility(View.VISIBLE);
             tvLijigoumaiCart.setText("立即购买");
+            llLijigoumaiCart.setTag(0x001);
         } else {
             tvRigthtextTitle.setText("完成");
             editor=true;
             reverseBanji(!editor);
             llJineCart.setVisibility(View.INVISIBLE);
             tvLijigoumaiCart.setText("删除");
-
+            llLijigoumaiCart.setTag(0x002);
 
         }
     }
@@ -330,14 +344,41 @@ public class CartActivity extends BaseActivity {
         return speValue;
     }
 
-    private void getPrice(){
-        String attrId = stringBuilder.toString();
-        if (attrId.endsWith(",")){
-            attrId = attrId.substring(0,attrId.length()-1);
+    public void delCartById(int itemPostion, String recId, boolean isSingle){
+        String resId;
+        if (isSingle) {
+            resId = recId;
+        }else {
+            resId = getRecId();
         }
-        Map<String, Object> mapPrice = Constants.getMap();
-        mapPrice.put("rec_id", attrId);
-        beginGet(API.Cart.CART_PRICE, mapPrice, 3);
+        Map<String,Object> map=Constants.getMap(baseContext);
+        map.put("rec_id", resId);
+        Tracer.e(TAG, " recId:"+resId);
+        beginGet(API.Cart.CART_DEL, map,3, isSingle);
+    }
+
+    private String getRecId(){
+        String rId;
+        StringBuilder rIdBuilder = new StringBuilder();
+        for (int i = 0; i < outList.size(); i++) {
+            int goodsInfoSize = outList.get(i).getGoods_info().size();
+            for (int j = 0; j < goodsInfoSize; j++) {
+                boolean isSelect = outList.get(i).getGoods_info().get(j).isSubselected();
+                if (isSelect){
+                    //筛选被选中的商品购物车列表
+                    String recId = outList.get(i).getGoods_info().get(j).getRec_id()+"";
+                    rIdBuilder.append(recId);
+                    if (j<goodsInfoSize-1){
+                        rIdBuilder.append(",");
+                    }
+                }
+            }
+        }
+        rId = rIdBuilder.toString();
+        if (rId.endsWith(",")) {
+            rId = rId.substring(0, rId.length() - 1);
+        }
+        return rId;
     }
     private PopupWindow popupWindows;
     private View contentView;
@@ -351,6 +392,7 @@ public class CartActivity extends BaseActivity {
     List<GoodsDetail.DataBean.SpeBean> speBeanList = new ArrayList<>();
     List<GoodsDetail.DataBean.SpeBean> multiList = new ArrayList<>();
     List<GoodsDetail.DataBean.SpeBean> radioList = new ArrayList<>();
+    Map<Integer, List<GoodsDetail.DataBean.SpeBean>> speHashMap = new HashMap<>();
     int tempSelectId, tempTagId, addNumber = 1 ,rvPosition;
     double price, tempSelectPrice;
     void InitializationPopWindow(){
@@ -371,20 +413,21 @@ public class CartActivity extends BaseActivity {
         rvSpecSelect.setLayoutManager(new LinearLayoutManager(baseActivity));
         txtSpecSelectConfirm.setVisibility(View.VISIBLE);
         linSpecBtn.setVisibility(View.INVISIBLE);
+        amountView.setDefault(1);
         popAdapter = new CommonAdapter<GoodsDetail.DataBean.SpeBean>(baseContext, R.layout.pop_spec_item_rv_spec, speBeanList) {
             @Override
-            protected void convert(ViewHolder holder, final GoodsDetail.DataBean.SpeBean bean, int position) {
-                holder.setText(R.id.txtSpecProName,bean.getName());
+            protected void convert(ViewHolder holder, final GoodsDetail.DataBean.SpeBean bean, final int position) {
+                final String multiName = bean.getName();
+                holder.setText(R.id.txtSpecProName,multiName);
                 final TagFlowLayout mFlowLayout = holder.getView(R.id.flowlayout);
-                int count; boolean isMulti = false;
+                int count;
                 if (bean.getAttr_type()==1){
                     count = 1;
-                    isMulti = false;
                 }else {
                     count = -1;
-                    isMulti = true;
                 }
                 mFlowLayout.setMaxSelectCount(count);
+
                 final List<GoodsDetail.DataBean.SpeBean.ValuesBean> valuesList = bean.getValues();
                 mFlowLayout.setAdapter(new TagAdapter<GoodsDetail.DataBean.SpeBean.ValuesBean>(valuesList)
                 {
@@ -397,67 +440,36 @@ public class CartActivity extends BaseActivity {
                         return tv;
                     }
                 });
-                final boolean finalIsMulti = isMulti;
-                if (finalIsMulti){
-                    mFlowLayout.setOnSelectListener(new TagFlowLayout.OnSelectListener()
-                    {
-                        @Override
-                        public void onSelected(Set<Integer> selectPosSet)
-                        {
-                            multiList.clear();
-                            StringBuilder tempBuilder = new StringBuilder();
-                            Iterator iterator=selectPosSet.iterator();
+                //预先设置选中
+//                mAdapter.setSelectedList(1,3,5,7,8,9);
+                //获得所有选中的pos集合
+//                mFlowLayout.getSelectedList();
+
+                mFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+                    @Override
+                    public boolean onTagClick(View view, int i, FlowLayout flowLayout) {
+                        List<GoodsDetail.DataBean.SpeBean> tempList = new ArrayList<>();
+                        if (mFlowLayout.getSelectedList().size() > 0){
+                            GoodsDetail.DataBean.SpeBean speBean = new GoodsDetail.DataBean.SpeBean();
+                            speBean.setAttr_type(bean.getAttr_type());
+                            speBean.setName(multiName);
+                            List<GoodsDetail.DataBean.SpeBean.ValuesBean> valuesBeanList = new ArrayList<>();
+                            Iterator iterator=mFlowLayout.getSelectedList().iterator();
                             while (iterator.hasNext()){
                                 String spe =  iterator.next().toString();
                                 int pos = Integer.parseInt(spe);
-                                tempSelectId = valuesList.get(pos).getId();
-//                                tempPrice += Double.parseDouble(valuesList.get(Integer.parseInt(spe)).getPrice());
-                                tempBuilder.append(tempSelectId+",");
-                                GoodsDetail.DataBean.SpeBean speBean = new GoodsDetail.DataBean.SpeBean();
-                                speBean.setAttr_type(bean.getAttr_type());
-                                speBean.setName(bean.getName());
-                                List<GoodsDetail.DataBean.SpeBean.ValuesBean> valuesBeanList = new ArrayList<>();
                                 valuesBeanList.add(bean.getValues().get(pos));
-                                speBean.setValues(valuesBeanList);
-                                multiList.add(speBean);
                             }
-                            stringBuilder = tempBuilder;
-                            tempTagId = 0;
-                            getPrice();
-                        }
-                    });
-                }else {
-                    mFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
-                        @Override
-                        public boolean onTagClick(View view, int position, FlowLayout parent) {
-//                            txtSpecSelectPrice.setText("￥" + price);
-                            amountView.setDefault(1);
-                            radioList.clear();
-                            if (stringBuilder.length()>0) {
-                                if (tempTagId > 0) {
-                                    String tempStr = tempTagId + "";
-                                    Tracer.e(TAG, "length:" + stringBuilder.length() + " delete:" + (stringBuilder.length() - tempStr.length()) + " -> " + (stringBuilder.length() - 1));
-                                    stringBuilder.delete((stringBuilder.length() - tempStr.length()), stringBuilder.length());
-                                }
+                            speBean.setValues(valuesBeanList);
+                            tempList.add(speBean);
+                        }else {
 
-                                tempTagId = valuesList.get(position).getId();
-                                stringBuilder.append(tempTagId);
-                                GoodsDetail.DataBean.SpeBean speBean = new GoodsDetail.DataBean.SpeBean();
-                                speBean.setAttr_type(bean.getAttr_type());
-                                speBean.setName(bean.getName());
-                                List<GoodsDetail.DataBean.SpeBean.ValuesBean> valuesBeanList = new ArrayList<>();
-                                valuesBeanList.add(bean.getValues().get(position));
-                                speBean.setValues(valuesBeanList);
-                                radioList.add(speBean);
-                                getPrice();
-                            }else {
-                                ToastUtils.showLongToast("请选择至少一种"+bean.getName());
-                            }
-                            Tracer.e(TAG, price +" price");
-                            return true;
                         }
-                    });
-                }
+                        speHashMap.put(position, tempList);
+
+                        return true;
+                    }
+                });
             }
         };
         rvSpecSelect.setAdapter(popAdapter);
@@ -489,7 +501,7 @@ public class CartActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 hidePop();
-                stringBuilder = new StringBuilder();
+                speHashMap.clear();
             }
         });
 
@@ -497,30 +509,50 @@ public class CartActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 hidePop();
-                List<CartOutBean.DataBean.GoodsInfoBean.GoodsAttrBean> goodsAttrBeans=new ArrayList<CartOutBean.DataBean.GoodsInfoBean.GoodsAttrBean>();
-
+                List<CartOutBean.DataBean.GoodsInfoBean.GoodsAttrBean> goodsAttrBeans=new ArrayList<>();
                 List<GoodsDetail.DataBean.SpeBean> speBeanList = new ArrayList<>();
-                speBeanList.addAll(multiList);
-                speBeanList.addAll(radioList);
+                for (Map.Entry<Integer, List<GoodsDetail.DataBean.SpeBean>> entry : speHashMap.entrySet()){
+//                    for (int k = 0; k < entry.getValue().size(); k++) {
+//                        List<GoodsDetail.DataBean.SpeBean.ValuesBean> valuesBeans = entry.getValue().get(k).getValues();
+//                        for (int j = 0; j < valuesBeans.size(); j++) {
+//                            Tracer.e("Constants_MapValue", entry.getKey() +":"+ entry.getValue().get(k).getName()
+//                                    +" label:"+valuesBeans.get(j).getLabel());
+//                        }
+//                    }
+                    speBeanList.addAll(entry.getValue());
+                }
+//                speBeanList.addAll(multiList);
+//                speBeanList.addAll(radioList);
+                StringBuilder tempIdBuilder = new StringBuilder();
                 for (int i = 0; i < speBeanList.size(); i++) {
-//                    if(i==0){
-                        speBeanList.get(i).getName();
+//                        speBeanList.get(i).getName();
                         for (int j = 0; j <speBeanList.get(i).getValues().size() ; j++) {
                             String attrname=speBeanList.get(i).getValues().get(j).getLabel();
+                            if (j!=speBeanList.get(i).getValues().size()-1){
+                                attrname += ",";
+                            }
                             CartOutBean.DataBean.GoodsInfoBean.GoodsAttrBean goodsAttrBean=new CartOutBean.DataBean.GoodsInfoBean.GoodsAttrBean();
-
                             int attrId=speBeanList.get(i).getValues().get(j).getId();
                             goodsAttrBean.setGoods_attr_id(attrId);
                             goodsAttrBean.setAttr(attrname);
                             goodsAttrBeans.add(goodsAttrBean);
+                            tempIdBuilder.append(attrId);
+                            tempIdBuilder.append(",");
                         }
-//                    }
                 }
-
                 outList.get(postion).getGoods_info().get(subpostion).getGoods_attr().clear();
                 outList.get(postion).getGoods_info().get(subpostion).getGoods_attr().addAll(goodsAttrBeans);
-
                 adapter.notifyItemChanged(rvPosition);
+                String goods_id = outList.get(postion).getGoods_info().get(subpostion).getGoods_id();
+                int rec_id = outList.get(postion).getGoods_info().get(subpostion).getRec_id();
+                String attrId = tempIdBuilder.toString().substring(0,tempIdBuilder.toString().length()-1);
+                Map<String, Object> map = Constants.getMap();
+                map.put("goods_id", goods_id);
+                map.put("rec_id", rec_id);
+                map.put("goods_attr_id", attrId);
+                speHashMap.clear();
+                Tracer.e(TAG, "update:attrId" + attrId+" rec_id:"+rec_id+" goods_id:"+goods_id);
+                beginGet(API.Cart.CART_UPDATE, map, 3, true);
             }
         });
     }
@@ -534,7 +566,7 @@ public class CartActivity extends BaseActivity {
         speBeanList.clear();
         Map<String, Object> map = Constants.getMap();
         map.put("goods_id", goods_id);
-        beginGet(API.Cart.CART_ATTR, map, 2);
+        beginGet(API.Cart.CART_ATTR, map, 2, true);
         popupWindows.showAtLocation(rlvOutCart, Gravity.BOTTOM, 0, 0);
     }
 
@@ -543,17 +575,17 @@ public class CartActivity extends BaseActivity {
             popupWindows.dismiss();
         }
     }
-    private void beginGet(final String url, final Map<String, Object> map, final int type) {
+    private void beginGet(final String url, final Map<String, Object> map, final int type, final boolean isSingle) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                getDataFromNet(url, map, type);
+                getDataFromNet(url, map, type, isSingle);
             }
         }, 300);
 
     }
 
-    private void getDataFromNet(String url, Map<String, Object> hashMap, final int type) {
+    private void getDataFromNet(String url, Map<String, Object> hashMap, final int type, final boolean isSingle) {
         novate.post(url, hashMap, new BaseSubscriber<ResponseBody>(baseActivity) {
             @Override
             public void onError(Throwable e) {
@@ -576,10 +608,12 @@ public class CartActivity extends BaseActivity {
                 }
                 switch (type){
                     case 1:
+                        outList.clear();
                         CartOutBean bean= (CartOutBean) GsonHelper.getInstanceByJson(CartOutBean.class, jstr);
                         outList.addAll(bean.getData());
                         setOutList(outList);
                         CartActivity.this.UpdateRecyclerView();
+                        rlvOutCart.scrollToPosition(0);
                         break;
                     case 2:
                         String json = GsonHelper.getStrFromJson(jstr, "data");
@@ -601,17 +635,22 @@ public class CartActivity extends BaseActivity {
                             @Override
                             public void onAmountChange(View view, int amount) {
                                 addNumber = amount;
-                                if (amount>0) {
-//                    txtSpecSelectPrice.setText("￥"+ amount * price);
-//                    getPrice();
-                                }
                             }
                         });
-//                        Return o = (Return) GsonHelper.getInstanceByJson(Return.class, jstr);
-//                        if (o.getCode() == Constants.CODE_OK){
-//                            ToastUtils.showLongToast(o.getData());
-//                            hidePop();
-//                        }
+                        break;
+                    case 3:
+                        Return r = (Return) GsonHelper.getInstanceByJson(Return.class, jstr);
+                        if (r.getCode() == 200){
+                            ToastUtils.showLongToast(r.getData());
+                        }else {
+                            ToastUtils.showLongToast(r.getMsg());
+                        }
+                        if (!isSingle){
+                            Map<String,Object> map=Constants.getMap(baseContext);
+                            outList.clear();
+                            beginGet(API.Cart.CART_LIST, map, 1, true);
+                        }
+
                         break;
                 }
             }

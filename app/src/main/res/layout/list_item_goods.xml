@@ -26,6 +26,13 @@
                 android:layout_margin="@dimen/dp_4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tvManagerRegistState"
+                android:layout_margin="@dimen/dp_4"
+                android:visibility="gone"
+                android:text="@string/tv_manager_state_registed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </RelativeLayout>
         <LinearLayout
             android:orientation="vertical"
@@ -55,6 +62,7 @@
                     android:gravity="left"/>
                 <ImageView
                     android:id="@+id/imgGoodsAddCart"
+                    android:visibility="invisible"
                     android:src="@mipmap/icon_goods_shopcart"
                     android:layout_marginRight="@dimen/dp_8"
                     android:layout_width="wrap_content"
@@ -66,13 +74,35 @@
                 style="@style/smallSizeBlackStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <ImageView
-                android:id="@+id/imgGoodsIsMerchant"
-                android:src="@mipmap/icon_merchant_mark"
-                android:layout_marginTop="@dimen/dp_4"
-                android:layout_marginBottom="@dimen/dp_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <LinearLayout android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/imgGoodsIsMerchant"
+                    android:src="@mipmap/icon_merchant_mark"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:layout_marginBottom="@dimen/dp_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tvFreeShip"
+                    android:background="@drawable/boder_grey"
+                    android:text="@string/tv_free_shipping_amount"
+                    style="@style/smallSizeGreyStyle"
+                    android:layout_marginLeft="@dimen/dp_4"
+                    android:layout_marginRight="@dimen/dp_4"
+                    android:visibility="invisible"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:id="@+id/ivSell"
+                    android:src="@mipmap/icon_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

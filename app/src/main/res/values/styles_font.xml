@@ -36,4 +36,18 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
     </style>
+    <style name="personGreyFont">
+        <item name="android:textSize">@dimen/normal_text_size</item>
+        <item name="android:padding">@dimen/dp_10</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+    <style name="personBlackFont">
+        <item name="android:textSize">@dimen/normal_text_size</item>
+        <item name="android:padding">@dimen/dp_10</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>

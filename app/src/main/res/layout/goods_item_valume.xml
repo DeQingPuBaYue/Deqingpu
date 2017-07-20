@@ -42,14 +42,30 @@
             style="@style/BigThanSizeBlackStyle"
             android:text="@string/app_name"/>
     </LinearLayout>
-    <TextView
-        android:id="@+id/txtGoodsMarketPrice"
-        style="@style/smallSizeGreyStyle"
+    <LinearLayout android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_4"
-        android:text="@string/app_name"
-        android:gravity="left"/>
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txtGoodsMarketPrice"
+            style="@style/smallSizeGreyStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/dp_4"
+            android:text="@string/app_name"
+            android:gravity="left"/>
+        <TextView
+            android:id="@+id/tvCustomer"
+            style="@style/normalSizeBlackStyle"
+            android:text="@string/tv_customer"
+            android:padding="@dimen/dp_10"
+            android:gravity="right"
+            android:drawablePadding="@dimen/dp_8"
+            android:drawableRight="@mipmap/icon_customer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/dp_10"
@@ -61,18 +77,60 @@
             android:src="@mipmap/icon_merchant_mark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <View
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:layout_height="1dp" />
         <TextView
-            style="@style/normalSizeBlackStyle"
-            android:text="@string/tv_customer"
-            android:padding="@dimen/dp_10"
-            android:gravity="right"
-            android:drawablePadding="@dimen/dp_8"
-            android:drawableRight="@mipmap/icon_customer"
+            android:id="@+id/tvFreeShip"
+            android:background="@drawable/boder_grey"
+            android:text="@string/tv_free_shipping_amount"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:layout_marginRight="@dimen/dp_4"
+            android:visibility="invisible"
+            android:textColor="@color/white"
+            android:textSize="8sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/ivSell"
+            android:src="@mipmap/icon_sell"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"/>
+        <LinearLayout android:orientation="horizontal"
+            android:id="@+id/linManagerState"
+            android:gravity="right"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvAmountSave"
+                android:layout_width="@dimen/dp_94"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_tv_round_left_white"
+                android:gravity="center"
+                android:text="@string/tv_amout_profit"
+                android:textSize="@dimen/sp_10"
+                android:textColor="@color/orange_red"/>
+
+            <!--<View-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/black"/>-->
+
+            <TextView
+                android:id="@+id/tvAgentImmediate"
+                android:layout_width="@dimen/dp_94"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_tv_round_right_black"
+                android:gravity="center"
+                android:text="@string/tv_regitst_manager"
+                android:textSize="@dimen/sp_10"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+        <!--<View-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_height="1dp" />-->
+
     </LinearLayout>
 </LinearLayout>

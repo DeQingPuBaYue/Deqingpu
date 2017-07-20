@@ -25,19 +25,25 @@
                 android:paddingLeft="15px"
                 android:paddingRight="15px"
                 android:orientation="vertical">
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
+                    android:gravity="center_vertical"
                     android:layout_height="67px"
                     android:layout_marginRight="19px">
+                    <ImageView
+                        android:id="@+id/ivCartShopMark"
+                        android:src="@mipmap/icon_merchant_platform"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                     <TextView android:id="@+id/tv_name_cartitem"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="zoo coffee"
-                        android:textSize="33px"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:text="@string/app_name"
+                        android:textSize="@dimen/sp_14"
                         android:textColor="@color/black"/>
 
-                </RelativeLayout>
+                </LinearLayout>
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rlv_in_order"
                     android:layout_width="match_parent"
@@ -51,6 +57,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="76px"
+                    android:visibility="gone"
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
                     <TextView
@@ -60,14 +67,16 @@
                         android:textSize="26px"
                         android:textColor="@color/black"/>
                     <EditText
+                        android:id="@+id/txtCartSellerMsg"
                         android:layout_width="0px"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@color/transparent"
                         android:text=""
+                        android:gravity="center_vertical"
                         android:textColor="@color/zilanmu_textcolor"
                         android:textSize="26px"
-                        android:hint="12321343232432423"/>
+                        android:hint="@string/hint_cart_sellers_msg"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -77,6 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="10px"
+                    android:visibility="gone"
                     android:paddingBottom="10px"
                     android:orientation="horizontal">
                     <TextView
@@ -90,18 +100,12 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
                         <TextView
+                            android:id="@+id/txtCartActivity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1.减免100.00元"
                             android:textSize="26px"
                             android:textColor="@color/zilanmu_textcolor"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="2.部分商品包邮"
-                            android:textSize="26px"
-                            android:textColor="@color/zilanmu_textcolor"/>
-
                     </LinearLayout>
 
                 </LinearLayout>
@@ -123,6 +127,7 @@
                         android:textColor="@color/black"
                         android:layout_alignParentRight="true"/>
                     <TextView
+                        android:id="@+id/txtCartGoodsNumb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"

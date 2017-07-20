@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.bayue.live.deqingpu.R;
@@ -49,7 +51,7 @@ import okhttp3.ResponseBody;
 public class MerchantDetailActivity extends BaseActivity {
 
     String TAG = "MerchantDetail";
-    String json = "";
+//    String json = "";
     StoreDetail storeDetail;
     @BindView(R.id.imgMerchantDetailBanner)
     ImageView imgMerchantDetailBanner;
@@ -89,11 +91,14 @@ public class MerchantDetailActivity extends BaseActivity {
     Toolbar toolbar;
     @BindView(R.id.txtNotice)
     AutoVerticalScrollTextView txtNotice;
+    @BindView(R.id.svMerchantFood)
+    ScrollView svMerchantFood;
     private Novate novate;
-    String storePhone = "", storeId;
-    int goodsCount = 0;
+    String storePhone = "";
+    int goodsCount = 0, storeId, actionType;
     CommentAdapter commentAdapter;
     List<String> noticeList = new ArrayList<>();
+
     @Override
     protected int getViewId() {
         return R.layout.ac_merchant;
@@ -119,6 +124,12 @@ public class MerchantDetailActivity extends BaseActivity {
                 return true;
             }
         });
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         novate = new Novate.Builder(baseActivity)
                 //.addParameters(parameters)//公共参数
                 .connectTimeout(5)
@@ -127,43 +138,28 @@ public class MerchantDetailActivity extends BaseActivity {
 //                .addHeader(headers)//添加公共请求头//.addApiManager(ApiManager.class)
                 .addLog(true)
                 .build();
-        json = getIntent().getStringExtra("json");
-        storeId = getIntent().getStringExtra("storeId");
-        Tracer.e(TAG, json);
-        storeDetail = (StoreDetail) GsonHelper.getInstanceByJson(StoreDetail.class, json);
-        if (!Guard.isNull(storeDetail)) {
-            StoreDetail.DataBean bean = storeDetail.getData();
-            storePhone = bean.getPhone();
-//            storeId = bean.
-            Glide.with(baseActivity).load(bean.getStore_avatar())
-                    .placeholder(R.mipmap.ic_launcher_round)
-                    .error(R.mipmap.ic_launcher_round).into(imgMerchantDetailBanner);
-            Glide.with(baseActivity).load(bean.getStore_avatar())
-                    .placeholder(R.mipmap.ic_launcher_round).error(R.mipmap.ic_launcher_round).into(imgMerchantShopAvator);
-            txtMerchantDetailStoreName.setText(bean.getStore_name());
-            txtMerchantDetailCount.setText(bean.getSales() + "人消费");
-            txtMerchantDetailLocation.setText(bean.getStore_address());
-            txtMerchantAvatorShop.setText(bean.getStore_name());
-            txtMerchantAvatorBusi.setText(bean.getName());
-            goodsCount = bean.getNumber();
-            txtMerchantGoodsCount.setText(goodsCount + "\n" + "全部商品");
-            noticeList.addAll(bean.getNote());
-            txtNotice.getResource(noticeList);
-//            txtNotice.setText(bean.getNote());
-        }
-        initComment();
+        storeId = getIntent().getIntExtra("storeId", 0);
+        actionType = getIntent().getIntExtra("actionType", 0);
+//        json = getIntent().getStringExtra("json");
+
+        Map<String, Object> detailMap = Constants.getMap();
+        detailMap.put("store_id", storeId);
+        beginGet(API.Merchant.STORE_DETAIL, detailMap, 0, 0);
+
+        Map<String, Object> map = Constants.getMap();
+        map.put("comment_type", "2");
+        map.put("id_value", storeId);
+        map.put("page", "1");
+        beginGet(API.Merchant.COMMENT_LIST, map, 1, 1);
     }
 
-    private void initComment() {
+    private void beginGet(final String url, final Map<String, Object> map, final int status, final int loadStatus) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Map<String, Object> map = Constants.getMap();
-                map.put("comment_type", "2");
-                map.put("id_value", storeId);
-                map.put("page", "1");
+
                 Tracer.e(TAG, "storeId:" + storeId);
-                getDataFromNet(API.Merchant.COMMENT_LIST, map, 0, 0);
+                getDataFromNet(url, map, status, loadStatus);
             }
         }, 300);
     }
@@ -191,29 +187,66 @@ public class MerchantDetailActivity extends BaseActivity {
                     ToastUtils.showLongToast(getString(R.string.net_user_error));
                     return;
                 }
-                CommentBean commentBean = (CommentBean) GsonHelper.getInstanceByJson(CommentBean.class, jstr);
-                int count = 0 ;
-                if (commentBean.getCount() > 0) {
-                    count = commentBean.getCount();
-                }
-                txtShowCommentSlide.setText("评论晒图（" + count + "）");
-                txtFavorableRate.setText("好评率：" + commentBean.getFavorable());
-                List<CommentBean.DataBean> dataBeans = new ArrayList<>();
-                if (!Guard.isNull(commentBean.getData())) {
-                    if (commentBean.getData().size() > 0) {
-                        for (int i = 0; i < commentBean.getData().size(); i++) {
-                            if (!Guard.isNull(commentBean.getData().get(i).getComment_img())) {
-                                dataBeans.add(commentBean.getData().get(i));
-                                break;
-                            }
-                        }
-
+                switch (status) {
+                    case 1:
+                    CommentBean commentBean = (CommentBean) GsonHelper.getInstanceByJson(CommentBean.class, jstr);
+                    int count = 0;
+                    if (commentBean.getCount() > 0) {
+                        count = commentBean.getCount();
                     }
-                }
-                Tracer.e(TAG, dataBeans.size() + " dataBeans");
-                commentAdapter = new CommentAdapter(baseContext, dataBeans);
-                listViewOneComment.setAdapter(commentAdapter);
+                    txtShowCommentSlide.setText("评论晒图（" + count + "）");
+                    txtFavorableRate.setText("好评率：" + commentBean.getFavorable());
+                    List<CommentBean.DataBean> dataBeans = new ArrayList<>();
+                    if (!Guard.isNull(commentBean.getData())) {
+                        if (commentBean.getData().size() > 0) {
+                            for (int i = 0; i < commentBean.getData().size(); i++) {
+                                if (!Guard.isNull(commentBean.getData().get(i).getComment_img())) {
+                                    dataBeans.add(commentBean.getData().get(i));
+                                    break;
+                                }
+                            }
 
+                        }
+                    }
+                    Tracer.e(TAG, dataBeans.size() + " dataBeans");
+                    commentAdapter = new CommentAdapter(baseContext, dataBeans);
+                    listViewOneComment.setAdapter(commentAdapter);
+                    svMerchantFood.post(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            svMerchantFood.fullScroll(ScrollView.FOCUS_UP);
+                        }
+                    });
+                    break;
+                    case 0:
+                        storeDetail = (StoreDetail) GsonHelper.getInstanceByJson(StoreDetail.class, jstr);
+                        if (!Guard.isNull(storeDetail)) {
+                            StoreDetail.DataBean bean = storeDetail.getData();
+                            if (Guard.isNull(bean)){
+                                return;
+                            }
+                            storePhone = bean.getPhone();
+//            storeId = bean.
+                            Glide.with(baseActivity).load(bean.getStore_avatar())
+                                    .placeholder(R.mipmap.ic_launcher_round)
+                                    .error(R.mipmap.ic_launcher_round).into(imgMerchantDetailBanner);
+                            Glide.with(baseActivity).load(bean.getStore_avatar())
+                                    .placeholder(R.mipmap.ic_launcher_round).error(R.mipmap.ic_launcher_round).into(imgMerchantShopAvator);
+                            txtMerchantDetailStoreName.setText(bean.getStore_name());
+                            txtMerchantDetailCount.setText(bean.getSales() + "人消费");
+                            txtMerchantDetailLocation.setText(bean.getStore_address());
+                            txtMerchantAvatorShop.setText(bean.getStore_name());
+                            txtMerchantAvatorBusi.setText(bean.getName());
+                            goodsCount = bean.getNumber();
+                            txtMerchantGoodsCount.setText(goodsCount + "\n" + "全部商品");
+                            noticeList.addAll(bean.getNote());
+                            txtNotice.setTvColor(ContextCompat.getColor(baseContext, R.color.red));
+                            txtNotice.getResource(noticeList);
+//            txtNotice.setText(bean.getNote());
+                        }
+                        break;
+                }
             }
         });
 
@@ -235,7 +268,12 @@ public class MerchantDetailActivity extends BaseActivity {
                 break;
             case R.id.linMerchantGoods:
 //                if (goodsCount>0){
-                startActivity(new Intent(baseContext, GoodsListActivity.class));
+                startActivity(new Intent(baseContext, GoodsListActivity.class)
+                        .putExtra("cat_id",0)
+                        .putExtra("store",storeId)
+                        .putExtra("actionType",actionType)
+                        .putExtra("keyword","")
+                );
 //                }
                 break;
             case R.id.txtCommentAll:

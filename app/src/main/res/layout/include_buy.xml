@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
@@ -39,7 +40,14 @@
             <TextView android:id="@+id/tv_zongjine_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="318.00"
+                android:text="@string/app_name"
+                android:textColor="@color/black"
+                android:textSize="26px"/>
+            <TextView android:id="@+id/txtCartGoodsPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="@string/app_name"
                 android:textColor="@color/black"
                 android:textSize="26px"/>
 

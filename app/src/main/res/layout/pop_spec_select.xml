@@ -50,35 +50,7 @@
                 app:btnWidth="36dp"
                 app:tvWidth="50dp"/>
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/linSpecBtn"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/txtSpecSelectAdd"
-                android:layout_weight="1"
-                android:text="@string/btn_add"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp_16"
-                android:gravity="center"
-                android:padding="@dimen/dp_15"
-                android:background="@drawable/boder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/txtSpecSelectBuy"
-                android:text="@string/btn_buy"
-                android:layout_weight="1"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_16"
-                android:gravity="center"
-                android:padding="@dimen/dp_15"
-                android:background="@drawable/boder_black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+        <include  android:id="@+id/linSpecBtn" layout="@layout/item_addcart_buy" />
         <TextView
             android:id="@+id/txtSpecSelectConfirm"
             android:layout_below="@+id/linSelectOprea"

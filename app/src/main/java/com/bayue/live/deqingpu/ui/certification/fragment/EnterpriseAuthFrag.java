@@ -196,10 +196,10 @@ public class EnterpriseAuthFrag extends BaseFragment implements TakePhoto.TakeRe
                 @Override
                 public void run() {
                     baseFile = FileUtils.fileToBase64(new File(images.get(0).getCompressPath()));
+                    Glide.with(baseActivity).load(new File(images.get(0).getCompressPath()))
+                            .placeholder(R.mipmap.upload_ex).error(R.mipmap.ic_launcher).into(imgAuthPhoto);
                 }
             });
-            Glide.with(this).load(new File(images.get(0).getCompressPath()))
-                    .placeholder(R.mipmap.upload_ex).error(R.mipmap.ic_launcher).into(imgAuthPhoto);
 //            Picasso.with(baseActivity).load(R.mipmap.upload_ex).into(imgAuthPhoto);
 //            imgAuthPhoto.setImageResource(R.mipmap.upload_ex);
         }

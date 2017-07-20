@@ -71,8 +71,8 @@ public class FragMerchantFood extends BaseFragment implements SwipeRefreshLayout
     int LOAD_MORE = 0x0004;
     MerchantFood merchantFood;
     StoreDetail storeDetail;
-    String store_type = "", storeId = "";
-    int page = 1, count_page;
+    String store_type = "";
+    int page = 1, count_page, storeId, actionType = 0;
 
     @Override
     protected int getViewId() {
@@ -91,6 +91,8 @@ public class FragMerchantFood extends BaseFragment implements SwipeRefreshLayout
 //        } else {
 ////            initMap();
 //        }
+        //获取位置                //TODO  待测
+        getLocation();
         swipeLayoutMerchant.setOnRefreshListener(this);
         swipeLayoutMerchant.setColorSchemeColors(Color.rgb(47, 223, 189));
         rvMerchant.setLayoutManager(new LinearLayoutManager(baseActivity));
@@ -144,7 +146,7 @@ public class FragMerchantFood extends BaseFragment implements SwipeRefreshLayout
 //                map.put("token", Preferences.getString(getContext(), Preferences.TOKEN));
                 MerchantFood.DataBean bean = (MerchantFood.DataBean) baseQuickAdapter.getData().get(position);
                 Tracer.e(TAG, bean.getStore_id() + "");
-                storeId = bean.getStore_id() + "";
+                storeId = bean.getStore_id();
                 map.put("store_id", bean.getStore_id());//
                 getDataFromNet(API.Merchant.STORE_DETAIL, map, LOAD_DETAIL, 0);
             }
@@ -174,24 +176,32 @@ public class FragMerchantFood extends BaseFragment implements SwipeRefreshLayout
                     ToastUtils.showLongToast(getString(R.string.net_user_error));
                     return;
                 }
-                if (status == LOAD_LIST) {
-                    merchantFood = (MerchantFood) GsonHelper.getInstanceByJson(MerchantFood.class, jstr);
-                    if (merchantFood.getCode() == Constants.CODE_OK) {
-                        count_page = merchantFood.getCount_page();
-                        if (loadStatus == LOAD_REFRESH) {
-                            swipeLayoutMerchant.setRefreshing(false);
-                            foodList.clear();
-                            foodList.addAll(merchantFood.getData());
-                            merchantAdapter.notifyDataSetChanged();
-                        } else {
-                            foodList.addAll(merchantFood.getData());
-                            merchantAdapter.notifyDataSetChanged();
-                            merchantAdapter.loadMoreComplete();
+                try {
+                    if (status == LOAD_LIST) {
+                        merchantFood = (MerchantFood) GsonHelper.getInstanceByJson(MerchantFood.class, jstr);
+                        if (merchantFood.getCode() == Constants.CODE_OK) {
+                            count_page = merchantFood.getCount_page();
+                            if (loadStatus == LOAD_REFRESH) {
+                                swipeLayoutMerchant.setRefreshing(false);
+                                foodList.clear();
+                                foodList.addAll(merchantFood.getData());
+                                merchantAdapter.notifyDataSetChanged();
+                            } else {
+                                foodList.addAll(merchantFood.getData());
+                                merchantAdapter.notifyDataSetChanged();
+                                merchantAdapter.loadMoreComplete();
+                            }
                         }
+                    } else if (status == LOAD_DETAIL) {
+    //                    storeDetail = (StoreDetail) GsonHelper.getInstanceByJson(StoreDetail.class, jstr);
+                        startActivity(new Intent(baseActivity, MerchantDetailActivity.class)
+                                .putExtra("json", jstr)
+                                .putExtra("storeId", storeId)
+                                .putExtra("actionType", actionType)
+                        );
                     }
-                } else if (status == LOAD_DETAIL) {
-//                    storeDetail = (StoreDetail) GsonHelper.getInstanceByJson(StoreDetail.class, jstr);
-                    startActivity(new Intent(baseActivity, MerchantDetailActivity.class).putExtra("json", jstr).putExtra("storeId", storeId));
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
             }
         });

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.bayue.live.deqingpu.view.TopActionBar
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:canClose="true"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="19px"
+
+        android:background="#09323232"/>
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="201px"
+        android:visibility="gone"
+        android:background="@color/white">
+        <ImageView
+            android:id="@+id/tv_toupian_confirmpay"
+            android:layout_width="121px"
+            android:layout_height="121px"
+            android:layout_marginLeft="31px"
+            android:layout_centerVertical="true"
+            android:src="@drawable/picture_1"/>
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_marginLeft="19px"
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/tv_toupian_confirmpay"
+            android:layout_width="match_parent"
+            android:layout_height="121px">
+            <TextView android:id="@+id/tv_jine_confirmpay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textSize="@dimen/sp_16"
+                android:layout_marginTop="@dimen/dp_10"
+                android:textColor="@color/black"/>
+            <TextView  android:id="@+id/tv_dingdan_confirmpay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textSize="@dimen/sp_12"
+                android:textColor="@color/zilanmu_textcolor"
+                android:singleLine="true"
+                android:layout_marginTop="@dimen/dp_10"/>
+        </com.zhy.autolayout.AutoLinearLayout>
+
+
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+    <TextView
+        android:id="@+id/tvPayMoney"
+        android:text="@string/tv_order_pay"
+        style="@style/normalSizeBlackStyle"
+        android:gravity="right"
+        android:padding="@dimen/dp_10"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#09323232"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="19px"
+        android:background="#09323232"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <RelativeLayout android:id="@+id/rl_yinliang_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="89px"
+
+            android:paddingLeft="32px"
+            android:paddingRight="32px">
+            <ImageView android:id="@+id/iv_gr_hebao"
+                android:layout_width="35px"
+                android:layout_height="36px"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_118"
+                android:layout_centerVertical="true"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="67px"
+                android:layout_marginLeft="34px"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iv_gr_hebao">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="银两支付"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/black"
+                    android:textSize="30px"
+                    android:layout_alignParentLeft="true"/>
+                <ImageView android:id="@+id/iv_yinliang_confirm"
+                    android:layout_width="35px"
+                    android:layout_height="35px"
+                    android:src="@drawable/icon_52"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#09323232"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginTop="19px"
+        android:background="#09323232"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <RelativeLayout android:id="@+id/rl_weixin_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="89px"
+
+            android:paddingLeft="32px"
+            android:paddingRight="32px">
+            <ImageView android:id="@+id/iv_yl_confirm"
+                android:layout_width="35px"
+                android:layout_height="36px"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_116"
+                android:layout_centerVertical="true"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="67px"
+                android:layout_marginLeft="34px"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iv_yl_confirm">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="微信支付"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/black"
+                    android:textSize="30px"
+                    android:layout_alignParentLeft="true"/>
+                <ImageView android:id="@+id/iv_weixin_confirm"
+                    android:layout_width="35px"
+                    android:layout_height="35px"
+                    android:src="@drawable/icon_51"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="32px"
+            android:layout_marginRight="32px"
+            android:background="#22323232"/>
+
+        <RelativeLayout android:id="@+id/rl_zhifubao_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="89px"
+            android:paddingLeft="32px"
+            android:paddingRight="32px">
+
+            <ImageView
+                android:id="@+id/iv_gr_dizhi"
+                android:layout_width="35px"
+                android:layout_height="36px"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_117" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="67px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="34px"
+                android:layout_toRightOf="@+id/iv_gr_dizhi">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="支付宝支付"
+                    android:textColor="@color/black"
+                    android:textSize="30px" />
+
+                <ImageView android:id="@+id/iv_zhifubao_confirm"
+                    android:layout_width="35px"
+                    android:layout_height="35px"
+                    android:src="@drawable/icon_51"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#09323232"/>
+
+    <LinearLayout android:id="@+id/ll_pay_confirm"
+        android:layout_width="687px"
+        android:layout_height="91px"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_marginTop="403px"
+        android:background="@drawable/zhifu_bk">
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="确认支付 "
+            android:textColor="@color/white"
+            android:textSize="30px"
+            android:gravity="center"/>
+        <TextView android:id="@+id/tv_zhifujine_confirm"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="￥66.00"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:textSize="44px"
+            android:gravity="left|center_vertical"/>
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="问题反馈"
+        android:textSize="24px"
+        android:textColor="@color/zilanmu_textcolor"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="106px"/>
+
+
+</LinearLayout>

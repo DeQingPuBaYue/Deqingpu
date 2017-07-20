@@ -6,6 +6,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.adapter.common.base.ViewHolder;
 import com.bayue.live.deqingpu.adapter.common.utils.WrapperUtils;
 
@@ -17,7 +18,13 @@ import com.bayue.live.deqingpu.adapter.common.utils.WrapperUtils;
 public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
     public static final int ITEM_TYPE_LOAD_MORE = Integer.MAX_VALUE - 2;
-
+    // 这个是定义的是否加载完成的boolean变量
+    private boolean mIsLoadOver = true;
+    // 给一个set方法，用于在外部控制是否隐藏‘加载更多’
+    public void setLoadOver(boolean loadOver) {
+        mIsLoadOver = loadOver;
+    }
+    int LAYOUT_DEFAULT = R.layout.default_loading;
     private RecyclerView.Adapter mInnerAdapter;
     private View mLoadMoreView;
     private int mLoadMoreLayoutId;
@@ -129,7 +136,9 @@ public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public int getItemCount()
     {
-        return mInnerAdapter.getItemCount() + (hasLoadMore() ? 1 : 0);
+        // 这里将mIsLoadOver 和 hasLoadMore()一起判断
+        return mInnerAdapter.getItemCount() + ((hasLoadMore() && mIsLoadOver) ? 1 : 0);
+//        return mInnerAdapter.getItemCount() + (hasLoadMore() ? 1 : 0);
     }
 
 
@@ -159,5 +168,13 @@ public class LoadMoreWrapper<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
     {
         mLoadMoreLayoutId = layoutId;
         return this;
+    }
+    public void setRefreshing(boolean refreshing){
+        if(refreshing){
+            setLoadMoreView(LAYOUT_DEFAULT);
+        }else{
+            setLoadMoreView(null);
+            setLoadMoreView(0);
+        }
     }
 }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.bayue.live.deqingpu.view.TopActionBar
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:canClose="true"
+        />
+    <include layout="@layout/item_pouch_paymethod" />
+    <LinearLayout
+        android:layout_marginTop="@dimen/dp_20"
+        android:showDividers="middle"
+        android:divider="@color/color_line"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="@string/txt_estimate_time"
+            android:textColor="@color/black"
+            android:gravity="left"
+            android:background="@drawable/boder"
+            style="@style/BaseFont"
+            android:layout_width="match_parent"
+            android:padding="@dimen/dp_15"/>
+        <LinearLayout
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/txt_rechange_money"
+                android:textColor="@color/black"
+                android:gravity="left"
+                style="@style/BaseFont"
+                android:padding="@dimen/dp_15"/>
+            <EditText
+                android:id="@+id/edtPouthRechangeMoney"
+                android:background="@null"
+                android:hint="@string/hint_money"
+                android:inputType="numberDecimal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/txtPouchWithDrawMoney"
+        android:text="@string/app_name"
+        style="@style/BaseFont"
+        android:layout_width="match_parent"
+        android:gravity="right"
+        android:visibility="invisible"
+        android:padding="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_40"/>
+    <include layout="@layout/common_btn" />
+</LinearLayout>

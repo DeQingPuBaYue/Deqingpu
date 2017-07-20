@@ -34,7 +34,7 @@
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         tools:replace="android:icon, android:theme"
@@ -58,7 +58,25 @@
         <activity android:name=".ui.merchant.GoodsListActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
         <activity android:name=".ui.merchant.MerchantGoodsDetailActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
         <activity android:name=".ui.merchant.MerchantGoodsDetailOKHttpActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.geren.MyPouchActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.geren.pouch.PouchTransRecordActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.geren.pouch.PouchRecordDetailActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.geren.pouch.PouchRechangeActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.geren.pouch.PouchWithdrawActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.order.OrderActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.order.OrderDetailActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.order.OrderLogisticActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.merchant.pay.RefundActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.WebViewActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.CommentActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.FeedBackActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.geren.person.PersonalActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.geren.person.PersonEditActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.geren.person.PersonAlbumActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.geren.person.PersonStoreActivity" android:alwaysRetainTaskState="true" android:clearTaskOnLaunch="true" android:configChanges="orientation|keyboardHidden|screenSize" android:launchMode="singleTop"  android:windowSoftInputMode="stateHidden|adjustPan" android:screenOrientation="portrait"/>
 
+        <!--微信支付相关-->
+        <activity android:name=".wxapi.WXEntryActivity" android:label="@string/app_name" android:exported="true" />
         <!--注册界面-->
         <activity android:name=".ui.denglu.ZhuCe"
             android:screenOrientation="portrait"

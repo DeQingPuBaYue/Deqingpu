@@ -70,7 +70,7 @@ public class TextTabFragment extends BaseFragment{
     TextView tvShBottom;
     private MainShangjiaFragment mSjFragment;
     private MainZhiboFragment mZbFragment;
-    private MainShenghuoFragment mShFragment;
+    private MainFragment mShFragment;
     private MainTongxunFragment mTxFragment;
     private MainGerenFragment mPersonFragment;
 
@@ -127,7 +127,7 @@ public class TextTabFragment extends BaseFragment{
                 switchFrgment(1);
                 break;
             case R.id.ll_shenghuo_bottm:
-                setTabState(tvShBottom, ivShenghuoBottom, R.mipmap.icon_01_1_1, getColor(R.color.white));
+                setTabState(tvShBottom, ivShenghuoBottom, R.mipmap.icon_living, getColor(R.color.white));
                 switchFrgment(2);
                 break;
             case R.id.ll_tongxun_bottm:
@@ -163,7 +163,7 @@ public class TextTabFragment extends BaseFragment{
                 break;
             case 2:
                 if (mShFragment == null) {
-                    mShFragment = mShFragment.newInstance(getString(R.string.item_gr));
+                    mShFragment = mShFragment.newInstance(getString(R.string.item_sh));
                 }
                 transaction.replace(R.id.sub_content, mShFragment);
                 break;
@@ -204,7 +204,7 @@ public class TextTabFragment extends BaseFragment{
     private void resetTabState() {
         setTabState(tvShangjiaBottom, ivShangjiaBottom, R.mipmap.icon_09, getColor(R.color.color_white));
         setTabState(tvZhiboBottom, ivZhiboBottom, R.mipmap.icon_03_1, getColor(R.color.color_white));
-        setTabState(tvShBottom, ivShenghuoBottom, R.mipmap.icon_01_1, getColor(R.color.color_white));
+        setTabState(tvShBottom, ivShenghuoBottom, R.mipmap.icon_living_select, getColor(R.color.color_white));
         setTabState(tvTongxunBottom, ivTongxunBottom, R.mipmap.icon_05, getColor(R.color.color_white));
         setTabState(tvGerenBottom, ivGerenBottom, R.mipmap.icon_06, getColor(R.color.color_white));
 

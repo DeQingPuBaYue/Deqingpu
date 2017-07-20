@@ -32,6 +32,8 @@ public class AutoVerticalScrollTextView extends TextSwitcher implements ViewSwit
     private static final int UPDATA_TEXTSWITCHER = 1;
     private Context mContext;
     private int index = 0;
+    private int tvColor = Color.parseColor("#000000");
+    private int tvBgColor = Color.parseColor("#FFFFFF");
     private List<String> mReArrayList = new ArrayList<>();
     private TimerTask timerTask = new TimerTask() {
         @Override
@@ -56,6 +58,14 @@ public class AutoVerticalScrollTextView extends TextSwitcher implements ViewSwit
 
     public void getResource(List<String> reArrayList) {
         this.mReArrayList = reArrayList;
+    }
+
+    public void setTvColor(int tvColor){
+        this.tvColor = tvColor;
+    }
+
+    public void setTvBgColor(int tvBgColor){
+        this.tvBgColor = tvBgColor;
     }
 
     private void updateTextSwitcher() {
@@ -85,6 +95,8 @@ public class AutoVerticalScrollTextView extends TextSwitcher implements ViewSwit
         this.setOutAnimation(getContext(), R.anim.vcertical_out);
         Timer timer = new Timer();
         timer.schedule(timerTask, 1, 3000);
+        this.setTvColor(tvColor);
+        this.setTvBgColor(tvBgColor);
 //        mReArrayList.add("一段文字");
 //        mReArrayList.add("一段简短文字");
 //
@@ -107,8 +119,8 @@ public class AutoVerticalScrollTextView extends TextSwitcher implements ViewSwit
         tv.setEllipsize(TextUtils.TruncateAt.MARQUEE);
         //设置重复次数 -1则无线循环
         tv.setMarqueeRepeatLimit(1);
-        tv.setTextColor(Color.parseColor("#000000"));
-        tv.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        tv.setTextColor(tvColor);
+//        tv.setBackgroundColor(tvBgColor);
         tv.setTextSize(14);
         tv.setPadding(20,15,20,15);
 

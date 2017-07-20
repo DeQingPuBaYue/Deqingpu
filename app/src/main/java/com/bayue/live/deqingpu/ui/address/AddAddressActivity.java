@@ -34,15 +34,20 @@ import com.bayue.live.deqingpu.base.HTTPUtils;
 import com.bayue.live.deqingpu.base.MyBaseSubscriber;
 import com.bayue.live.deqingpu.data.Constants;
 import com.bayue.live.deqingpu.data.GetJsonDataUtil;
+import com.bayue.live.deqingpu.entity.AreaData;
 import com.bayue.live.deqingpu.entity.JsonBean;
 import com.bayue.live.deqingpu.entity.ProvinceBean;
 import com.bayue.live.deqingpu.entity.ResultModel;
 import com.bayue.live.deqingpu.entity.Return;
+import com.bayue.live.deqingpu.entity.city.AreaBean;
+import com.bayue.live.deqingpu.entity.city.CityBean;
+import com.bayue.live.deqingpu.entity.city.ProBean;
 import com.bayue.live.deqingpu.http.API;
 import com.bayue.live.deqingpu.preferences.Preferences;
 import com.bayue.live.deqingpu.utils.DensityUtil;
 import com.bayue.live.deqingpu.utils.GsonHelper;
 import com.bayue.live.deqingpu.utils.Guard;
+import com.bayue.live.deqingpu.utils.SaveObjectUtils;
 import com.bayue.live.deqingpu.utils.ToastUtils;
 import com.bayue.live.deqingpu.utils.ToolKit;
 import com.bayue.live.deqingpu.utils.Tracer;
@@ -51,14 +56,19 @@ import com.bayue.live.deqingpu.view.TopActionBar;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.google.gson.Gson;
 import com.tamic.novate.BaseApiService;
+import com.tamic.novate.BaseSubscriber;
 import com.tamic.novate.Novate;
 import com.tamic.novate.Throwable;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -91,7 +101,7 @@ public class AddAddressActivity extends BaseActivity {
     LinearLayout linDel;
 
     String addressPName = "", addressCName = "", addressDName = "" ,addressName = "", action = "";
-    int proId = 3, cityId = 36, distId = 398;
+    int proId, cityId, distId, addressId;
     public static final int MSG_LOAD_DATA = 0x0001;
     public static final int MSG_LOAD_SUCCESS = 0x0002;
     public static final int MSG_LOAD_FAILED = 0x0003;
@@ -100,19 +110,28 @@ public class AddAddressActivity extends BaseActivity {
     private ArrayList<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
-    private Map<String, String> headers = new HashMap<>();
     int isProvince;
-    private Novate novate;
+    int areaState;
+    public static final int MSG_PROVINCE = 0x0010; //当前列表为省的数据
+    public static final int MSG_CITY = 0x0011;  //当前列表为市的数据
+    public static final int MSG_DIST = 0x0012;  //当前列表为区的数据
     private String TAG = "AddAddressActivity";
     private PopupWindow popupWindows;
     private View contentView;
     String token= "";
+    public static final int MSG_LOAD_ALL = 0x0013;
+    public static final int MSG_GET_DATA = 0x0014;
+    public static final int MSG_FINAL = 0x0020;
+    SaveObjectUtils utils;
+    private boolean isLoaded = false;
     @Override
     protected int getViewId() {
         return R.layout.ac_add_address;
     }
     @Override
     protected void initViews() {
+        progress = new ProgressDialog(baseContext);
+        progress.setMessage("拼命加载中....");
         action = baseActivity.getIntent().getStringExtra("action");
         if (action.equals("edit")){
             String value  = baseActivity.getIntent().getStringExtra("bean");
@@ -124,9 +143,10 @@ public class AddAddressActivity extends BaseActivity {
                 edtDetail.setText(bean.getAddress());
                 proId = bean.getProvince();
                 cityId = bean.getCity();
-//                distId = bean.getDistrict();
+                distId = bean.getDistrict();
                 txtGetAddress.setText(bean.getProvince_name()+ "\t\t" +bean.getCity_name() + "\t\t" + bean.getDistrict_name());
-                distId = bean.getAddress_id();
+//                distId = bean.getAddress_id();
+                addressId = bean.getAddress_id();
             }
         }
         topBar.setTitle(getString(R.string.title_edit_address));
@@ -134,17 +154,6 @@ public class AddAddressActivity extends BaseActivity {
         topBar.hideMenuIcon();
         token = Preferences.getString(getContext(), Preferences.TOKEN);
         showPopwindow();
-//        headers.put("Accept", "application/json");
-//        headers.put("Content-Type", "application");
-        novate = new Novate.Builder(this)
-                //.addParameters(parameters)//公共参数
-                .connectTimeout(5)
-                .writeTimeout(10)
-                .baseUrl(API.baseUrl)
-                .addHeader(headers)//添加公共请求头//.addApiManager(ApiManager.class)
-                .addLog(true)
-                .build();
-        BaseApiService api = novate.create(BaseApiService.class);
         topBar.setMenuClickListener(new TopActionBar.MenuClickListener() {
             @Override
             public void menuClick() {
@@ -159,6 +168,7 @@ public class AddAddressActivity extends BaseActivity {
                 map.put("consignee", edtName);
                 map.put("mobile", edtPhone);
                 map.put("address", edtDist);
+                map.put("address_id", addressId);
                 if (action.equals("edit")){
                     getDataFromNet(API.UPDATE, map, null, MSG_LOAD_ADD);
                 }else {
@@ -166,6 +176,14 @@ public class AddAddressActivity extends BaseActivity {
                 }
             }
         });
+        utils = new SaveObjectUtils(baseActivity, "Info");
+        AreaData data = utils.getObject("data", AreaData.class);
+        if (!Guard.isNull(data)){
+            beansItem1 = data.getBeansItem1();
+            beansItem2 = data.getBeansItem2();
+            beansItem3 = data.getBeansItem3();
+        }
+//        handler.sendEmptyMessage(MSG_LOAD_DATA);
 //        topBar.setBackClickListener(new TopActionBar.BackClickListener() {
 //            @Override
 //            public void backClick() {
@@ -176,22 +194,27 @@ public class AddAddressActivity extends BaseActivity {
 //        });
     }
 
+    private ProgressDialog progress;
     @OnClick({R.id.linDel, R.id.linSelectArea})
     public void setOnClick(View view){
         switch (view.getId()){
             case R.id.linSelectArea:
-                Map<String, Object> map = Constants.getMap();
-                map.put("region_type","1");
-                isProvince = MSG_LOAD_DATA;
+                ShowPickerView();
+//                handler.sendEmptyMessage(MSG_FINAL);
+
+//                Map<String, Object> map = Constants.getMap();
+//                map.put("region_type","1");
+//                isProvince = MSG_LOAD_DATA;
+//                areaState = MSG_PROVINCE;
 //                getDataFromNet(API.GETADDRESS, map, view, MSG_LOAD_DATA);
-                Map<String, Object> hashMap = new HashMap<>();
-                hashMap.put("region_type","1");
-                getDataFromOKHttp(API.baseUrl+ API.GETADDRESS ,hashMap, view, MSG_LOAD_DATA);
+//                Map<String, Object> hashMap = new HashMap<>();
+//                hashMap.put("region_type","1");
+//                getDataFromOKHttp(API.baseUrl+ API.GETADDRESS ,hashMap, view, MSG_LOAD_DATA);
                 break;
             case R.id.linDel:
                 if (distId>0 && action.equals("edit")){
                     Map<String, Object> delMap = Constants.getMap();
-                    delMap.put("address_id",distId);
+                    delMap.put("address_id",addressId);
 //                    delMap.put("token",token);
                     getDataFromNet(API.DELECT, delMap, view, MSG_LOAD_DEL);
                 }else {
@@ -332,29 +355,28 @@ public class AddAddressActivity extends BaseActivity {
             //背景选择
 //            adapter.setSeclection(position);
             ToastUtils.showLongToast(position +" status:"+ isProvince +" regionID:" + list.get(position).getRegion_id());
-            switch (isProvince){
-                case MSG_LOAD_DATA:
+            switch (areaState){
+                case MSG_PROVINCE:
                     proId = list.get(position).getRegion_id();
                     addressPName = list.get(position).getRegion_name();
-                    Map<String, Object> proMap = Constants.getMap();
-                    proMap.put("region_type","2");
-                    proMap.put("region_id ",proId +"");
-                    isProvince = MSG_LOAD_DATA;
+                    Map<String, Object> msgProMap = Constants.getMap();
+                    msgProMap.put("region_type","2");
+                    msgProMap.put("region_id ",proId +"");
                     txtProvince.setVisibility(View.VISIBLE);
-//                    getDataFromNet(API.GETADDRESS, proMap, arg1, MSG_LOAD_SUCCESS);
-                    getDataFromOKHttp(API.baseUrl+ API.GETADDRESS ,proMap, arg1, MSG_LOAD_DATA);
+                    areaState = MSG_CITY;
+                    txtProvince.setVisibility(View.VISIBLE);
+                    getDataFromNet(API.GETADDRESS, msgProMap, arg1, MSG_LOAD_DATA);
                     break;
-                case MSG_LOAD_SUCCESS:
+                case MSG_CITY:
                     cityId = list.get(position).getRegion_id();
                     addressCName = list.get(position).getRegion_name();
-                    Map<String, Object> cityMap = Constants.getMap();;
-                    cityMap.put("region_type","3");
-                    cityMap.put("region_id ",cityId+"");
-                    getDataFromOKHttp(API.baseUrl+ API.GETADDRESS, cityMap, arg1, MSG_LOAD_FAILED);
-//                    getDataFromNet(API.GETADDRESS, cityMap, arg1, MSG_LOAD_FAILED);
+                    Map<String, Object> msgCityMap = Constants.getMap();
+                    msgCityMap.put("region_type","3");
+                    msgCityMap.put("region_id ",cityId+"");
+                    areaState = MSG_DIST;
+                    getDataFromNet(API.GETADDRESS, msgCityMap, arg1, MSG_LOAD_DATA);
                     break;
-                case MSG_LOAD_FAILED:
-                    isProvince = MSG_LOAD_DATA;
+                case MSG_DIST:
                     distId = list.get(position).getRegion_id();
                     addressDName = list.get(position).getRegion_name();
                     addressName = addressPName + "\t\t" + addressCName + "\t\t" + addressDName ;
@@ -371,15 +393,23 @@ public class AddAddressActivity extends BaseActivity {
      * 显示PickerView
      */
     private void ShowPickerView() {// 弹出选择器
-
+        if (beansItem1.size()==0 || beansItem2.size() == 0 || beansItem3.size() == 0){
+            ToastUtils.showLongToast("正在加载数据中，请稍候");
+            return;
+        }
         OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
-                String tx = options1Items.get(options1).getPickerViewText()+
-                        options2Items.get(options1).get(options2)+
-                        options3Items.get(options1).get(options2).get(options3);
-                ToastUtils.showLongToast(tx);
+                String px = beansItem1.get(options1).getPickerViewText()+ "\t\t" +
+                        beansItem2.get(options1).get(options2).getPickerViewText()+ "\t\t" +
+                        beansItem3.get(options1).get(options2).get(options3).getPickerViewText();
+//                ToastUtils.showLongToast(px);
+                proId = beansItem1.get(options1).getRegion_id();
+                cityId = beansItem2.get(options1).get(options2).getRegion_id();
+                distId = beansItem3.get(options1).get(options2).get(options3).getRegion_id();
+                Tracer.e(TAG, "proId:" + proId + " cityId:" + cityId + " distId:"+ distId);
+                txtGetAddress.setText(px);
             }
         })
 
@@ -392,99 +422,26 @@ public class AddAddressActivity extends BaseActivity {
 
         /*pvOptions.setPicker(options1Items);//一级选择器
         pvOptions.setPicker(options1Items, options2Items);//二级选择器*/
-        pvOptions.setPicker(options1Items, options2Items,options3Items);//三级选择器
+        pvOptions.setPicker(beansItem1, beansItem2,beansItem3);//三级选择器
+//        pvOptions.setNPicker(proList, cityItemList, areaItemList);
         pvOptions.show();
     }
-    private void initJsonData() {//解析数据
 
-        /**
-         * 注意：assets 目录下的Json文件仅供参考，实际使用可自行替换文件
-         * 关键逻辑在于循环体
-         *
-         * */
-        String JsonData = new GetJsonDataUtil().getJson(this,"province.json");//获取assets目录下的json文件数据
-
-        ArrayList<JsonBean> jsonBean = parseData(JsonData);//用Gson 转成实体
-
-        /**
-         * 添加省份数据
-         *
-         * 注意：如果是添加的JavaBean实体，则实体类需要实现 IPickerViewData 接口，
-         * PickerView会通过getPickerViewText方法获取字符串显示出来。
-         */
-        options1Items = jsonBean;
-
-        for (int i=0;i<jsonBean.size();i++){//遍历省份
-            ArrayList<String> CityList = new ArrayList<>();//该省的城市列表（第二级）
-            ArrayList<ArrayList<String>> Province_AreaList = new ArrayList<>();//该省的所有地区列表（第三极）
-
-            for (int c=0; c<jsonBean.get(i).getCityList().size(); c++){//遍历该省份的所有城市
-                String CityName = jsonBean.get(i).getCityList().get(c).getName();
-                CityList.add(CityName);//添加城市
-
-                ArrayList<String> City_AreaList = new ArrayList<>();//该城市的所有地区列表
-
-                //如果无地区数据，建议添加空字符串，防止数据为null 导致三个选项长度不匹配造成崩溃
-                if (jsonBean.get(i).getCityList().get(c).getArea() == null
-                        ||jsonBean.get(i).getCityList().get(c).getArea().size()==0) {
-                    City_AreaList.add("");
-                }else {
-
-                    for (int d=0; d < jsonBean.get(i).getCityList().get(c).getArea().size(); d++) {//该城市对应地区所有数据
-                        String AreaName = jsonBean.get(i).getCityList().get(c).getArea().get(d);
-
-                        City_AreaList.add(AreaName);//添加该城市所有地区数据
-                    }
-                }
-                Province_AreaList.add(City_AreaList);//添加该省所有地区数据
-            }
-
-            /**
-             * 添加城市数据
-             */
-            options2Items.add(CityList);
-
-            /**
-             * 添加地区数据
-             */
-            options3Items.add(Province_AreaList);
-        }
-
-
-    }
-    public ArrayList<JsonBean> parseData(String result) {//Gson 解析
-        ArrayList<JsonBean> detail = new ArrayList<>();
-        try {
-            JSONArray data = new JSONArray(result);
-            Gson gson = new Gson();
-            for (int i = 0; i < data.length(); i++) {
-                JsonBean entity = gson.fromJson(data.optJSONObject(i).toString(), JsonBean.class);
-                detail.add(entity);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return detail;
-    }
     List<ProvinceBean> tempList;
-    private void getDataFromNet(String url, Map<String, Object> hashMap, final View view, final int status) {
-        novate.post(url, hashMap, new MyBaseSubscriber<ResponseBody>(baseActivity) {
 
-            @Override
-            public void forceClose(ProgressDialog progress) {
-                if (progress != null){
-                    if (progress.isShowing()) {
-                        progress.dismiss();
-                    }
-                }
-            }
+    private void getDataFromNet(String url, Map<String, Object> hashMap, final View view, final int status) {
+        Constants.LogMap(hashMap);
+        Tracer.e(TAG, url);
+        if (status == MSG_LOAD_ALL) {
+            Looper.prepare();
+        }
+        HTTPUtils.getNovate(baseContext).post(url, hashMap, new BaseSubscriber<ResponseBody>(baseActivity) {
 
             @Override
             public void onError(Throwable e) {
                 if (e.getMessage() != null) {
                     Tracer.e("OkHttp", e.getMessage());
                 }
-
             }
 
             @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -508,104 +465,209 @@ public class AddAddressActivity extends BaseActivity {
                             ToastUtils.showLongToast(r.getMsg());
                         }
                         break;
-                    case MSG_LOAD_DATA:
+                    case MSG_LOAD_DATA:// 获取省数据
                     case MSG_LOAD_SUCCESS:
                     case MSG_LOAD_FAILED:
-                            final List<ProvinceBean> cityList = GsonHelper.jsonToArrayList(jstr,ProvinceBean.class);
-                            list.clear();
-                            list.addAll(cityList);
-                            switch (status){
-                                case MSG_LOAD_DATA:
-                                    listPro.clear();
-                                    listPro.addAll(cityList);
-                                    isProvince = MSG_LOAD_SUCCESS;
-                                    break;
-                                case MSG_LOAD_SUCCESS:
-                                    isProvince = MSG_LOAD_FAILED;
-                                    listCity.clear();
-                                    listCity.addAll(cityList);
-                                    break;
-                                case MSG_LOAD_FAILED:
-                                    listDist.clear();
-                                    listDist.addAll(cityList);
-                                    break;
-                            }
-                            adapter.notifyDataSetChanged();
-                            popupWindows.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+                        final List<ProvinceBean> cityList = GsonHelper.jsonToArrayList(jstr,ProvinceBean.class);
+                        list.clear();
+                        list.addAll(cityList);
+                        switch (areaState){
+                            case MSG_PROVINCE:
+                                listPro.clear();
+                                listPro.addAll(cityList);
+                                isProvince = MSG_LOAD_SUCCESS;
+                                break;
+                            case MSG_CITY:
+                                isProvince = MSG_LOAD_FAILED;
+                                listCity.clear();
+                                listCity.addAll(cityList);
+                                break;
+                            case MSG_DIST:
+                                listDist.clear();
+                                listDist.addAll(cityList);
+                                break;
+                        }
+                        adapter.notifyDataSetChanged();
+                        popupWindows.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+                        break;
+                    case MSG_LOAD_ALL:
+                        Message message = new Message();
+                        message.what = MSG_GET_DATA;
+                        message.obj = jstr;
+                        handler.sendMessage(message);
                         break;
                 }
             }
+
         });
-
     }
-
-    public void getDataFromOKHttp(String url, Map<String, Object> hashMap, final View view, final int status){
-        HTTPUtils.getNetDATA(url, hashMap, new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-
+    List<AreaBean> beansItem1 = new ArrayList<>();
+    List<List<AreaBean>> beansItem2 = new ArrayList<>();
+    List<List<List<AreaBean>>> beansItem3 = new ArrayList<>();
+    private void handlerData(){
+        try {
+            JSONObject jsonObj = new JSONObject(provinceStr);
+            Iterator it = jsonObj.keys();
+            while(it.hasNext()){
+                String key = it.next().toString();
+                String value = jsonObj.getString(key);
+                AreaBean bean = (AreaBean) GsonHelper.getInstanceByJson(AreaBean.class, value);
+                beansItem1.add(bean);
             }
-
-            @Override
-            public void onResponse(Call call, final Response response) throws IOException {
-                final String msg = response.body().string();
-                Tracer.e(TAG, "okHttp"+msg);
-                Tracer.e(TAG,msg + " status:" + status);
-                if (response.code() == 200){
-                    ToolKit.runOnMainThreadSync(new Runnable() {
-                        @Override
-                        public void run() {
-                            switch (status){
-                                case MSG_LOAD_ADD:
-                                case MSG_LOAD_DEL:
-                                    Return r = (Return) GsonHelper.getInstanceByJson(Return.class, msg);
-                                    if (r.getCode() == 200){
-                                        ToastUtils.showLongToast(r.getData());
-                                        baseActivity.finish();
-                                    }else {
-                                        ToastUtils.showLongToast(r.getMsg());
-                                    }
-                                    break;
-                                case MSG_LOAD_DATA:
-                                case MSG_LOAD_SUCCESS:
-                                case MSG_LOAD_FAILED:
-                                    final List<ProvinceBean> cityList = GsonHelper.jsonToArrayList(msg,ProvinceBean.class);
-                                    list.clear();
-                                    list.addAll(cityList);
-                                    switch (status){
-                                        case MSG_LOAD_DATA:
-                                            listPro.clear();
-                                            listPro.addAll(cityList);
-                                            isProvince = MSG_LOAD_SUCCESS;
-                                            break;
-                                        case MSG_LOAD_SUCCESS:
-                                            isProvince = MSG_LOAD_FAILED;
-                                            listCity.clear();
-                                            listCity.addAll(cityList);
-                                            break;
-                                        case MSG_LOAD_FAILED:
-                                            listDist.clear();
-                                            listDist.addAll(cityList);
-                                            break;
-                                    }
-                                    adapter.notifyDataSetChanged();
-                                    popupWindows.showAtLocation(view, Gravity.BOTTOM, 0, 0);
-                                    break;
+            List<List<List<AreaBean>>> areaBeanList = new ArrayList<>();
+            for (int i = 0; i < beansItem1.size(); i++) {
+                List<AreaBean> iBeanList = new ArrayList<>();//该省的城市列表（第二级）
+                List<List<AreaBean>> cityBeanList = new ArrayList<>();//该省的所有地区列表（第三极）
+                for (int j = 0; j < cityList.size(); j++) {//遍历所有城市
+                    if (cityList.get(j).getParent_id() == beansItem1.get(i).getRegion_id()){//根据parentId获取当前省的城市
+                        iBeanList.add(cityList.get(j));
+                        List<AreaBean> tempAreaList = new ArrayList<>();
+                        for (int k = 0; k < areaList.size(); k++) {
+                            if (areaList.get(k).getParent_id() == cityList.get(j).getRegion_id()){//根据parentId获取当前城市的所有区
+                                tempAreaList.add(areaList.get(k));
                             }
                         }
-                    });
-                }else {
-                    ToolKit.runOnMainThreadSync(new Runnable() {
-                        @Override
-                        public void run() {
-                            DensityUtil.showToast(baseActivity,response.message());
-                        }
-                    });
+                        cityBeanList.add(tempAreaList);
+                    }
                 }
+                areaBeanList.add(cityBeanList);
+                beansItem2.add(iBeanList);
+                beansItem3.add(cityBeanList);
             }
-        });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        handler.sendEmptyMessage(MSG_LOAD_SUCCESS);
+    }
+    List<ProBean> proList = new ArrayList<>();
+    List<AreaBean> cityList = new ArrayList<>();
+    List<AreaBean> areaList = new ArrayList<>();
+    public static final int MSG_HANDLER_AREA = 0x0015;
+    public static final int MSG_HANDLER_CITY = 0x0016;
+    public static final int MSG_HANDLER_PROVINCE = 0x0017;
+    private String provinceStr, cityStr, areaStr;
+    private void parseAllData(String jstr) {
+        provinceStr = GsonHelper.getStrFromJson(jstr, "province");
+        cityStr = GsonHelper.getStrFromJson(jstr, "city");
+        areaStr = GsonHelper.getStrFromJson(jstr, "area");
+        Message message = new Message();
+        message.what = MSG_HANDLER_AREA;
+        message.obj = areaStr;
+        handler.sendMessage(message);
+    }
+    private void parseCity(String city){
+        try {
+            JSONObject jsonObj = new JSONObject(city);
+            Iterator it = jsonObj.keys();
+            while(it.hasNext()){
+                String key = it.next().toString();
+                String value = jsonObj.getString(key);
+                AreaBean bean = (AreaBean) GsonHelper.getInstanceByJson(AreaBean.class, value);
+                cityList.add(bean);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        handler.sendEmptyMessage(MSG_HANDLER_PROVINCE);
+    }
+    private void parseArea(String area){
+        try {
+            JSONObject jsonObj = new JSONObject(area);
+            Iterator it = jsonObj.keys();
+            while(it.hasNext()){
+                String key = it.next().toString();
+                String value = jsonObj.getString(key);
+                AreaBean bean = (AreaBean) GsonHelper.getInstanceByJson(AreaBean.class, value);
+                areaList.add(bean);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        handler.sendEmptyMessage(MSG_HANDLER_CITY);
     }
 
+    private Handler handler = new MyHandler(this);
+    private Thread thread;
+    private static class MyHandler extends Handler {
+        private WeakReference<AddAddressActivity> mWeakReference;
+
+        public MyHandler(AddAddressActivity activity) {
+            mWeakReference = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            final AddAddressActivity activity = mWeakReference.get();
+            if (activity != null) {
+                switch (msg.what) {
+                    case MSG_LOAD_DATA:
+                            activity.thread = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    // 写子线程中的操作,解析省市区数据
+                                    activity.getDataFromNet(API.Address.GETALL, Constants.getMap(), null, activity.MSG_LOAD_ALL);
+                                }
+                            });
+                            activity.thread.start();
+                        break;
+                    case MSG_GET_DATA:
+                        final String jstr = (String) msg.obj;
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                activity.parseAllData(jstr);
+                            }
+                        }).start();
+                        break;
+                    case MSG_HANDLER_AREA:
+                        final String area = (String) msg.obj;
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                activity.parseArea(area);
+                            }
+                        }).start();
+                        break;
+                    case MSG_HANDLER_CITY:
+//                        final String city = (String) msg.obj;
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                activity.parseCity(activity.cityStr);
+                            }
+                        }).start();
+                        break;
+                    case MSG_HANDLER_PROVINCE:
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                activity.handlerData();
+                            }
+                        }).start();
+                        break;
+                    case MSG_LOAD_SUCCESS:
+                        activity.isLoaded = true;
+                        break;
+                    case MSG_FINAL:
+                        activity.handler.postDelayed(activity.mAction, 100);
+                        break;
+                }
+            }
+        }
+    }
+
+    private Runnable mAction = new Runnable() {
+
+        @Override
+        public void run() {
+            if (isLoaded) {
+                ShowPickerView();
+            }else {
+                // 在run()方法内调用自身，这样就可以实现循环
+                handler.postDelayed(mAction, 100);
+            }
+        }
+    };
     @Override
     protected void setTheme() {
 
@@ -621,6 +683,7 @@ public class AddAddressActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        mHandler.removeCallbacksAndMessages(null);
+        Tracer.e(TAG, "onDestroy");
+        handler.removeCallbacksAndMessages(null);
     }
 }

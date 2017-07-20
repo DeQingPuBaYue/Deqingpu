@@ -40,7 +40,7 @@ public class Constants {
         map.put("apiversion","v.1.0");
         String token = Preferences.getString(getContext(), Preferences.TOKEN);
         if (token.equals("-1")){
-            context.startActivity(new Intent(context, DengLu.class));
+            context.startActivity(new Intent(context, DengLu.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 //            finish();
             token = "";
         }
@@ -52,4 +52,33 @@ public class Constants {
             Tracer.e("Constants_MapValue", entry.getKey() +":"+String.valueOf(entry.getValue()));
         }
     }
+
+    public static int getShippingStatus(String btn){
+        int shipping = -1;
+        switch (btn){
+            case "cancel"://取消
+                shipping = 1;
+                break;
+            case "comment":// 评论
+                shipping = 2;
+                break;
+            case "delete"://删除
+                shipping = 3;
+                break;
+            case "logistics"://查看物流
+                shipping = 4;
+                break;
+            case "pay":// 支付
+                shipping = 5;
+                break;
+            case "receipt"://确认收货
+                shipping = 6;
+                break;
+            case "refund"://退货退款
+                shipping = 7;
+                break;
+        }
+        return shipping;
+    }
+
 }

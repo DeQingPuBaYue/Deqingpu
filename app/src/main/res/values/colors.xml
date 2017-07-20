@@ -102,6 +102,7 @@
     <color name="crop__selector_focused">#77000000</color>
     <!---->
     <color name="color_white_66ffffff">#66ffffff</color>
+    <color name="color_blue_line">#297fca</color>
 
 
     <color name="radio_btn">#346fc3</color>
@@ -120,7 +121,7 @@
     <color name="video_detail_divide_line">#cbd0d8</color>
     <color name="bg_color_input_divide">#cbd0d8</color>
     <color name="bg_media_player_controller">#7f000000</color>
-
+    <color name="multiple_image_select_primaryDark">#eeeeee</color>
     <color name="dingdanshiyong">#E93333</color>
 
 </resources>

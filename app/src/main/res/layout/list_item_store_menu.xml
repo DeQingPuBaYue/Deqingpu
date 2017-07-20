@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:padding="@dimen/dp_10" android:gravity="center_horizontal"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/linPersonStoreAllGoods"
+        android:orientation="vertical"
+        android:gravity="center"
+        style="@style/maginX_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/icon_goods_all"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
+            android:scaleType="fitCenter"/>
+        <TextView
+            android:text="@string/tv_person_store_allgoods"
+            style="@style/personBlackFont" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linPersonStoreHotGoods"
+        android:orientation="vertical"
+        android:gravity="center"
+        style="@style/maginX_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/icon_goods_hot"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
+            android:scaleType="fitCenter"/>
+        <TextView
+            android:text="@string/tv_person_store_hotgoods"
+            style="@style/personBlackFont" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linPersonStoreCustomer"
+        android:orientation="vertical"
+        android:gravity="center"
+        style="@style/maginX_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@mipmap/icon_customer"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_45"
+            android:scaleType="fitCenter"/>
+        <TextView
+            android:text="@string/tv_customer"
+            style="@style/personBlackFont" />
+    </LinearLayout>
+</LinearLayout>

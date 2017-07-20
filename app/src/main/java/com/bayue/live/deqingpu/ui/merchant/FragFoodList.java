@@ -70,14 +70,16 @@ public class FragFoodList extends BaseFragment {
     LinearLayout linGoodsAct;
     private int currentIndex;
     private int screenWidth, screenHeight;
-    int valumeStatus = 1, priceStatus = 1, actStatus = 1;
+    int valumeStatus = 1, priceStatus = 1, actStatus = 1, actionType = 0;// actionType 0 :merchant ? deqingpu
     ArrayList<LazyLoadFragment> fragments = new ArrayList<>();
     private Handler mHandler = new Handler();
+    private int cat_id, storeId;
+    private String keyword;
 
-    public static FragFoodList newInstance(String s) {
+    public static FragFoodList newInstance(Bundle bundle) {
         FragFoodList viewPagerFragment = new FragFoodList();
-        Bundle bundle = new Bundle();
-        bundle.putString(Constants.ARGS, s);
+//        Bundle bundle = new Bundle();
+//        bundle.putString(Constants.ARGS, s);
         viewPagerFragment.setArguments(bundle);
         return viewPagerFragment;
     }
@@ -96,6 +98,10 @@ public class FragFoodList extends BaseFragment {
         return R.layout.frag_goodlist_viewpager;
     }
 
+    FragGoodlist defaultFrag;
+    FragGoodlist valumeFrag;
+    FragGoodlist priceFrag;
+    FragGoodlist actFrag;
     @Override
     public void init() {
         topBar.setTitle(getString(R.string.title_goods));
@@ -107,10 +113,26 @@ public class FragFoodList extends BaseFragment {
         });
         screenWidth = Utils.getScreenSize(baseActivity)[0];
         screenHeight = Utils.getScreenSize(baseActivity)[1];
-        FragGoodlist defaultFrag = FragGoodlist.newInstance(0);
-        FragGoodlist valumeFrag = FragGoodlist.newInstance(1);
-        FragGoodlist priceFrag = FragGoodlist.newInstance(2);
-        FragGoodlist actFrag = FragGoodlist.newInstance(3);
+        cat_id = getArguments().getInt("cat_id");
+        storeId = getArguments().getInt("store");
+        actionType = getArguments().getInt("actionType");
+        keyword = getArguments().getString("keyword");
+        Bundle defaultBundle = getBundle();
+        defaultBundle.putString("order", "goods_id");
+        defaultBundle.putString("sort", "ASC");
+        defaultFrag = FragGoodlist.newInstance(defaultBundle);
+        Bundle valumeBundle = getBundle();
+        valumeBundle.putString("order", "sales");
+        valumeBundle.putString("sort", "ASC");
+        valumeFrag = FragGoodlist.newInstance(valumeBundle);
+        Bundle priceBundle = getBundle();
+        priceBundle.putString("order", "shop_price");
+        priceBundle.putString("sort", "ASC");
+        priceFrag = FragGoodlist.newInstance(priceBundle);
+//        Bundle actBundle = getBundle();
+//        actBundle.putString("order", "goods_id");
+//        actBundle.putString("sort", "ASC");
+        actFrag = FragGoodlist.newInstance(defaultBundle);
         fragments.add(defaultFrag);
         fragments.add(valumeFrag);
         fragments.add(priceFrag);
@@ -232,6 +254,16 @@ public class FragFoodList extends BaseFragment {
         txtMerchantHotel.setTextColor(getResources().getColor(R.color.zilanmu_textcolor));
         txtMerchantPlay.setTextColor(getResources().getColor(R.color.zilanmu_textcolor));
         txtMerchantTravel.setTextColor(getResources().getColor(R.color.zilanmu_textcolor));
+    }
+
+    public Bundle getBundle(){
+        Bundle bundle = new Bundle();
+        bundle.putInt(Constants.ARGS, 0);
+        bundle.putInt("cat_id", cat_id);
+        bundle.putInt("store", storeId);
+        bundle.putInt("actionType", actionType);
+        bundle.putString("keyword", keyword);
+        return bundle;
     }
 
     /**

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_125">
+    <LinearLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_80"
+        android:gravity="center_vertical"
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="@dimen/dp_125"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:orientation="horizontal"
+        >
+
+        <LinearLayout
+            android:gravity="right|center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tvPersonFollow"
+                android:text="@string/tv_person_follow"
+                style="@style/smallSizeGreyStyle"
+                android:padding="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="@dimen/dp_30" android:background="@color/color_blue_line" />
+            <TextView
+                android:id="@+id/tvPersonFans"
+                android:text="@string/tv_person_fans"
+                style="@style/smallSizeGreyStyle"
+                android:padding="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="@dimen/dp_30" android:background="@color/color_blue_line" />
+            <TextView
+                android:id="@+id/tvPersonCamp"
+                android:text="@string/tv_person_camp"
+                style="@style/smallSizeGreyStyle"
+                android:padding="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/ivSpecHeadPic"
+        android:layout_width="@dimen/edit_hight"
+        android:layout_height="@dimen/edit_hight"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@mipmap/ic_launcher_round"
+        android:padding="1.5dp"
+        />
+
+    <TextView
+        android:id="@+id/tvUserName"
+        style="@style/normalSizeBlackStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ivSpecHeadPic"
+        android:layout_marginBottom="23dp"
+        android:layout_toEndOf="@+id/ivSpecHeadPic"
+        android:layout_toRightOf="@+id/ivSpecHeadPic"
+        android:drawableLeft="@mipmap/icon_sex_boy"
+        android:drawablePadding="@dimen/dp_4"
+        android:text="@string/app_name" />
+</RelativeLayout>

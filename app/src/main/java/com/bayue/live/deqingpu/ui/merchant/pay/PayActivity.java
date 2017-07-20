@@ -1,5 +1,6 @@
 package com.bayue.live.deqingpu.ui.merchant.pay;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.base.BaseActivity;
+import com.bayue.live.deqingpu.utils.Guard;
+import com.bayue.live.deqingpu.utils.ToastUtils;
 
 import java.text.DecimalFormat;
 
@@ -44,6 +47,7 @@ public class PayActivity extends BaseActivity {
     @BindView(R.id.bt_pay_pay)
     Button btPayPay;
 
+    public static Activity instance;
     @Override
     protected int getViewId() {
         return R.layout.pay_activity;
@@ -51,6 +55,7 @@ public class PayActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
+        instance = this;
         tvTitletextTitle.setText("买单");
         ivBianjiTitle.setVisibility(View.INVISIBLE);
 
@@ -109,7 +114,15 @@ public class PayActivity extends BaseActivity {
             case R.id.ed_jine_pay:
                 break;
             case R.id.bt_pay_pay:
-                startActivity(new Intent(PayActivity.this,ConfirmPayActivity.class));
+                String amount = edJinePay.getText().toString();
+                if (Guard.isNullOrEmpty(amount)){
+                    ToastUtils.showShortToast("请输入消费金额");
+                    return;
+                }
+                startActivity(new Intent(PayActivity.this,ConfirmPayActivity.class)
+                        .putExtra("goods_amount", amount)
+                        .putExtra("order_sn", "")
+                );
                 break;
         }
     }

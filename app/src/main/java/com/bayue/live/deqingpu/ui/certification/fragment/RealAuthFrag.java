@@ -3,6 +3,7 @@ package com.bayue.live.deqingpu.ui.certification.fragment;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.bayue.live.deqingpu.R;
 import com.bayue.live.deqingpu.base.BaseFragment;
+import com.bayue.live.deqingpu.base.HTTPUtils;
 import com.bayue.live.deqingpu.base.MyBaseSubscriber;
 import com.bayue.live.deqingpu.data.Constants;
 import com.bayue.live.deqingpu.entity.ResultModel;
@@ -85,10 +87,10 @@ public class RealAuthFrag extends BaseFragment implements TakePhoto.TakeResultLi
     @BindView(R.id.imgAuthPhoto)
     ImageView imgAuthPhoto;
     private String name= "", id_num = "";
+    private CustomHelper customHelper;
+//    private Novate novate;
     private TakePhoto takePhoto;
     private InvokeParam invokeParam;
-    private CustomHelper customHelper;
-    private Novate novate;
     private String baseFile = "";
     Handler mHandler = new Handler();
     @Override
@@ -110,14 +112,14 @@ public class RealAuthFrag extends BaseFragment implements TakePhoto.TakeResultLi
 //        LayoutInflater inflater = LayoutInflater.from(baseActivity);
 //        View view = inflater.inflate(R.layout.common_layout, null);
 //        customHelper = CustomHelper.of(view);
-        novate = new Novate.Builder(baseActivity)
-                //.addParameters(parameters)//公共参数
-                .connectTimeout(5)
-                .writeTimeout(10)
-                .baseUrl(API.baseUrl)
-//                .addHeader(headers)//添加公共请求头//.addApiManager(ApiManager.class)
-                .addLog(true)
-                .build();
+//        novate = new Novate.Builder(baseActivity)
+//                //.addParameters(parameters)//公共参数
+//                .connectTimeout(5)
+//                .writeTimeout(10)
+//                .baseUrl(API.baseUrl)
+////                .addHeader(headers)//添加公共请求头//.addApiManager(ApiManager.class)
+//                .addLog(true)
+//                .build();
     }
 
     @OnClick({R.id.linAuthTip, R.id.btnConmon, R.id.linUploadImg})
@@ -145,7 +147,7 @@ public class RealAuthFrag extends BaseFragment implements TakePhoto.TakeResultLi
         }
     }
     private void getDataFromNet(String url, Map<String, Object> hashMap) {
-        novate.post(url, hashMap, new MyBaseSubscriber<ResponseBody>(baseActivity) {
+        HTTPUtils.getNovate(baseActivity).post(url, hashMap, new MyBaseSubscriber<ResponseBody>(baseActivity) {
 
             @Override
             public void forceClose(ProgressDialog progress) {
@@ -247,10 +249,12 @@ public class RealAuthFrag extends BaseFragment implements TakePhoto.TakeResultLi
                 @Override
                 public void run() {
                     baseFile = FileUtils.fileToBase64(new File(images.get(0).getCompressPath()));
+                    Glide.with(baseActivity).load(new File(images.get(0).getCompressPath()))
+                            .placeholder(R.mipmap.upload_ex).error(R.mipmap.ic_launcher).into(imgAuthPhoto);
+//                    imgAuthPhoto.setImageURI(Uri.fromFile(new File(images.get(0).getCompressPath())));
                 }
             });
-            Glide.with(this).load(new File(images.get(0).getCompressPath()))
-                    .placeholder(R.mipmap.upload_ex).error(R.mipmap.ic_launcher).into(imgAuthPhoto);
+
 //            Picasso.with(baseActivity).load(R.mipmap.upload_ex).into(imgAuthPhoto);
 //            imgAuthPhoto.setImageResource(R.mipmap.upload_ex);
         }

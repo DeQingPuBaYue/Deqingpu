@@ -21,6 +21,7 @@ import com.bayue.live.deqingpu.preferences.Preferences;
 import com.bayue.live.deqingpu.utils.DensityUtil;
 import com.bayue.live.deqingpu.utils.OKHttpUtils;
 import com.bayue.live.deqingpu.utils.ToolKit;
+import com.bayue.live.deqingpu.utils.Tracer;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -135,6 +136,7 @@ public class DengLu extends BaseActivity {
             Toast.makeText(getApplicationContext(),"密码长度最少6位",Toast.LENGTH_SHORT).show();
             return;
         }
+        Tracer.e("Login", dianhua+ " pass:"+ mima);
         Map<String, Object> map = new HashMap<>();
         map.put("phone", dianhua);
         map.put("password",mima);

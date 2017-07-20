@@ -1,4 +1,4 @@
-package com.bayue.live.deqingpu.adapter;
+package com.bayue.live.deqingpu.weidget;
 
 
 import android.support.v7.widget.RecyclerView;

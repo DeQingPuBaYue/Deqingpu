@@ -15,6 +15,7 @@ import com.bayue.live.deqingpu.entity.cart.CartOutBean;
 import com.bayue.live.deqingpu.ui.geren.CartActivity;
 import com.bayue.live.deqingpu.utils.Guard;
 import com.bayue.live.deqingpu.utils.ToastUtils;
+import com.bayue.live.deqingpu.utils.Tracer;
 import com.bayue.live.deqingpu.utils.glide.GlideCircleTransform;
 import com.bayue.live.deqingpu.utils.glide.GlideRoundTransform;
 import com.bayue.live.deqingpu.view.AmountView;
@@ -170,6 +171,14 @@ public class recyclerAdapter1 extends RecyclerView.Adapter<recyclerAdapter1.MyHo
 
             }
         });
+        //删除
+        holder.tvDelItemCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Tracer.e("CartAdapter", "B:"+position + " size:"+ list.size());
+                Selected.delItem(position, goodsInfoBean.getRec_id()+"");
+            }
+        });
     }
 
     @Override
@@ -188,7 +197,7 @@ public class recyclerAdapter1 extends RecyclerView.Adapter<recyclerAdapter1.MyHo
 
         void deitor(int subposition);
         void setAmountView(int amount,int subPosition);
-        void delItem();
+        void delItem(int subposition,String recId);
         void setAttr(int subposition,String goodsId);
 
     }
